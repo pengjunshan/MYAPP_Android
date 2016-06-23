@@ -3,12 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/maoyan_title__red"
     tools:context="maoyan.pjs.com.maoyan.activity.GuideActivity">
 
     <ImageView
         android:id="@+id/iv_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         />
 </RelativeLayout>

@@ -1,7 +1,6 @@
 package maoyan.pjs.com.maoyan.activity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -15,7 +14,6 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 import maoyan.pjs.com.maoyan.R;
@@ -26,12 +24,12 @@ public class GuideActivity extends AppCompatActivity {
 
     private GuideActivity ac;
     private ImageView iv_welcome;
-    private ImageOptions bigImageOptions = new ImageOptions.Builder()
+   /* private ImageOptions bigImageOptions = new ImageOptions.Builder()
             .setImageScaleType(ImageView.ScaleType.CENTER_INSIDE)//等比例缩小到充满长/宽居中显示, 或原样显示
     .setLoadingDrawableId(R.mipmap.welcome)
     .setFailureDrawableId(R.mipmap.welcome)
     .setConfig(Bitmap.Config.ARGB_8888)
-    .build();
+    .build();*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +100,7 @@ public class GuideActivity extends AppCompatActivity {
 //                                    .placeholder(R.mipmap.welcome)//加载过程中的图片
 //                                    .error(R.mipmap.welcome)//加载失败的时候显示的图片
                                     .into(iv_welcome);//请求成功后把图片设置到的控件*/
-                            x.image().bind(iv_welcome,url,bigImageOptions);
+                            x.image().bind(iv_welcome,url);
                             if(iv_welcome.getDrawable()!=null) {
                                 setAnimotion();
                             }else {
