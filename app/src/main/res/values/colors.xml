@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="red">#f43e3e</color>
+    <color name="black">#000000</color>
+    <color name="line">#CCCCCC</color>
+    <color name="gray">#999999</color>
+    <color name="accent_1">#ff29549f</color>
+    <color name="light_grey">#ededed</color>
+    <color name="divider">#e8e8e8</color>
+    <color name="background">#eeeeee</color>
+    <color name="left_menu_bg">#221E1E</color>
+    <color name="gray3">#333</color>
+    <color name="dark_red">#F33</color>
+    <color name="goods_give">#FF6666</color>
+    <color name="maoyan_title__red">#d43e37</color>
+    <color name="rise_number_text_color_red">#ff3b29</color>
+
+
+    <integer-array name="material_colors">
+        <item>@color/material_red</item>
+        <item>@color/material_blue</item>
+        <item>@color/material_yellow</item>
+    </integer-array>
+</resources>

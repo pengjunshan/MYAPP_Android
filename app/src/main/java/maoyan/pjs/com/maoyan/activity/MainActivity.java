@@ -1,0 +1,139 @@
+package maoyan.pjs.com.maoyan.activity;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.fragment.CinemaFragment;
+import maoyan.pjs.com.maoyan.fragment.FindFragment;
+import maoyan.pjs.com.maoyan.fragment.MovieFragment;
+import maoyan.pjs.com.maoyan.fragment.MyFragment;
+
+public class MainActivity extends FragmentActivity {
+
+    private MainActivity ac;
+    private List<BaseFragment> listFragment;
+    private FrameLayout top_frameLayout;
+    private RadioGroup btm_radiogroup;
+    private RadioButton rb_movie;
+    private int currentPosition=0;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ac=this;
+        initFind();
+
+        initData();
+    }
+
+    private void initFind() {
+        top_frameLayout = (FrameLayout)findViewById(R.id.top_frameLayout);
+        btm_radiogroup = (RadioGroup)findViewById(R.id.btm_radiogroup);
+        rb_movie = (RadioButton)findViewById(R.id.rb_movie);
+
+        btm_radiogroup.check(currentPosition);
+        rb_movie.setChecked(true);
+
+    }
+
+    private void initData() {
+        listFragment=new ArrayList<>();
+        listFragment.add(new MovieFragment(ac));
+        listFragment.add(new CinemaFragment(ac));
+        listFragment.add(new FindFragment(ac));
+        listFragment.add(new MyFragment(ac));
+
+
+        btm_radiogroup.setOnCheckedChangeListener(new MyOnCheckedChangeListener());
+        setFragment();
+    }
+
+    class MyOnCheckedChangeListener implements RadioGroup.OnCheckedChangeListener {
+
+        @Override
+        public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+            switch (checkedId){
+                case R.id.rb_movie:
+                    currentPosition=0;
+                    break;
+
+                case R.id.rb_cinema:
+                    currentPosition=1;
+                    break;
+
+                case R.id.rb_find:
+                    currentPosition=2;
+                    break;
+
+                case R.id.rb_my:
+                    currentPosition=3;
+                    break;
+            }
+            setFragment();
+        }
+    }
+
+
+    private void setFragment() {
+
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+
+        transaction.replace(R.id.top_frameLayout,new Fragment(){
+            @Nullable
+            @Override
+            public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+                BaseFragment fragment=getFragment();
+                if(fragment!=null) {
+                    return fragment.rootView;
+                }
+                return null;
+            }
+        });
+        transaction.commit();
+    }
+
+    public BaseFragment getFragment() {
+        BaseFragment frament=listFragment.get(currentPosition);
+        if(frament!=null) {
+            if(!frament.isFragment) {
+                frament.isFragment=true;
+                frament.initData();
+            }
+            return frament;
+        }
+        return null;
+    }
+    private long mEixtTime;
+    @Override
+    public void onBackPressed() {
+
+        if(System.currentTimeMillis()-mEixtTime>2000) {
+            Toast.makeText(MainActivity.this, "再按一下退出", Toast.LENGTH_SHORT).show();
+            mEixtTime= System.currentTimeMillis();
+        }else {
+            ac.finish();
+        }
+
+    }
+}
