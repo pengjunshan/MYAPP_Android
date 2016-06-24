@@ -46,10 +46,10 @@ public class FireFragment extends BaseFragment {
         super.initData();
         Log.i("TAG", "FireFragment");
         init();
+
     }
 
     private void init() {
-
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         adapter=new FireFragmentAdapter(context);

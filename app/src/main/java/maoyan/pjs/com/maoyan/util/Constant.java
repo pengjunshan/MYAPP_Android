@@ -1,4 +1,4 @@
-package maoyan.pjs.com.maoyan.utils;
+package maoyan.pjs.com.maoyan.util;
 
 /**
  * Created by pjs984312808 on 2016/6/23.
