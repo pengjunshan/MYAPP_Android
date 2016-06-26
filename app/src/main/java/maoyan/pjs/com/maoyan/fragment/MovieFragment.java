@@ -34,6 +34,8 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
     
     private List<BaseFragment> listFragment;
 
+
+
     /**
      * 两个标题的间距
      */
@@ -209,12 +211,10 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
 
     class MyPagerAdapter extends PagerAdapter {
 /*
-
         @Override
         public CharSequence getPageTitle(int position) {
             return mTitle[position];
-        }
-*/
+        }*/
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
@@ -243,19 +243,4 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
     }
 
 
-
-   /* private FragmentPagerAdapter adapter=new FragmentPagerAdapter(fm) {
-        @Override
-        public Fragment getItem(int position) {
-            return listFragment.get(position);
-        }
-        @Override
-        public int getCount() {
-            return listFragment.size();
-        }
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitle[position];
-        }
-    };*/
 }

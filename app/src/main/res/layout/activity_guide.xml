@@ -21,8 +21,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginTop="70dp"
-            android:layout_marginBottom="80dp"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="90dp"
             >
 
             <TextView

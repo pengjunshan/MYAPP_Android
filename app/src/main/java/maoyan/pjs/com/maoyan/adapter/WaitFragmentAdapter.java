@@ -13,7 +13,114 @@ import maoyan.pjs.com.maoyan.R;
  * Created by pjs984312808 on 2016/6/22.
  */
 
-public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    private final Context mContext;
+    private LayoutInflater inflater;
+    //模拟数据
+    public String [] texts={"java","python","C++","Php",".NET","js","Ruby","Swift","OC"};
+
+    public WaitFragmentAdapter(Context context) {
+        this.mContext=context;
+        inflater=LayoutInflater.from(mContext);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType==0) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_wait_title, parent, false);
+            return new HeaderHolder(view);
+        }else if(viewType==1) {
+            View view =inflater.inflate(R.layout.item_correcycler1,parent,false);
+            return new CroRecyclerHolder1(view);
+        }else if(viewType==2) {
+            View view=inflater.inflate(R.layout.item_correcycler2,parent,false);
+            return  new CroRecyclerHolder2(view);
+        }
+
+        View view =LayoutInflater.from(mContext).inflate(R.layout.item_wait, parent, false);
+        return new ContentHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        if(position==0) {
+            return;
+        }else if(position==1) {
+            return;
+        }else if(position==2) {
+            return;
+        }
+        ((ContentHolder) holder).tv_wait_title.setText(texts[position-3]);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return texts.length+3;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if(position==0) {
+            return 0;
+        }else if(position==1) {
+            return 1;
+        }else if(position==2) {
+            return 2;
+        }
+            return 3;
+    }
+
+    /**
+     * 搜索框Item
+     */
+    class HeaderHolder extends RecyclerView.ViewHolder{
+
+        public HeaderHolder(View itemView) {
+            super(itemView);
+        }
+    }
+
+    /**
+     * 横向recycler1
+     */
+    class CroRecyclerHolder1 extends RecyclerView.ViewHolder{
+
+        public CroRecyclerHolder1(View itemView) {
+            super(itemView);
+        }
+    }
+
+    /**
+     * 横向recycler1
+     */
+    class CroRecyclerHolder2 extends RecyclerView.ViewHolder{
+
+        public CroRecyclerHolder2(View itemView) {
+            super(itemView);
+        }
+    }
+
+
+    /**
+     * 竖向recycler
+     */
+   public class ContentHolder extends RecyclerView.ViewHolder{
+
+        public TextView tv_wait_title;
+        public ContentHolder(View itemView) {
+            super(itemView);
+            tv_wait_title = (TextView) itemView.findViewById(R.id.tv_wait_title);
+        }
+    }
+    
+}
+
+
+/*public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     //item类型
     public static final int ITEM_TYPE_HEADER = 0;
     public static final int ITEM_TYPE_CONTENT = 1;
@@ -37,7 +144,6 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     //判断当前item类型
     @Override
     public int getItemViewType(int position) {
-        int dataItemCount = getContentItemCount();
         if (mHeaderCount != 0 && position < mHeaderCount) {
 //头部View
             return ITEM_TYPE_HEADER;
@@ -81,41 +187,5 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount() {
 //        return mHeaderCount + getContentItemCount() + mBottomCount;
         return mHeaderCount + getContentItemCount();
-    }
-}
-
-
-
-/*public class WaitFragmentAdapter extends RecyclerView.Adapter<WaitFragmentAdapter.MyViewHolder> {
-
-    private final Context context;
-
-    public WaitFragmentAdapter(Context context) {
-        this.context=context;
-    }
-
-    @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        MyViewHolder holder=new MyViewHolder(LayoutInflater.from(context).inflate(R.layout.item_wait,parent,false));
-        return holder;
-    }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return 20;
-    }
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-
-        private TextView tv_title;
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-        }
     }
 }*/

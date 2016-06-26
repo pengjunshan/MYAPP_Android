@@ -9,7 +9,7 @@ import android.view.View;
  */
 public abstract class BaseFragment extends Fragment {
 
-    public Context context;
+    public static Context context;
 
     public View rootView;
     public boolean isFragment;
