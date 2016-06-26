@@ -19,6 +19,7 @@
     <color name="goods_give">#FF6666</color>
     <color name="maoyan_title__red">#d43e37</color>
     <color name="rise_number_text_color_red">#ff3b29</color>
+    <color name="maoyan_yellow">#ff9b05</color>
 
 
     <integer-array name="material_colors">

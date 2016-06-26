@@ -64,7 +64,7 @@ public class FireFragment extends BaseFragment {
      *
      * @param context
      */
-    public static List<FireListBean.DataBean.MoviesBean> moviesData = new ArrayList<>();
+    public static  List<FireListBean.DataBean.HotBean> moviesData = new ArrayList<>();
 
 
     public FireFragment(Context context) {

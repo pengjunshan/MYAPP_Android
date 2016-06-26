@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:background="@color/white"
+    >
+
+
+
+    <TextView
+        android:id="@+id/tv_special_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="专访"
+        android:textSize="10sp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/tv_special_selector"
+        android:textColor="@color/maoyan_yellow"
+        android:layout_marginLeft="40dp"
+        />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+            android:layout_marginLeft="10dp"
+        ></View>
+        <TextView
+            android:id="@+id/tv_special_content"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="3dp"
+            android:textSize="12sp"
+            android:layout_marginLeft="6dp"
+            android:text="这些人简直是粉丝界的本·拉登"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

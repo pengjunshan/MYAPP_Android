@@ -20,7 +20,7 @@
         android:layout_height="1dp"
         android:background="@color/divider"
         ></View>
-    <android.support.v4.view.ViewPager
+    <maoyan.pjs.com.maoyan.view.NoScollViewPager
         android:id="@+id/fl_viewpager"
         android:layout_width="match_parent"
         android:layout_height="0sp"

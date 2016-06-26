@@ -1,11 +1,13 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
+import com.cjj.MaterialRefreshLayout;
+
+import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 
 /**
@@ -13,24 +15,24 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
  */
 public class USFragment extends BaseFragment {
 
-    private TextView textView;
+    private MaterialRefreshLayout refresh;
+    private RecyclerView recyclerView;
     public USFragment(Context context) {
         super(context);
     }
 
     @Override
     public View initView() {
-        textView = new TextView(context);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.RED);
-        textView.setGravity(Gravity.CENTER);
 
-        return textView;
+        View view =View.inflate(context, R.layout.us,null);
+        refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        return view;
     }
 
     @Override
     public void initData() {
+        Log.i("TAG", "美国热映");
         super.initData();
-        textView.setText("USFragment");
     }
 }

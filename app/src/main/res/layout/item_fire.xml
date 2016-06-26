@@ -17,17 +17,17 @@
             android:id="@+id/iv_icon"
             android:layout_width="60dp"
             android:layout_height="90dp"
-            android:src="@mipmap/jj"
+            android:src="@mipmap/vp3"
             android:scaleType="centerCrop"
             />
         <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:src="@mipmap/play"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
             />
 
     </RelativeLayout>
@@ -41,7 +41,7 @@
         android:layout_height="20dp"
         android:text="惊天魔盗团2"
         android:textColor="@color/black"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="10dp"
         android:textSize="16sp"
         android:layout_toRightOf="@+id/iv_logo"
@@ -54,9 +54,8 @@
         android:layout_height="16dp"
         android:text="3D"
         android:layout_toRightOf="@+id/tv_title"
-        android:layout_marginTop="12dp"
         android:background="#66beed"
-        android:textSize="8sp"
+        android:textSize="7sp"
         android:layout_marginLeft="8dp"
         android:gravity="center"
         android:textColor="@color/white"
@@ -86,7 +85,7 @@
         android:layout_toRightOf="@+id/tv_title"
         android:layout_alignLeft="@+id/tv_title"
         android:layout_above="@+id/tv_showInfo"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="8dp"
         />
 
     <TextView

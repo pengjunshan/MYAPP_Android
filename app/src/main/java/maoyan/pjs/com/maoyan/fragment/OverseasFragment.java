@@ -1,18 +1,22 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.util.Constant;
+import maoyan.pjs.com.maoyan.util.HttpUtils;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -20,14 +24,26 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
  */
 public class OverseasFragment extends BaseFragment {
 
-    private ViewPager fl_viewpager;
-    private TabLayout overseas_topictile;
+    public static ViewPager fl_viewpager;
+    public static TabLayout overseas_topictile;
+    public static List<Map<String,Object>> mapList = new ArrayList<>();
 
     private String[] mTitle=new String[]{"美国","韩国","日本"};
 
-    private List<BaseFragment> fragmentList;
+    public static List<BaseFragment> fragmentList;
 
-    private int currentViewPager=0;
+    public static int currentViewPager=0;
+    public static Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    setTabViewPager();
+                    break;
+            }
+        }
+    };
 
     public OverseasFragment(Context context) {
         super(context);
@@ -44,7 +60,10 @@ public class OverseasFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        Log.i("TAG", "OverseasFragment");
+        /**
+         * 请求国家名称
+         */
+        HttpUtils.getCountryData(Constant.CountryUrl);
         init();
     }
 
@@ -53,7 +72,10 @@ public class OverseasFragment extends BaseFragment {
         fragmentList.add(new USFragment(context));
         fragmentList.add(new KRFragmnet(context));
         fragmentList.add(new JPFragment(context));
+        setTabViewPager();
+    }
 
+    private static void setTabViewPager() {
         //关联viewpagetr 适配器
         fl_viewpager.setAdapter(new MyViewPagerAdapter());
 
@@ -74,7 +96,7 @@ public class OverseasFragment extends BaseFragment {
         fl_viewpager.addOnPageChangeListener(new MyOnPageChangeListener());
     }
 
-    class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+   static class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -93,11 +115,25 @@ public class OverseasFragment extends BaseFragment {
         }
     }
 
-    class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
+   static class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
 
         @Override
         public void onTabSelected(TabLayout.Tab tab) {
             fl_viewpager.setCurrentItem(tab.getPosition());
+            switch (tab.getPosition()){
+                case 0:
+                    HttpUtils.getUSData(Constant.USUrl);
+                    break;
+
+                case 1:
+                    HttpUtils.getKRData(Constant.KRUrl);
+                    break;
+
+                case 2:
+                    HttpUtils.getJPSData(Constant.JPUrl);
+                    break;
+
+            }
         }
 
         @Override
@@ -111,16 +147,16 @@ public class OverseasFragment extends BaseFragment {
         }
     }
 
-    class MyViewPagerAdapter extends PagerAdapter{
+   static class MyViewPagerAdapter extends PagerAdapter{
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return mTitle[position];
+            return (CharSequence) mapList.get(position).get("name");
         }
 
         @Override
         public int getCount() {
-            return mTitle.length;
+            return mapList.size();
         }
 
         @Override

@@ -33,7 +33,7 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private Context mContext;
     private int mHeaderCount=1;//头部View个数
     //list下的数据
-    private List<FireListBean.DataBean.MoviesBean> moviesData;
+    private  List<FireListBean.DataBean.HotBean> moviesData;
 
     public FireFragmentAdapter(Context context) {
         mContext = context;
@@ -75,7 +75,7 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
      * 获取下部分数据
      * @param moviesData
      */
-    public void setListData(List<FireListBean.DataBean.MoviesBean> moviesData) {
+    public void setListData( List<FireListBean.DataBean.HotBean> moviesData) {
         this.moviesData=moviesData;
     }
 
@@ -136,15 +136,15 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         } else if (holder instanceof ContentViewHolder) {
             if(moviesData!=null&&moviesData.size()>0) {
-                FireListBean.DataBean.MoviesBean moviesBean = moviesData.get(position-1);
+                FireListBean.DataBean.HotBean moviesBean = moviesData.get(position-1);
                 ((ContentViewHolder) holder).tv_title.setText(moviesBean.getNm());
-                Log.i("TAG", "isValue3d="+moviesBean.isValue3d());
-                if(!moviesBean.isValue3d()) {
+                Log.i("TAG", "isValue3d="+moviesBean.getVer());
+                if(!moviesBean.getVer().toString().contains("3D")) {
                     ((ContentViewHolder) holder).tv_3d.setVisibility(View.GONE);
                 }else {
                     ((ContentViewHolder) holder).tv_3d.setVisibility(View.VISIBLE);
                 }
-                if(!moviesBean.isImax()) {
+                if(!moviesBean.getVer().toString().contains("IMAX")) {
                     ((ContentViewHolder) holder).tv_imax.setVisibility(View.GONE);
                 }else {
                     ((ContentViewHolder) holder).tv_imax.setVisibility(View.VISIBLE);
@@ -168,7 +168,9 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     ((ContentViewHolder) holder).btn_bay.setVisibility(View.GONE);
                 }
 
-                Glide.with(mContext).load(moviesBean.getImg())
+            String imaUrl=moviesBean.getImg();
+               imaUrl = imaUrl.replace("w.h","165.220");
+                Glide.with(mContext).load(imaUrl)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
                         .placeholder(R.mipmap.vp3)//加载过程中的图片
                         .error(R.mipmap.vp3)//加载失败的时候显示的图片

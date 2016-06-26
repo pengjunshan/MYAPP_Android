@@ -1,16 +1,22 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
 
+import java.util.List;
+
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.adapter.WaitFragmentAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.bean.WaitListBean;
+import maoyan.pjs.com.maoyan.util.Constant;
+import maoyan.pjs.com.maoyan.util.HttpUtils;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -22,7 +28,22 @@ public class WaitFragment extends BaseFragment {
 
     private RecyclerView wait_recyclerView;
 
-    private WaitFragmentAdapter adapter;
+    public static WaitFragmentAdapter adapter;
+
+    public static List<WaitListBean.DataBean.ComingBean> comingData;
+
+    public static Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    adapter.setListData(comingData);
+                    adapter.notifyItemRangeChanged(4,comingData.size());
+                    break;
+            }
+        }
+    };
 
     public WaitFragment(Context context) {
         super(context);
@@ -40,14 +61,20 @@ public class WaitFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        Log.i("TAG", "WaitFragment");
+        /**
+         * 请求待映下部分List数据
+         */
+        HttpUtils.getWaitListData(Constant.WaitListUrl);
+
         init();
     }
 
     private void init() {
 
+        //设置布局管理器
         wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
 
+        //关联适配器
         adapter=new WaitFragmentAdapter(context);
         wait_recyclerView.setAdapter(adapter);
 
