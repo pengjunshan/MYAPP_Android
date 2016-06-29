@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    >
+    <RelativeLayout
+        android:id="@+id/rl_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="60dp"
+            android:id="@+id/iv_logo"
+            android:layout_height="90dp">
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="60dp"
+                android:layout_height="90dp"
+                android:src="@mipmap/vp3"
+                android:scaleType="centerCrop"
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@mipmap/play"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="3dp"
+                android:layout_marginRight="3dp"
+                />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_toRightOf="@+id/iv_logo"
+            android:background="@color/white"
+            android:layout_marginLeft="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_nm"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:text="惊天魔盗团2"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_isshow"
+                android:layout_width="wrap_content"
+                android:layout_height="14dp"
+                android:layout_marginTop="3dp"
+                android:text="大陆已映"
+                android:layout_below="@+id/tv_nm"
+                android:textSize="8sp"
+                android:background="@drawable/tv_isshow"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="3dp"
+                android:gravity="center_vertical"
+                android:textColor="@color/bg_3d"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_3d"
+                android:layout_width="22dp"
+                android:layout_height="16dp"
+                android:text="3D"
+                android:layout_toRightOf="@+id/tv_nm"
+                android:background="#66beed"
+                android:textSize="7sp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_alignBottom="@+id/tv_nm"
+                android:padding="3dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_imax"
+                android:layout_width="28dp"
+                android:layout_height="16dp"
+                android:background="@drawable/tv_imax_selector"
+                android:layout_toRightOf="@+id/tv_3d"
+                android:text="IMAX"
+                android:textSize="8sp"
+                android:gravity="center"
+                android:textColor="#66beed"
+                android:layout_alignBottom="@+id/tv_nm"
+                />
+
+            <TextView
+                android:id="@+id/tv_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="18dp"
+                android:text="周董变魔术，敌人挡不住"
+                android:textSize="12sp"
+                android:layout_toRightOf="@+id/tv_nm"
+                android:layout_alignLeft="@+id/tv_nm"
+                android:layout_above="@+id/tv_showInfo"
+                android:layout_marginBottom="8dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_showInfo"
+                android:layout_width="200dp"
+                android:layout_height="18dp"
+                android:text="今天150家影院放映1999场"
+                android:textSize="12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/tv_nm"
+                android:layout_alignLeft="@+id/tv_nm"
+                android:layout_marginBottom="12dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                />
+            <TextView
+                android:id="@+id/tv_sc"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="8.7"
+                android:layout_alignBottom="@+id/tv_nm"
+                android:layout_toLeftOf="@+id/tv_state"
+                android:textSize="16sp"
+                android:textColor="#ff9b05"
+                />
+            <TextView
+                android:id="@+id/tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:text="分"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/tv_nm"
+                android:layout_marginRight="2dp"
+                android:textSize="12sp"
+                android:textColor="#ff9b05"
+                />
+
+            <Button
+                android:visibility="visible"
+                android:id="@+id/btn_bay"
+                android:layout_width="50dp"
+                android:layout_height="22dp"
+                android:text="购票"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="4dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_alignBottom="@+id/tv_showInfo"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/tv_bay_selector"
+                android:textColor="@drawable/tv_bay_textselecort"
+                />
+            <Button
+                android:visibility="gone"
+                android:id="@+id/btn_per"
+                android:layout_width="50dp"
+                android:layout_height="22dp"
+                android:text="预售"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="4dp"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:layout_alignBottom="@+id/tv_showInfo"
+                android:layout_marginBottom="14dp"
+                android:background="@drawable/btn_per_selector"
+                android:textColor="@drawable/btn_per_textselecort"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/rl_content"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
+        ></View>
+
+</RelativeLayout>

@@ -30,7 +30,7 @@ public class FireViewPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return listVP.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -40,8 +40,8 @@ public class FireViewPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
-        Map<String, Object> map = listVP.get(position);
+        int realposition=position%listVP.size();//得到实际的下标
+        Map<String, Object> map = listVP.get(realposition);
         String imgUrl = map.get("imgUrl").toString();
         ImageView image=new ImageView(mContext);
         image.setScaleType(ImageView.ScaleType.FIT_XY);

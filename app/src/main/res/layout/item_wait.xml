@@ -12,14 +12,15 @@
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
         >
 
     <RelativeLayout
         android:layout_width="60dp"
         android:id="@+id/iv_logo"
         android:layout_height="90dp"
-        android:background="@color/gray"
         >
         <ImageView
             android:id="@+id/iv_img"

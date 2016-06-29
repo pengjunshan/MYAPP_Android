@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="@color/gray"
+    >
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/iv_topic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/backgroud_logo02"
+            />
+        <TextView
+            android:id="@+id/tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="话题"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/iv_information"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/backgroud_logo02"
+            />
+        <TextView
+            android:id="@+id/tv_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="资讯"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/iv_movielib"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/backgroud_logo02"
+            />
+        <TextView
+            android:id="@+id/tv_movielib"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="影库"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <ImageView
+            android:id="@+id/iv_boxoffice"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@mipmap/backgroud_logo02"
+            />
+        <TextView
+            android:id="@+id/tv_boxoffice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="票房"
+            android:textSize="16sp"
+            android:layout_marginTop="6dp"
+            />
+
+    </LinearLayout>
+
+
+
+
+    <!--<RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/rb_topic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/backgroud_logo02"
+            android:text="话题"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:button="@android:color/transparent"
+            android:drawablePadding="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            />
+        <RadioButton
+            android:id="@+id/rb_information"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/backgroud_logo02"
+            android:text="自信"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:button="@android:color/transparent"
+            android:drawablePadding="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            />
+        <RadioButton
+            android:id="@+id/rb_movielib"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/backgroud_logo02"
+            android:text="影库"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:button="@android:color/transparent"
+            android:drawablePadding="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            />
+        <RadioButton
+            android:id="@+id/rb_boxoffice"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:drawableTop="@mipmap/backgroud_logo02"
+            android:text="票房"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:button="@android:color/transparent"
+            android:drawablePadding="4dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            />
+
+
+    </RadioGroup>-->
+
+
+
+</LinearLayout>

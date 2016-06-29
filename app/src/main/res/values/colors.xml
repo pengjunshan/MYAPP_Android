@@ -9,7 +9,9 @@
     <color name="black">#000000</color>
     <color name="line">#CCCCCC</color>
     <color name="gray">#999999</color>
-    <color name="accent_1">#ff29549f</color>
+    <color name="bg_con">#ff29549f</color>
+    <color name="bg_3d">#66beed</color>
+
     <color name="light_grey">#ededed</color>
     <color name="divider">#e8e8e8</color>
     <color name="background">#eeeeee</color>

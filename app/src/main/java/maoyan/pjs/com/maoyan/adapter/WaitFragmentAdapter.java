@@ -74,7 +74,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if(itemData.getHeadLinesVO()!=null&itemData.getHeadLinesVO().size()>0) {
                 ((ContentHolder)holder).recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
-                ((ContentHolder)holder).recyclerView.setAdapter(new SpecialAdapter(mContext,itemData.getHeadLinesVO()));
+                ((ContentHolder)holder).recyclerView.setAdapter(new WaitSpecialAdapter(mContext,itemData.getHeadLinesVO()));
             }
 
             String imaUrl=itemData.getImg();
@@ -174,12 +174,12 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
     }
 
-    class SpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    class WaitSpecialAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
         private final Context mContext;
         private final List<WaitListBean.DataBean.HeadLinesVO> headLinesVO;
 
-        public SpecialAdapter(Context mContext, List<WaitListBean.DataBean.HeadLinesVO> headLinesVO) {
+        public WaitSpecialAdapter(Context mContext, List<WaitListBean.DataBean.HeadLinesVO> headLinesVO) {
             this.mContext =mContext;
             this.headLinesVO=headLinesVO;
         }

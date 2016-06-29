@@ -1,11 +1,14 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
+import com.cjj.MaterialRefreshLayout;
+
+import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.adapter.JPAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 
 /**
@@ -13,8 +16,9 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
  */
 public class JPFragment extends BaseFragment {
 
-    private TextView textView;
-
+    public static RecyclerView recyclerView;
+    public static MaterialRefreshLayout refresh;
+    public static JPAdapter adapter;
 
     public JPFragment(Context context) {
         super(context);
@@ -22,17 +26,22 @@ public class JPFragment extends BaseFragment {
 
     @Override
     public View initView() {
-        textView = new TextView(context);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.RED);
-        textView.setGravity(Gravity.CENTER);
 
-        return textView;
+        View view = View.inflate(context, R.layout.jp, null);
+        refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        return view;
     }
 
     @Override
     public void initData() {
         super.initData();
-        textView.setText("JPFragment");
+        init();
+    }
+
+    private void init() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        /*adapter = new JPAdapter(context);
+        recyclerView.setAdapter(adapter);*/
     }
 }

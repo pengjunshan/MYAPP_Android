@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="96dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_margin="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_nm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保利国际影城(龙旗广场店)"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_sellPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="39"
+            android:layout_toRightOf="@+id/tv_nm"
+            android:textSize="14sp"
+            android:textColor="@color/dark_red"
+            android:layout_marginLeft="6dp"
+            android:layout_alignBottom="@+id/tv_nm"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元起"
+            android:textSize="12sp"
+            android:layout_toRightOf="@+id/tv_sellPrice"
+            android:layout_alignBottom="@+id/tv_nm"
+            />
+
+        <TextView
+            android:id="@+id/tv_addr"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:text="昌平区黄平路19号院3号楼龙旗广场购物中心3层（地铁8号线育新站路北600米，近永辉超市）"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:layout_below="@+id/tv_nm"
+            android:layout_marginTop="12dp"
+            />
+
+        <TextView
+            android:id="@+id/tv_km"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3.6km"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@+id/tv_addr"
+            />
+
+        <TextView
+            android:id="@+id/tv_seat"
+            android:layout_width="22dp"
+            android:layout_height="20dp"
+            android:text="座"
+            android:layout_below="@+id/tv_addr"
+            android:textSize="12sp"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:background="@drawable/tv_seat_selector"
+            android:textColor="@color/bg_3d"
+            />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tv_goup"
+            android:layout_width="22dp"
+            android:layout_height="20dp"
+            android:text="团"
+            android:layout_below="@+id/tv_addr"
+            android:textSize="12sp"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:background="@drawable/tv_seat_selector"
+            android:textColor="@color/bg_3d"
+            android:layout_toRightOf="@+id/tv_seat"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_snact"
+            android:layout_width="34dp"
+            android:layout_height="20dp"
+            android:text="小吃"
+            android:layout_below="@+id/tv_addr"
+            android:textSize="12sp"
+            android:layout_margin="3dp"
+            android:gravity="center"
+            android:background="@drawable/tv_snact_selector"
+            android:textColor="@color/white"
+            android:layout_toRightOf="@+id/tv_goup"
+
+            />
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        ></View>
+</RelativeLayout>

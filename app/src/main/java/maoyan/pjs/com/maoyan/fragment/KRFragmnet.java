@@ -1,11 +1,14 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
+import com.cjj.MaterialRefreshLayout;
+
+import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.adapter.KRAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 
 /**
@@ -13,25 +16,38 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
  */
 public class KRFragmnet extends BaseFragment {
 
+    private MaterialRefreshLayout refresh;
+    public static RecyclerView recyclerView;
 
-    private TextView textView;
+    public static KRAdapter adapter;
+
     public KRFragmnet(Context context) {
         super(context);
     }
 
     @Override
     public View initView() {
-        textView = new TextView(context);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.RED);
-        textView.setGravity(Gravity.CENTER);
 
-        return textView;
+        View view=View.inflate(context, R.layout.kr,null);
+        refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        return view;
     }
 
     @Override
     public void initData() {
         super.initData();
-        textView.setText("KRFragmnet");
+        init();
+
+//        HttpUtils.getKRData(Constant.KRUrl);
+    }
+
+    private void init() {
+        //设置布局管理器
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+
+        /*adapter =new KRAdapter(context);
+        //关联适配器
+        recyclerView.setAdapter(adapter);*/
     }
 }

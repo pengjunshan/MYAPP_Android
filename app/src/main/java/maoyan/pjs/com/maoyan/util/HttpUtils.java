@@ -1,5 +1,6 @@
 package maoyan.pjs.com.maoyan.util;
 
+import android.content.Context;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -12,16 +13,28 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import maoyan.pjs.com.maoyan.activity.GuideActivity;
+import maoyan.pjs.com.maoyan.adapter.JPAdapter;
+import maoyan.pjs.com.maoyan.adapter.KRAdapter;
+import maoyan.pjs.com.maoyan.adapter.USAdapter;
+import maoyan.pjs.com.maoyan.bean.CinemaListBean;
 import maoyan.pjs.com.maoyan.bean.FireListBean;
+import maoyan.pjs.com.maoyan.bean.JPListBean;
+import maoyan.pjs.com.maoyan.bean.KRListBean;
 import maoyan.pjs.com.maoyan.bean.USListBean;
 import maoyan.pjs.com.maoyan.bean.WaitListBean;
+import maoyan.pjs.com.maoyan.fragment.CinemaFragment;
+import maoyan.pjs.com.maoyan.fragment.FindFragment;
 import maoyan.pjs.com.maoyan.fragment.FireFragment;
+import maoyan.pjs.com.maoyan.fragment.JPFragment;
+import maoyan.pjs.com.maoyan.fragment.KRFragmnet;
 import maoyan.pjs.com.maoyan.fragment.OverseasFragment;
+import maoyan.pjs.com.maoyan.fragment.USFragment;
 import maoyan.pjs.com.maoyan.fragment.WaitFragment;
 import okhttp3.Call;
 
@@ -201,6 +214,7 @@ public class HttpUtils {
                         JSONObject object = new JSONObject(data);
 
                         JSONArray jsonArray = object.getJSONArray("areas");
+                        OverseasFragment.mapList.clear();
                         for (int i = 0; i <jsonArray.length() ; i++) {
                             Map<String,Object> map=new HashMap<String, Object>();
                             JSONObject json = (JSONObject) jsonArray.get(i);
@@ -221,8 +235,10 @@ public class HttpUtils {
     /**
      * 美国热映
      * @param usUrl
+     * @param context
      */
-    public static void getUSData(String usUrl) {
+    public static void getUSData(final String usUrl, final Context context) {
+
             OkHttpUtils.get().url(usUrl).build().execute(new StringCallback() {
                 @Override
                 public void onError(Call call, Exception e, int id) {
@@ -232,8 +248,13 @@ public class HttpUtils {
                 @Override
                 public void onResponse(String response, int id) {
                     Log.i("TAG", "美国数据请求成功"+response);
-                    USListBean usListBean = new Gson().fromJson(response, USListBean.class);
-
+                    USListBean usListBean2 = new Gson().fromJson(response, USListBean.class);
+                    List<USListBean.DataBean.ComingBean> comingData2 = usListBean2.getData().getComing();
+                    if(comingData2!=null&&comingData2.size()>0) {
+                        USFragment.adapter=new USAdapter(context,comingData2);
+                        USFragment.recyclerView.setAdapter(USFragment.adapter);
+//                        USFragment.adapter.setList2(comingData2);
+                    }
                 }
             });
     }
@@ -241,8 +262,9 @@ public class HttpUtils {
     /**
      * 韩国热映
      * @param krUrl
+     * @param context
      */
-    public static void getKRData(String krUrl) {
+    public static void getKRData(String krUrl, final Context context) {
         OkHttpUtils.get().url(krUrl).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -252,7 +274,14 @@ public class HttpUtils {
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "韩国数据请求成功"+response);
-
+                KRListBean krListBean = new Gson().fromJson(response, KRListBean.class);
+                List<KRListBean.DataBean.HotBean> hotData = krListBean.getData().getHot();
+                if(hotData!=null&&hotData.size()>0) {
+                    KRFragmnet.adapter =new KRAdapter(context,hotData);
+                    //关联适配器
+                    KRFragmnet.recyclerView.setAdapter(KRFragmnet.adapter);
+//                    KRFragmnet.adapter.setkrList(hotData);
+                }
             }
         });
     }
@@ -260,8 +289,9 @@ public class HttpUtils {
     /**
      * 日本热映
      * @param jpUrl
+     * @param context
      */
-    public static void getJPSData(String jpUrl) {
+    public static void getJPSData(String jpUrl, final Context context) {
         OkHttpUtils.get().url(jpUrl).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -271,10 +301,216 @@ public class HttpUtils {
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "日本数据请求成功"+response);
+                JPListBean jpListBean = new Gson().fromJson(response, JPListBean.class);
+                List<JPListBean.DataBean.HotBean> hotBeen = jpListBean.getData().getHot();
+                if(hotBeen!=null&&hotBeen.size()>0) {
+                    JPFragment.adapter = new JPAdapter(context,hotBeen);
+                    JPFragment.recyclerView.setAdapter(JPFragment.adapter);
+//                    JPFragment.adapter.setListData(hotBeen);
+                }
             }
         });
     }
 
 
+    /**
+     * 请求影院上部分viewpager
+     */
+    public static void getCinemaVP(String url) {
+        OkHttpUtils
+                .get().url(url).build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        Log.i("TAG", "请求影院上部分viewpager请求失败="+e.getMessage());
+                    }
 
+                    @Override
+                    public void onResponse(String response, int id) {
+                        Log.i("TAG", "请求影院上部分viewpager请求成功="+response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("data");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject object= (JSONObject) jsonArray.get(i);
+                                Map<String,Object> map = new HashMap<String, Object>();
+                                String imgUrl = object.optString("imgUrl");
+                                String url = object.optString("url");
+                                map.put("imgUrl",imgUrl);
+                                map.put("url",url);
+                                CinemaFragment.mapList.add(map);
+                            }
+                            if(CinemaFragment.mapList!=null&&CinemaFragment.mapList.size()>0) {
+                                CinemaFragment.adapter.setVP(CinemaFragment.mapList);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+    }
+
+    /**
+     * 影院List
+     * @param url
+     */
+    public static void getCinemaList(String url) {
+
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "影院List请求失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String result, int id) {
+                Log.i("TAG", "影院List请求成功="+result);
+
+                result = result.replace("朝阳区", "chaoyangqu");
+                result = result.replace("海淀区", "haidianqu");
+                result = result.replace("东城区", "dongchengqu");
+                result = result.replace("丰台区", "fengtaiqu");
+                result = result.replace("大兴区", "daxingqu");
+                result = result.replace("西城区", "xichengqu");
+                result = result.replace("通州区", "tongzhouqu");
+                result = result.replace("昌平区", "changpingqu");
+                result = result.replace("房山区", "fangshanqu");
+                result = result.replace("顺义区", "shunyiqu");
+                result = result.replace("门头沟区", "mentougouqu");
+                result = result.replace("石景山区", "shijingshanqu");
+                result = result.replace("怀柔区", "huairouqu");
+                result = result.replace("平谷区", "pingguqu");
+                result = result.replace("密云县", "miyunxian");
+                result = result.replace("延庆县", "yanqingxian");
+
+
+                CinemaListBean cinemaListBean = new Gson().fromJson(result, CinemaListBean.class);
+                List<CinemaListBean.DataBean.changpingquBean> changPData = cinemaListBean.getData().getchangpingqu();
+                Log.i("TAG", "影院List请求成功*****"+changPData.toString());
+                if(changPData!=null&&changPData.size()>0) {
+                    CinemaFragment.adapter.setListData(changPData);
+                    Log.i("TAG", "影院List请求成功="+changPData.toString());
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取附近位置
+     */
+    public static void getNearbyLocation(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "获取附近位置失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "获取附近位置成功="+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String jsonObjectString = jsonObject.getString("data");
+                    JSONObject jsonObject1 = new JSONObject(jsonObjectString);
+
+                    String city = jsonObject1.optString("city");//城市名 北京
+                    String province = jsonObject1.optString("province");//北京市
+                    String district = jsonObject1.optString("district");//区名
+                    String detail = jsonObject1.optString("detail");//附近地点名
+                    String lat = jsonObject1.optString("lat");//经纬度
+                    String lng = jsonObject1.optString("lng");//经纬度
+
+                    CinemaFragment.mapLocation.put("city",city);
+                    CinemaFragment.mapLocation.put("province",province);
+                    CinemaFragment.mapLocation.put("district",district);
+                    CinemaFragment.mapLocation.put("detail",detail);
+                    CinemaFragment.mapLocation.put("lat",lat);
+                    CinemaFragment.mapLocation.put("lng",lng);
+
+                    CinemaFragment.handler.sendEmptyMessage(0);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 发现上部viewpager
+     */
+    public static void getFindVP(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "发现上部viewpager请求失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "发现上部viewpager请求成功="+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+
+                        JSONObject object = (JSONObject) jsonArray.get(i);
+                        Map<String,Object> map=new HashMap<String, Object>();
+                        String imgUrl = object.optString("imgUrl");
+                        String url1 = object.optString("url");
+                        map.put("imgUrl",imgUrl);
+                        map.put("url1",url1);
+                        FindFragment.mapList.add(map);
+                    }
+                    if(FindFragment.mapList.size()>0) {
+                        FindFragment.adapter.setVPData( FindFragment.mapList);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 发现RadioButton
+     */
+    public static void getRadioButton(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "发现RadioButton请求失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "发现RadioButton请求成功="+response);
+                try {
+                    List<Map<String,Object>> mapList=new ArrayList<Map<String, Object>>();
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject object = (JSONObject) jsonArray.get(i);
+                        Map<String,Object> map=new HashMap<String, Object>();
+                        JSONObject image = object.getJSONObject("image");
+
+                        String title = object.optString("title");
+                        String webUrl = object.optString("url");
+                        String imageUrl = image.optString("url");
+
+                        map.put("title",title);
+                        map.put("webUrl",webUrl);
+                        map.put("imageUrl",imageUrl);
+                        mapList.add(map);
+                    }
+                    if(mapList.size()>0) {
+                        FindFragment.adapter.setRBData(mapList);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

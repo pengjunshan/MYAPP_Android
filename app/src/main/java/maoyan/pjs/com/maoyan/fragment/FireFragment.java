@@ -31,7 +31,7 @@ public class FireFragment extends BaseFragment {
 
     private static RecyclerView mRecyclerView;
 
-    private static FireFragmentAdapter adapter;
+    public static FireFragmentAdapter adapter;
 
 
     public static Handler handler = new Handler() {
@@ -47,6 +47,13 @@ public class FireFragment extends BaseFragment {
                 case 1:
                     adapter.setListData(moviesData);
                     adapter.notifyItemRangeChanged(2, moviesData.size());
+                    break;
+
+                case 2:
+                   int item = FireFragmentAdapter.HeaderViewHolder.fire_viewpager.getCurrentItem()+1;
+                    FireFragmentAdapter.HeaderViewHolder.fire_viewpager.setCurrentItem(item);
+                    handler.removeCallbacksAndMessages(null);
+                    handler.sendEmptyMessageDelayed(2,3000);
                     break;
             }
         }
@@ -103,7 +110,7 @@ public class FireFragment extends BaseFragment {
         //设置布局管理器
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
 
-        adapter = new FireFragmentAdapter(context);
+        adapter = new FireFragmentAdapter(context,handler);
         mRecyclerView.setAdapter(adapter);
 
         //recyclerview关联适配器

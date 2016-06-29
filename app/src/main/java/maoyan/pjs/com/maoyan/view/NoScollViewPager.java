@@ -3,7 +3,6 @@ package maoyan.pjs.com.maoyan.view;
 import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 
 /**
  * Created by pjs984312808 on 2016/6/26.
@@ -14,8 +13,8 @@ public class NoScollViewPager extends ViewPager {
         super(context, attrs);
     }
 
-    @Override
+  /*  @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return true;
-    }
+    }*/
 }

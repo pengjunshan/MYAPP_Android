@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.View;
 import com.cjj.MaterialRefreshLayout;
 
 import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.adapter.USAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 
 /**
@@ -16,7 +18,9 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
 public class USFragment extends BaseFragment {
 
     private MaterialRefreshLayout refresh;
-    private RecyclerView recyclerView;
+    public static RecyclerView recyclerView;
+
+    public static USAdapter adapter;
     public USFragment(Context context) {
         super(context);
     }
@@ -34,5 +38,15 @@ public class USFragment extends BaseFragment {
     public void initData() {
         Log.i("TAG", "美国热映");
         super.initData();
+        init();
+//        HttpUtils.getUSData(Constant.USUrl);
+    }
+
+    private void init() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+/*
+        adapter=new USAdapter(context);
+
+        recyclerView.setAdapter(adapter);*/
     }
 }

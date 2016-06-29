@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,11 +29,8 @@ public class OverseasFragment extends BaseFragment {
     public static TabLayout overseas_topictile;
     public static List<Map<String,Object>> mapList = new ArrayList<>();
 
-    private String[] mTitle=new String[]{"美国","韩国","日本"};
-
     public static List<BaseFragment> fragmentList;
 
-    public static int currentViewPager=0;
     public static Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -60,6 +58,7 @@ public class OverseasFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+        Log.i("TAG", "海外电影*****");
         /**
          * 请求国家名称
          */
@@ -82,12 +81,9 @@ public class OverseasFragment extends BaseFragment {
         //关联toblayout 和viewpager
         overseas_topictile.setupWithViewPager(fl_viewpager);
 
-        //设置模式
-//        overseas_topictile.setTabMode(TabLayout.MODE_SCROLLABLE);
-
         //设置默认第一个
-        fl_viewpager.setCurrentItem(currentViewPager);
-        fragmentList.get(currentViewPager).initData();
+        fl_viewpager.setCurrentItem(0);
+        fragmentList.get(0).initData();
 
         //监听tablayou改变
         overseas_topictile.setOnTabSelectedListener(new MyOnTabSelectedListener());
@@ -105,8 +101,23 @@ public class OverseasFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(int position) {
+            Log.i("TAG", "viewpager初始化第"+position+"项数据");
+
+            switch (position){
+                case 0:
+                    HttpUtils.getUSData(Constant.USUrl,context);
+                    break;
+
+                case 1:
+                    HttpUtils.getKRData(Constant.KRUrl,context);
+                    break;
+
+                case 2:
+                    HttpUtils.getJPSData(Constant.JPUrl,context);
+                    break;
+            }
             fragmentList.get(position).initData();
-            currentViewPager=position;
+
         }
 
         @Override
@@ -121,16 +132,16 @@ public class OverseasFragment extends BaseFragment {
         public void onTabSelected(TabLayout.Tab tab) {
             fl_viewpager.setCurrentItem(tab.getPosition());
             switch (tab.getPosition()){
-                case 0:
-                    HttpUtils.getUSData(Constant.USUrl);
+                case 0://联网请求美国数据
+//                    HttpUtils.getUSData(Constant.USUrl,context);
                     break;
 
-                case 1:
-                    HttpUtils.getKRData(Constant.KRUrl);
+                case 1://联网请求韩国数据
+//                    HttpUtils.getKRData(Constant.KRUrl,context);
                     break;
 
-                case 2:
-                    HttpUtils.getJPSData(Constant.JPUrl);
+                case 2://联网请求日本数据
+//                    HttpUtils.getJPSData(Constant.JPUrl,context);
                     break;
 
             }
