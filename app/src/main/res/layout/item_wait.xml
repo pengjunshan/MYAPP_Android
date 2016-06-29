@@ -2,13 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:background="@color/white"
     >
 
+
+    <TextView
+        android:id="@+id/tv_data"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/gray"
+        android:text="6月29日 周三"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        />
+
     <RelativeLayout
+        android:layout_below="@+id/tv_data"
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

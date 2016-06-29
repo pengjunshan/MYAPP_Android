@@ -26,7 +26,6 @@ dependencies {
     compile 'com.android.support:design:23.3.0'
     compile 'com.android.support:recyclerview-v7:23.3.0'
     compile project(':MaterialRefreshLayout_library')
-    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.google.code.gson:gson:2.3.1'
 

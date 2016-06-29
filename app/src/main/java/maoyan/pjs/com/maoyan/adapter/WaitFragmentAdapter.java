@@ -14,6 +14,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
@@ -76,6 +79,34 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((ContentHolder)holder).recyclerView.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
                 ((ContentHolder)holder).recyclerView.setAdapter(new WaitSpecialAdapter(mContext,itemData.getHeadLinesVO()));
             }
+
+
+            //是否显示标题
+            String rt = itemData.getRt();
+            for(int i = 0;i<comingData.indexOf(itemData);i++){
+                if(rt.equals(comingData.get(i).getRt())){
+                    ((ContentHolder)holder).tv_data.setVisibility(View.GONE);
+                    break;
+                }
+                ((ContentHolder)holder).tv_data.setVisibility(View.VISIBLE);
+            }
+            if(comingData.indexOf(itemData) == 0) {
+                ((ContentHolder)holder).tv_data.setVisibility(View.VISIBLE);
+            }
+            //显示日期
+            SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日 E");
+            Date date = null;//提取格式中的日期
+            try {
+                date = sdf1.parse(rt);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            rt = sdf2.format(date);
+
+            ((ContentHolder)holder).tv_data.setText(rt);
+
+
 
             String imaUrl=itemData.getImg();
            imaUrl = imaUrl.replace("w.h","165.220");
@@ -151,7 +182,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public class ContentHolder extends RecyclerView.ViewHolder {
 
         private ImageView iv_img;
-        public TextView tv_nm, tv_3d, tv_imax, tv_scm, tv_desc, tv_wish, tv_state;
+        public TextView tv_nm, tv_3d, tv_imax, tv_scm, tv_desc, tv_wish, tv_state,tv_data;
         private Button btn_bay, btn_per;
         private RecyclerView recyclerView;
 
@@ -168,6 +199,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             btn_bay = (Button) itemView.findViewById(R.id.btn_bay);
             btn_per = (Button) itemView.findViewById(R.id.btn_per);
             iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
+            tv_data = (TextView) itemView.findViewById(R.id.tv_data);
 
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
 

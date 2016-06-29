@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+<include layout="@layout/cinema_title"></include>
     <com.cjj.MaterialRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -29,13 +29,14 @@
     </com.cjj.MaterialRefreshLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_location"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:background="@color/gray"
+        android:background="#eecccccc"
         android:gravity="center_vertical"
         >
         <ImageView
@@ -46,12 +47,12 @@
             android:scaleType="fitXY"
             android:layout_margin="6dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="1dp"
             />
         <TextView
             android:id="@+id/tv_position"
             android:layout_toRightOf="@+id/iv_location"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="正在收索地理位置"
             android:textSize="12sp"
@@ -69,8 +70,8 @@
             android:scaleType="fitXY"
             android:layout_margin="6dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            android:layout_toRightOf="@+id/tv_position"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

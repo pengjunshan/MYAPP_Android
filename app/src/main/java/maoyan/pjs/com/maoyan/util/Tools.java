@@ -1,5 +1,9 @@
 package maoyan.pjs.com.maoyan.util;
 
+import android.view.View;
+
+import java.text.SimpleDateFormat;
+
 /**
  * Created by pjs984312808 on 2016/6/23.
  */
@@ -10,6 +14,7 @@ public class Tools {
 
      /**
       * 转化为弧度(rad)
+      * 两经纬度之间的距离
       * */
      private static double rad(double d)
      {
@@ -33,6 +38,7 @@ public class Tools {
           s = Math.round(s * 10000) / 10000;
           return s;
      }
+
 
 
 }

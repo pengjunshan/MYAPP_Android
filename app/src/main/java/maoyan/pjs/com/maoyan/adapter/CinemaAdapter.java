@@ -20,6 +20,7 @@ import java.util.Map;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.bean.CinemaListBean;
+import maoyan.pjs.com.maoyan.fragment.CinemaFragment;
 import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
@@ -27,8 +28,8 @@ import maoyan.pjs.com.maoyan.util.Tools;
  */
 public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final Context context;
-    private List<Map<String, Object>> mapList;
+    private static Context context;
+    private static List<Map<String, Object>> mapList;
     private LayoutInflater inflater;
     private List<CinemaListBean.DataBean.changpingquBean> changPData;
     private String lng;
@@ -111,14 +112,20 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
 
-    class HeardHolder extends RecyclerView.ViewHolder{
+   public static class HeardHolder extends RecyclerView.ViewHolder{
 
-        private ViewPager cinema_viewpager;
+        public static ViewPager cinema_viewpager;
         public HeardHolder(View itemView) {
             super(itemView);
             cinema_viewpager = (ViewPager) itemView.findViewById(R.id.cinema_viewpager);
             if(mapList!=null&&mapList.size()>0) {
                 cinema_viewpager.setAdapter(new cinemaVPAdapter(context,mapList));
+
+                //设置显示在最大值的中间
+                int centitem = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % mapList.size();
+                cinema_viewpager.setCurrentItem(centitem);
+
+                CinemaFragment.handler.sendEmptyMessageDelayed(1, 3000);
             }
         }
     }
@@ -138,7 +145,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    class cinemaVPAdapter extends PagerAdapter{
+    static class cinemaVPAdapter extends PagerAdapter{
 
         private final Context context;
         private final List<Map<String, Object>> mapList;
@@ -150,7 +157,7 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public int getCount() {
-            return mapList.size();
+            return Integer.MAX_VALUE;
         }
 
         @Override
@@ -160,7 +167,8 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            Map<String, Object> map = mapList.get(position);
+            int realposition=position%mapList.size();//得到实际的下标
+            Map<String, Object> map = mapList.get(realposition);
             ImageView imageView = new ImageView(context);
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 

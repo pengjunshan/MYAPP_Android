@@ -43,4 +43,7 @@ public class Constant {
 
     //发现RadioButton
     public static String FindRadioButton="http://api.meituan.com/sns/v2/buttons.json?__vhost=api.maoyan.com&utm_campaign=AmovieBmovieC110189035496448D100&movieBundleVersion=6901&utm_source=baidumobile1&utm_medium=android&utm_term=6.9.0&utm_content=869402021153646&ci=1&net=255&dModel=m1%20metal&uuid=28C0DE2C5A3F109C808BE007F1011AE88795D9EFF3B99C9B3601DCF7840739F9&lat=40.099691&lng=116.379849&__skck=6a375bce8c66a0dc293860dfa83833ef&__skts=1466944454392&__skua=7e01cf8dd30a179800a7a93979b430b2&__skno=4d91f230-f3a6-4b30-be47-535f32662bef&__skcy=P%2F3L0aHPYjEixgVGWW3%2BfvZokVg%3D";
+
+    //发现list
+    public static String FindList="http://api.meituan.com/sns/v4/feed.json?offset=0&limit=10&timestamp=0&__vhost=api.maoyan.com&utm_campaign=AmovieBmovieC110189035496448D100&movieBundleVersion=6901&utm_source=baidumobile1&utm_medium=android&utm_term=6.9.0&utm_content=869402021153646&ci=1&net=255&dModel=m1%20metal&uuid=28C0DE2C5A3F109C808BE007F1011AE88795D9EFF3B99C9B3601DCF7840739F9&lat=40.099691&lng=116.379849&__skck=6a375bce8c66a0dc293860dfa83833ef&__skts=1466944454477&__skua=7e01cf8dd30a179800a7a93979b430b2&__skno=ce21806c-859d-470d-9e17-f8b39c3cff45&__skcy=QoQpYrnAsakUImzbUn3%2B07PiKKc%3D";
 }

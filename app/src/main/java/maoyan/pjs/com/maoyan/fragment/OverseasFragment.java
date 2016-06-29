@@ -82,7 +82,8 @@ public class OverseasFragment extends BaseFragment {
         overseas_topictile.setupWithViewPager(fl_viewpager);
 
         //设置默认第一个
-        fl_viewpager.setCurrentItem(0);
+        HttpUtils.getUSData(Constant.USUrl,context);
+        fl_viewpager.setCurrentItem(0,false);
         fragmentList.get(0).initData();
 
         //监听tablayou改变
@@ -101,23 +102,7 @@ public class OverseasFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(int position) {
-            Log.i("TAG", "viewpager初始化第"+position+"项数据");
-
-            switch (position){
-                case 0:
-                    HttpUtils.getUSData(Constant.USUrl,context);
-                    break;
-
-                case 1:
-                    HttpUtils.getKRData(Constant.KRUrl,context);
-                    break;
-
-                case 2:
-                    HttpUtils.getJPSData(Constant.JPUrl,context);
-                    break;
-            }
-            fragmentList.get(position).initData();
-
+//            fragmentList.get(position).initData();
         }
 
         @Override
@@ -133,15 +118,15 @@ public class OverseasFragment extends BaseFragment {
             fl_viewpager.setCurrentItem(tab.getPosition());
             switch (tab.getPosition()){
                 case 0://联网请求美国数据
-//                    HttpUtils.getUSData(Constant.USUrl,context);
+                    HttpUtils.getUSData(Constant.USUrl,context);
                     break;
 
                 case 1://联网请求韩国数据
-//                    HttpUtils.getKRData(Constant.KRUrl,context);
+                    HttpUtils.getKRData(Constant.KRUrl,context);
                     break;
 
                 case 2://联网请求日本数据
-//                    HttpUtils.getJPSData(Constant.JPUrl,context);
+                    HttpUtils.getJPSData(Constant.JPUrl,context);
                     break;
 
             }
@@ -178,6 +163,7 @@ public class OverseasFragment extends BaseFragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             BaseFragment fragment = fragmentList.get(position);
+            fragment.initData();
             View view = fragment.rootView;
             //把布局添加进viewpager
             container.addView(view);

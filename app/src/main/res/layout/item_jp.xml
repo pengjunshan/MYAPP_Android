@@ -49,7 +49,7 @@
 
             <TextView
                 android:id="@+id/tv_nm"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="18dp"
                 android:text="惊天魔盗团2"
                 android:textColor="@color/black"

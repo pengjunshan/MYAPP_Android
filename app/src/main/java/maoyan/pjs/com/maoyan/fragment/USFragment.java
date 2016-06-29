@@ -39,7 +39,6 @@ public class USFragment extends BaseFragment {
         Log.i("TAG", "美国热映");
         super.initData();
         init();
-//        HttpUtils.getUSData(Constant.USUrl);
     }
 
     private void init() {

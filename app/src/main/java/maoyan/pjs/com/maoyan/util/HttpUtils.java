@@ -23,6 +23,7 @@ import maoyan.pjs.com.maoyan.adapter.JPAdapter;
 import maoyan.pjs.com.maoyan.adapter.KRAdapter;
 import maoyan.pjs.com.maoyan.adapter.USAdapter;
 import maoyan.pjs.com.maoyan.bean.CinemaListBean;
+import maoyan.pjs.com.maoyan.bean.FindListBean;
 import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.bean.JPListBean;
 import maoyan.pjs.com.maoyan.bean.KRListBean;
@@ -509,6 +510,30 @@ public class HttpUtils {
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 请求发现下部分数据
+     * @param url
+     */
+    public static void getListData(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "请求发现下部分数据请求失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "请求发现下部分数据请求成功="+response);
+                FindListBean findListBean = new Gson().fromJson(response, FindListBean.class);
+                FindListBean.DataBean dataBean = findListBean.getData();
+                List<FindListBean.DataBean.FeedsBean> feedList = dataBean.getFeeds();
+                if(feedList!=null&&feedList.size()>0) {
+                    FindFragment.adapter.setListData(feedList);
                 }
             }
         });

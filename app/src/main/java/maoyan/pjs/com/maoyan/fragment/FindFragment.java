@@ -39,6 +39,13 @@ public class FindFragment extends BaseFragment {
                 case 0:
 
                     break;
+
+                case 1:
+                    int item = FindAdapter.FindVPHolder.viewpager.getCurrentItem()+1;
+                    FindAdapter.FindVPHolder.viewpager.setCurrentItem(item);
+                    handler.removeCallbacksAndMessages(null);
+                    handler.sendEmptyMessageDelayed(1,3000);
+                    break;
             }
         }
     };
@@ -65,6 +72,9 @@ public class FindFragment extends BaseFragment {
 
         //请求RadioButton数据
         HttpUtils.getRadioButton(Constant.FindRadioButton);
+
+        //请求List数据
+        HttpUtils.getListData(Constant.FindList);
     }
 
     private void init() {
