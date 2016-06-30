@@ -11,6 +11,7 @@
     <color name="gray">#999999</color>
     <color name="bg_con">#ff29549f</color>
     <color name="bg_3d">#66beed</color>
+    <color name="stan">#cceeeeee</color>
 
     <color name="light_grey">#ededed</color>
     <color name="divider">#e8e8e8</color>

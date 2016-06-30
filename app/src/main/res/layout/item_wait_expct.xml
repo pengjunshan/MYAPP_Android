@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="125dp"
-    android:orientation="vertical">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="245dp">
 
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:text="预告片推荐"
+        android:text="近期最受期待"
         android:textColor="@color/black"
         android:gravity="center_vertical"
         android:paddingBottom="5dp"
         android:paddingTop="5dp"
+        android:textSize="12sp"
         android:paddingLeft="10dp"
-        android:background="@color/gray" />
+        android:background="#cceeeeee" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="220dp"
         android:gravity="center_vertical"
+        android:layout_margin="10dp"
         >
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rr_cor1"
+            android:id="@+id/expct_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:background="@color/gray"
-
+            android:layout_height="match_parent"
             >
 
         </android.support.v7.widget.RecyclerView>
 
     </RelativeLayout>
-
 </LinearLayout>

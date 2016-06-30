@@ -26,4 +26,11 @@
         <item name="android:paddingBottom">8sp</item>
     </style>
 
+
+    <style name="TranslucentProcessDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>

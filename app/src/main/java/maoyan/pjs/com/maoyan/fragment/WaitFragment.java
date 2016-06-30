@@ -17,6 +17,7 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.bean.WaitListBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -61,11 +62,17 @@ public class WaitFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
+
+        //请求待映预告片
+        HttpUtils.getWaitRecommend(Constant.WaitRecommend);
+
+        //请求待映最受期待
+        HttpUtils.WaitExpct(Constant.WaitExpct);
         /**
          * 请求待映下部分List数据
          */
-        HttpUtils.getWaitListData(Constant.WaitListUrl);
-
+        HttpUtils.getWaitListData(Constant.WaitListUrl,context);
+        Tools.showRoundProcessDialog(context);
         init();
     }
 

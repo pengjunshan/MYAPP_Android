@@ -44,7 +44,7 @@ public class GuideActivity extends AppCompatActivity {
         ac = this;
         iv_welcome = (ImageView) findViewById(R.id.iv_welcome);
         String url = Constant.GuideUrl;
-        HttpUtils.getGuideImage(url, iv_welcome);
+        HttpUtils.getGuideImage(url, iv_welcome,this);
     }
 
     public void setAnimotion() {

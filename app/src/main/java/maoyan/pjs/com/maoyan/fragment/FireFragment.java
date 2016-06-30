@@ -20,6 +20,7 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -99,7 +100,8 @@ public class FireFragment extends BaseFragment {
         /**
          * 请求List集合
          */
-        HttpUtils.getFireList(Constant.FireListUrl);
+        HttpUtils.getFireList(Constant.FireListUrl,context);
+        Tools.showRoundProcessDialog(context);
 
         init();
 

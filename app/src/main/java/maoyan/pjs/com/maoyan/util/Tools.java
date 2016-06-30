@@ -1,15 +1,17 @@
 package maoyan.pjs.com.maoyan.util;
 
-import android.view.View;
+import android.content.Context;
+import android.support.v7.app.AlertDialog;
+import android.widget.Toast;
 
-import java.text.SimpleDateFormat;
+import maoyan.pjs.com.maoyan.R;
 
 /**
  * Created by pjs984312808 on 2016/6/23.
  */
 public class Tools {
 
-
+     private static AlertDialog mRoundProcessDialog = null;
      private static final  double EARTH_RADIUS = 6378137;//赤道半径(单位m)
 
      /**
@@ -39,6 +41,50 @@ public class Tools {
           return s;
      }
 
+     /**
+      * 加载等待圈
+      *
+      * @param mContext
+      */
+     public static void showRoundProcessDialog(Context mContext) {
+          if (mRoundProcessDialog == null) {
+           /* DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
+                @Override
+                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {   //该加载圈无法被home键，搜索键，返回键取消。
+                    if (keyCode == KeyEvent.KEYCODE_SEARCH ) {
+                        return true;
+                    }
+                    return false;
+                }
+            };*/
 
+               mRoundProcessDialog = new AlertDialog.Builder(mContext, R.style.TranslucentProcessDialog).create();
+               //mRoundProcessDialog.setOnKeyListener(keyListener);
+               //点击无法取消
+               //mRoundProcessDialog.setCancelable(false);
+               mRoundProcessDialog.show();
+               // 注意此处要放在show之后 否则会报异常
+               mRoundProcessDialog.setContentView(R.layout.activity_loading_process);
+          }
+     }
+
+     /**
+      * 取消等待圈
+      */
+     public static void dismissRoundProcessDialog() {
+          if (mRoundProcessDialog != null) {
+               mRoundProcessDialog.dismiss();
+               mRoundProcessDialog = null;
+          }
+     }
+
+    /**
+     * 取消加载圈并弹出加载失败
+     * @param context
+     */
+    public static void ToaDis(Context context){
+         Tools.dismissRoundProcessDialog();
+         Toast.makeText(context, "加载失败", Toast.LENGTH_SHORT).show();
+     }
 
 }

@@ -28,6 +28,7 @@ import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.bean.JPListBean;
 import maoyan.pjs.com.maoyan.bean.KRListBean;
 import maoyan.pjs.com.maoyan.bean.USListBean;
+import maoyan.pjs.com.maoyan.bean.WaitExpctBean;
 import maoyan.pjs.com.maoyan.bean.WaitListBean;
 import maoyan.pjs.com.maoyan.fragment.CinemaFragment;
 import maoyan.pjs.com.maoyan.fragment.FindFragment;
@@ -50,7 +51,7 @@ public class HttpUtils {
      * @param url
      * @param iv_welcome
      */
-    public static void getGuideImage(String url, final ImageView iv_welcome) {
+    public static void getGuideImage(String url, final ImageView iv_welcome, final Context context) {
 
         OkHttpUtils
                 .get()
@@ -62,6 +63,7 @@ public class HttpUtils {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Log.i("TAG", "请求引导页面=" + e.getMessage());
+                        Tools.ToaDis(context);
                     }
 
                     @Override
@@ -136,8 +138,10 @@ public class HttpUtils {
     /**
      * 热映界面list列表数据
      * @param url
+     * @param context
      */
-    public static void getFireList(String url) {
+    public static void getFireList(String url, final Context context) {
+
 
         OkHttpUtils
                 .get()
@@ -147,12 +151,13 @@ public class HttpUtils {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "热映界面list列表数据请求错误="+e.getMessage());
+                        Tools.ToaDis(context);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        Tools.dismissRoundProcessDialog();
 //                        Log.i("TAG", "热映界面list列表数据请求成功="+response);
-//                        percessData(response); percessData parseJson
                         FireListBean fireData = new Gson().fromJson(response, FireListBean.class);
                         List<FireListBean.DataBean.HotBean> moviesData = fireData.getData().getHot();
                         if(moviesData!=null&&moviesData.size()>0) {
@@ -166,8 +171,9 @@ public class HttpUtils {
     /**
      * 待映下部分数据
      * @param url
+     * @param context
      */
-    public static void getWaitListData(String url) {
+    public static void getWaitListData(String url, final Context context) {
 
         OkHttpUtils
                 .get()
@@ -177,10 +183,12 @@ public class HttpUtils {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "待映下部分数据请求错误="+e.getMessage());
+                      Tools.ToaDis(context);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
+                        Tools.dismissRoundProcessDialog();
 //                        Log.i("TAG", "待映下部分数据请求成功="+response);
                         WaitListBean waitListBean = new Gson().fromJson(response, WaitListBean.class);
                         WaitListBean.DataBean data = waitListBean.getData();
@@ -244,11 +252,13 @@ public class HttpUtils {
                 @Override
                 public void onError(Call call, Exception e, int id) {
                     Log.i("TAG", "美国数据请求失败"+e.getMessage());
+                    Tools.ToaDis(context);
                 }
 
                 @Override
                 public void onResponse(String response, int id) {
                     Log.i("TAG", "美国数据请求成功"+response);
+                    Tools.dismissRoundProcessDialog();
                     USListBean usListBean2 = new Gson().fromJson(response, USListBean.class);
                     List<USListBean.DataBean.ComingBean> comingData2 = usListBean2.getData().getComing();
                     if(comingData2!=null&&comingData2.size()>0) {
@@ -270,11 +280,13 @@ public class HttpUtils {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "韩国数据请求失败"+e.getMessage());
+                Tools.ToaDis(context);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "韩国数据请求成功"+response);
+                Tools.dismissRoundProcessDialog();
                 KRListBean krListBean = new Gson().fromJson(response, KRListBean.class);
                 List<KRListBean.DataBean.HotBean> hotData = krListBean.getData().getHot();
                 if(hotData!=null&&hotData.size()>0) {
@@ -297,11 +309,13 @@ public class HttpUtils {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "日本数据请求成功"+e.getMessage());
+                Tools.ToaDis(context);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "日本数据请求成功"+response);
+                Tools.dismissRoundProcessDialog();
                 JPListBean jpListBean = new Gson().fromJson(response, JPListBean.class);
                 List<JPListBean.DataBean.HotBean> hotBeen = jpListBean.getData().getHot();
                 if(hotBeen!=null&&hotBeen.size()>0) {
@@ -518,8 +532,9 @@ public class HttpUtils {
     /**
      * 请求发现下部分数据
      * @param url
+     * @param context
      */
-    public static void getListData(String url) {
+    public static void getListData(String url, Context context) {
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
@@ -534,6 +549,50 @@ public class HttpUtils {
                 List<FindListBean.DataBean.FeedsBean> feedList = dataBean.getFeeds();
                 if(feedList!=null&&feedList.size()>0) {
                     FindFragment.adapter.setListData(feedList);
+                }
+            }
+        });
+    }
+
+    /**
+     * 请求待映预告推荐
+     */
+    public static void getWaitRecommend(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "请求待映预告推荐失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "请求待映预告推荐成功="+response);
+                USListBean waitRecomBean = new Gson().fromJson(response, USListBean.class);
+                List<USListBean.DataBean.ComingBean> recomData = waitRecomBean.getData().getComing();
+                if(recomData!=null&&recomData.size()>0) {
+                    WaitFragment.adapter.setRecomData(recomData);
+                }
+            }
+        });
+    }
+
+    /**
+     * 请求待映最受期待
+     */
+    public static void WaitExpct(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "请求待映最受期待失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "请求待映最受期待成功="+response);
+                WaitExpctBean waitExpctBean = new Gson().fromJson(response, WaitExpctBean.class);
+                List<WaitExpctBean.DataBean.MoviesBean> moviesData = waitExpctBean.getData().getMovies();
+                if(moviesData!=null&&moviesData.size()>0){
+                    WaitFragment.adapter.setExpctData(moviesData);
                 }
             }
         });

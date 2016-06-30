@@ -74,7 +74,7 @@ public class FindFragment extends BaseFragment {
         HttpUtils.getRadioButton(Constant.FindRadioButton);
 
         //请求List数据
-        HttpUtils.getListData(Constant.FindList);
+        HttpUtils.getListData(Constant.FindList,context);
     }
 
     private void init() {

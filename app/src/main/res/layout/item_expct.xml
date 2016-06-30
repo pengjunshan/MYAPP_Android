@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="110dp"
+    android:layout_height="210dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginRight="3dp"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="5dp"
+        >
+        <TextView
+            android:id="@+id/tv_rt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8月5日"
+            />
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="137dp"
+            android:layout_marginTop="6dp"
+            android:layout_below="@+id/tv_rt"
+            >
+            <ImageView
+                android:id="@+id/iv_img"
+                android:layout_width="100dp"
+                android:layout_height="137dp"
+                android:src="@mipmap/lh"
+                android:scaleType="centerCrop"
+                />
+
+            <TextView
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="#cceeeeee"
+                />
+            <ImageView
+                android:id="@+id/iv_islike"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/iv_islike_selector"
+                android:layout_alignLeft="@+id/iv_img"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="6dp"
+                />
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_nm"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:text="致青春·原来你还在这里"
+            android:layout_above="@+id/tv_wish"
+            android:textColor="@color/black"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="6dp"
+            android:textSize="12sp"
+            />
+
+        <TextView
+            android:id="@+id/tv_wish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="220708想看"
+            android:textSize="10sp"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
+</RelativeLayout>

@@ -18,6 +18,7 @@ import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -119,14 +120,17 @@ public class OverseasFragment extends BaseFragment {
             switch (tab.getPosition()){
                 case 0://联网请求美国数据
                     HttpUtils.getUSData(Constant.USUrl,context);
+                    Tools.showRoundProcessDialog(context);
                     break;
 
                 case 1://联网请求韩国数据
                     HttpUtils.getKRData(Constant.KRUrl,context);
+                    Tools.showRoundProcessDialog(context);
                     break;
 
                 case 2://联网请求日本数据
                     HttpUtils.getJPSData(Constant.JPUrl,context);
+                    Tools.showRoundProcessDialog(context);
                     break;
 
             }
