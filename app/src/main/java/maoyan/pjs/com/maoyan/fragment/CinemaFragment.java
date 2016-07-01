@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,10 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.activity.WebViewAcitivy;
 import maoyan.pjs.com.maoyan.adapter.CinemaAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -43,6 +46,7 @@ public class CinemaFragment extends BaseFragment {
             switch (msg.what){
                 case 0:
                     tv_position.setText(mapLocation.get("detail").toString());
+                    Log.i("TAG", "地址="+mapLocation.get("detail").toString());
                     adapter.setLocation(mapLocation.get("lng").toString(),mapLocation.get("lat").toString());
                     break;
 
@@ -77,6 +81,7 @@ public class CinemaFragment extends BaseFragment {
         super.initData();
         Log.i("TAG", "影院");
         init();
+
         //获取附近位置
         HttpUtils.getNearbyLocation(Constant.CinemaLocation);
 
@@ -84,7 +89,8 @@ public class CinemaFragment extends BaseFragment {
         HttpUtils.getCinemaVP(Constant.CinemaVP);
 
         //请求影院List
-        HttpUtils.getCinemaList(Constant.CinemaList);
+        HttpUtils.getCinemaList(Constant.CinemaList,context);
+        Tools.showRoundProcessDialog(context);
 
         recyclerView.setOnTouchListener(new MyOnTouchListener());
     }
@@ -93,6 +99,15 @@ public class CinemaFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         adapter = new CinemaAdapter(context);
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickLitener(new CinemaAdapter.OnItemClickLitener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                Intent intent=new Intent(context, WebViewAcitivy.class);
+                intent.putExtra("url",Constant.CinemaWeb);
+                context.startActivity(intent);
+            }
+        });
     }
 
     class MyOnTouchListener implements View.OnTouchListener {

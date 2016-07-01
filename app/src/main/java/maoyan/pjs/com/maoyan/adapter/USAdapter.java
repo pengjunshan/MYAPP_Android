@@ -68,8 +68,8 @@ public class USAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             imaUrl = imaUrl.replace("w.h", "165.220");
             Glide.with(context).load(imaUrl)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.vp3)//加载过程中的图片
-                    .error(R.mipmap.vp3)//加载失败的时候显示的图片
+                    .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
+                    .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
                     .into(((USWaitHolder) holder).iv_icon);//请求成功后把图片设置到的控件
 
         }

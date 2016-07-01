@@ -29,6 +29,10 @@ public class GuideActivity extends AppCompatActivity {
                 case 0:
                     ac.setAnimotion();
                     break;
+                case 1:
+                    ac.startActivity(new Intent(ac, MainActivity.class));
+                    ac.finish();
+                    break;
 
             }
         }

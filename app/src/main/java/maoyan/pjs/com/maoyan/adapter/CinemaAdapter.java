@@ -5,7 +5,6 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,8 +56,6 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }else if(holder instanceof ContentHolder) {
             if(changPData!=null&&changPData.size()>0) {
                 CinemaListBean.DataBean.changpingquBean changPingBean = changPData.get(position - 1);
-                Log.i("TAG", "昌平区Bean="+changPingBean.getBrd());
-                Log.i("TAG", "昌平区Bean="+changPingBean.getNm());
 
                 ((ContentHolder)holder).tv_nm.setText(changPingBean.getNm());
                 ((ContentHolder)holder).tv_sellPrice.setText(changPingBean.getSellPrice()+"");
@@ -142,6 +139,15 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             tv_seat = (TextView) itemView.findViewById(R.id.tv_seat);//座
             tv_goup = (TextView) itemView.findViewById(R.id.tv_goup);//团
             tv_snact = (TextView) itemView.findViewById(R.id.tv_snact);//小吃
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onItemClickLitener!=null) {
+                        onItemClickLitener.onItemClick(v,getLayoutPosition());
+
+                    }
+                }
+            });
         }
     }
 
@@ -174,8 +180,8 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             Glide.with(context).load(map.get("imgUrl").toString())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.vp3)//加载过程中的图片
-                    .error(R.mipmap.vp3)//加载失败的时候显示的图片
+                    .placeholder(R.mipmap.lh)//加载过程中的图片
+                    .error(R.mipmap.lh)//加载失败的时候显示的图片
                     .into(imageView);//请求成功后把图片设置到的控件
 
             container.addView(imageView);
@@ -186,6 +192,16 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public void destroyItem(ViewGroup container, int position, Object object) {
             container.removeView((View) object);
         }
+    }
+
+    private OnItemClickLitener onItemClickLitener;
+
+    public void setOnItemClickLitener(OnItemClickLitener onItemClickLitener) {
+        this.onItemClickLitener = onItemClickLitener;
+    }
+
+    public interface OnItemClickLitener{
+        void onItemClick(View v,int position);
     }
 
 }

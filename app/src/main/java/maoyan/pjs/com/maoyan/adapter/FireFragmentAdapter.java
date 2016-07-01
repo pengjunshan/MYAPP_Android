@@ -6,7 +6,6 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,17 +37,20 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         }
     };
-    private static List<Map<String, Object>> listVP;
+    public static List<Map<String, Object>> listVP;
 
     private LayoutInflater mLayoutInflater;
     private static Context mContext;
     private int mHeaderCount = 1;//头部View个数
+    public static FireViewPagerAdapter vpAdapter;
     //list下的数据
-    private List<FireListBean.DataBean.HotBean> moviesData;
+    public static List<FireListBean.DataBean.HotBean> moviesData;
 
-    public FireFragmentAdapter(Context context, Handler handler) {
+    public FireFragmentAdapter(Context context, Handler handler, List<Map<String, Object>> listVP, List<FireListBean.DataBean.HotBean> moviesData) {
         mContext = context;
         this.handler = handler;
+        this.listVP=listVP;
+        this.moviesData=moviesData;
 
         mLayoutInflater = LayoutInflater.from(context);
     }
@@ -79,23 +81,28 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     /**
-     * 得到头部viewpager数据
-     *
-     * @param listVP
+     * 清空所有数据
      */
-    public void setViewPagerData(List<Map<String, Object>> listVP) {
-        this.listVP = listVP;
+    public void deleteData() {
+        listVP.clear();
+        vpAdapter.deleteData();
+        moviesData.clear();
+        notifyItemRangeChanged(0,moviesData.size());
     }
 
     /**
-     * 获取下部分数据
-     *
+     * 数据
+     * @param listVP
      * @param moviesData
      */
-    public void setListData(List<FireListBean.DataBean.HotBean> moviesData) {
-        this.moviesData = moviesData;
+    public void setData(List<Map<String, Object>> listVP, List<FireListBean.DataBean.HotBean> moviesData) {
+        this.listVP=listVP;
+        this.moviesData=moviesData;
+//        notifyItemRangeChanged(0,moviesData.size());
+        notifyDataSetChanged();
+        vpAdapter.setVPData(listVP);
+//        HeaderViewHolder.setVPcurrent();
     }
-
 
     //内容 ViewHolder
     public static class ContentViewHolder extends RecyclerView.ViewHolder {
@@ -130,16 +137,23 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         public HeaderViewHolder(View itemView) {
             super(itemView);
-
             fire_viewpager = (ViewPager) itemView.findViewById(R.id.fire_viewpager);
+            vpAdapter=new FireViewPagerAdapter(mContext, listVP);
             if (listVP != null && listVP.size() > 0) {
+                fire_viewpager.setAdapter(vpAdapter);
+                setVPcurrent();
+            }
+        }
 
-                fire_viewpager.setAdapter(new FireViewPagerAdapter(mContext, listVP));
-                //设置显示在最大值的中间
-                int centitem = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % listVP.size();
-                fire_viewpager.setCurrentItem(centitem);
-
-                FireFragment.handler.sendEmptyMessageDelayed(2, 3000);
+        /**
+         * 设置 viewpager样式
+         */
+        public static void setVPcurrent() {
+            //设置显示在最大值的中间
+            if(listVP.size()!=0) {
+            int centitem = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % listVP.size();
+            fire_viewpager.setCurrentItem(centitem);
+            FireFragment.handler.sendEmptyMessageDelayed(2, 3000);
             }
         }
     }
@@ -164,12 +178,14 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder) {
-
+           /* if (listVP != null && listVP.size() > 0) {
+                ((HeaderViewHolder)holder).fire_viewpager.setAdapter(vpAdapter);
+                ((HeaderViewHolder)holder).setVPcurrent();
+            }*/
         } else if (holder instanceof ContentViewHolder) {
             if (moviesData != null && moviesData.size() > 0) {
                 FireListBean.DataBean.HotBean moviesBean = moviesData.get(position - 1);
                 ((ContentViewHolder) holder).tv_title.setText(moviesBean.getNm());
-                Log.i("TAG", "isValue3d=" + moviesBean.getVer());
                 if (!moviesBean.getVer().toString().contains("3D")) {
                     ((ContentViewHolder) holder).tv_3d.setVisibility(View.GONE);
                 } else {
@@ -199,29 +215,24 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                     ((ContentViewHolder) holder).btn_bay.setVisibility(View.GONE);
                 }
         if(moviesBean.getHeadLinesVO()!=null&&moviesBean.getHeadLinesVO().size()>0) {
-//            moviesBean.getHeadLinesVO().get(position-1).getTitle();
             ((ContentViewHolder) holder).recyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
             ((ContentViewHolder) holder).recyclerView.setAdapter(new FireSpecialAdapter(mContext, moviesBean.getHeadLinesVO()));
         }else {
-//            Log.i("TAG", "没有");
         }
                 String imaUrl = moviesBean.getImg();
                 imaUrl = imaUrl.replace("w.h", "165.220");
                 Glide.with(mContext).load(imaUrl)
                         .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                        .placeholder(R.mipmap.vp3)//加载过程中的图片
-                        .error(R.mipmap.vp3)//加载失败的时候显示的图片
+                        .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
+                        .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
                         .into(((ContentViewHolder) holder).iv_icon);//请求成功后把图片设置到的控件
-
             }
         }
-
 
     }
 
     @Override
     public int getItemCount() {
-//        return mHeaderCount + getContentItemCount();
         return mHeaderCount + getContentItemCount();
     }
 
@@ -247,7 +258,6 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (headLinesVO != null && headLinesVO.size() > 0) {
                 FireListBean.DataBean.HotBean.HeadLinesVOBean headLinesVOBean = this.headLinesVO.get(position);
-                Log.i("TAG", "headLinesVO.getTitle()=" + headLinesVOBean.getTitle());
                 ((SpeciaHolder) holder).tv_special_title.setText(headLinesVOBean.getType());
                 ((SpeciaHolder) holder).tv_special_content.setText(headLinesVOBean.getTitle());
             }

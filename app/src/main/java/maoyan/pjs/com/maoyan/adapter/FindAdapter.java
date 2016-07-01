@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -17,8 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.activity.WebViewAcitivy;
 import maoyan.pjs.com.maoyan.bean.FindListBean;
 import maoyan.pjs.com.maoyan.fragment.FindFragment;
+import maoyan.pjs.com.maoyan.util.Constant;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/28.
@@ -220,16 +225,61 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public static class FindVPHolder extends RecyclerView.ViewHolder{
 
         public static ViewPager viewpager;
+        public static LinearLayout ll_point;
+        private int currentPoint;
         public FindVPHolder(View itemView) {
             super(itemView);
             viewpager = (ViewPager) itemView.findViewById(R.id.viewpager);
+            ll_point = (LinearLayout) itemView.findViewById(R.id.ll_point);
             if(VPData!=null&&VPData.size()>0) {
                 viewpager.setAdapter(new VPAdapter(context,VPData));
                 //设置显示在最大值的中间
                 int centitem = Integer.MAX_VALUE / 2 - Integer.MAX_VALUE / 2 % VPData.size();
                 viewpager.setCurrentItem(centitem);
+                for (int i = 0; i <VPData.size(); i++) {
+                    ImageView point =new ImageView(context);
+                    point.setBackgroundResource(R.drawable.findpoint);
 
+                    LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Tools.dip2px(context,6),Tools.dip2px(context,6));
+                    if(i==0) {
+                        point.setEnabled(true);
+                    }else {
+                        point.setEnabled(false);
+                        params.leftMargin=Tools.dip2px(context,10);
+                    }
+                    point.setLayoutParams(params);
+                    ll_point.addView(point);
+                }
+                viewpager.addOnPageChangeListener(new MyOnPageChangeListener());
                 FindFragment.handler.sendEmptyMessageDelayed(1, 3000);
+            }
+
+
+        }
+
+        class MyOnPageChangeListener implements ViewPager.OnPageChangeListener {
+
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                int realposition=position%VPData.size();
+                //设置上一个点的enable为false
+                //ll_group_point.getChildAt(position) --->ImageView
+                ll_point.getChildAt(currentPoint).setEnabled(false);
+                //设置当前点的enable为true
+                ll_point.getChildAt(realposition).setEnabled(true);
+                //把当前的值赋值给
+                currentPoint=realposition;
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
             }
         }
     }
@@ -305,10 +355,11 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     /**
      * 头部RadioButton的Holder
      */
-    class FindRadioButtn extends RecyclerView.ViewHolder{
+    class FindRadioButtn extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView iv_topic,iv_information,iv_movielib,iv_boxoffice;
         private TextView tv_topic,tv_information,tv_movielib,tv_boxoffice;
+        private LinearLayout ll_topic,ll_information,ll_movielib,ll_boxoffice;
 
         public FindRadioButtn(View itemView) {
             super(itemView);
@@ -320,6 +371,16 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             tv_information = (TextView) itemView.findViewById(R.id.tv_information);
             tv_movielib = (TextView) itemView.findViewById(R.id.tv_movielib);
             tv_boxoffice = (TextView) itemView.findViewById(R.id.tv_boxoffice);
+
+            ll_topic = (LinearLayout) itemView.findViewById(R.id.ll_topic);
+            ll_information = (LinearLayout) itemView.findViewById(R.id.ll_information);
+            ll_movielib = (LinearLayout) itemView.findViewById(R.id.ll_movielib);
+            ll_boxoffice = (LinearLayout) itemView.findViewById(R.id.ll_boxoffice);
+
+            ll_topic.setOnClickListener(this);
+            ll_information.setOnClickListener(this);
+            ll_movielib.setOnClickListener(this);
+            ll_boxoffice.setOnClickListener(this);
 
             if(RbmapList!=null&&RbmapList.size()>0) {
 
@@ -359,6 +420,33 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                         .into(iv_boxoffice);//请求成功后把图片设置到的控件
             }
 
+
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(context, WebViewAcitivy.class);
+            Tools.showRoundProcessDialog(context);
+            switch (v.getId()){
+                case R.id.ll_topic:
+                    intent.putExtra("url", Constant.FindTopic);
+                    break;
+
+                case R.id.ll_information:
+                    intent.putExtra("url", Constant.FindInformation);
+                    break;
+
+                case R.id.ll_movielib:
+
+                    break;
+
+                case R.id.ll_boxoffice:
+
+                    break;
+
+            }
+            context.startActivity(intent);
         }
     }
 
@@ -393,8 +481,8 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             Glide.with(context).load(map.get("imgUrl").toString())
                     .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.vp3)//加载过程中的图片
-                    .error(R.mipmap.vp3)//加载失败的时候显示的图片
+                    .placeholder(R.mipmap.lh)//加载过程中的图片
+                    .error(R.mipmap.lh)//加载失败的时候显示的图片
                     .into(imageView);//请求成功后把图片设置到的控件
 
             container.addView(imageView);

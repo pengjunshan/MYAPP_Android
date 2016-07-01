@@ -3,12 +3,15 @@ package maoyan.pjs.com.maoyan.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +31,22 @@ import maoyan.pjs.com.maoyan.util.Tools;
  */
 public class FireFragment extends BaseFragment {
 
-    private MaterialRefreshLayout mRefresh;
+    public static MaterialRefreshLayout mRefresh;
 
     private static RecyclerView mRecyclerView;
 
     public static FireFragmentAdapter adapter;
+    //正常状态
+    public static final String START_NORMAL="nomal";
 
+    //下拉刷新
+    public static final String START_REFRESH="refresh";
+
+    //上拉加载
+    public static final String START_MORE="loadmore";
+
+    //当前状态
+    public static String start=START_NORMAL;
 
     public static Handler handler = new Handler() {
         @Override
@@ -41,13 +54,7 @@ public class FireFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
-                    adapter.setViewPagerData(listVP);
-                    adapter.notifyItemRangeChanged(0, 1);
-                    break;
-
-                case 1:
-                    adapter.setListData(moviesData);
-                    adapter.notifyItemRangeChanged(2, moviesData.size());
+                    Toast.makeText(context,"没有数据了....",Toast.LENGTH_SHORT).show();
                     break;
 
                 case 2:
@@ -90,35 +97,89 @@ public class FireFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        Log.i("TAG", "FireFragment");
+        init();
+        setRefresh();
+    }
 
-        /**
-         * 请求ViewPager数据
-         */
-        HttpUtils.getFireViewPager(Constant.FireVPUrl);
+
+
+    private void init() {
 
         /**
          * 请求List集合
          */
         HttpUtils.getFireList(Constant.FireListUrl,context);
         Tools.showRoundProcessDialog(context);
-
-        init();
-
-    }
-
-    private void init() {
-
-        //设置布局管理器
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-
-        adapter = new FireFragmentAdapter(context,handler);
-        mRecyclerView.setAdapter(adapter);
-
-        //recyclerview关联适配器
 //        mRefresh.setSunStyle(true);
+    }
 
+    private void refreshData() {
+        start=START_REFRESH;
+        HttpUtils.getFireList(Constant.FireListUrl,context);
+    }
+
+    private void setRefresh() {
+        mRefresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        refreshData();
+                    }
+                }.start();
+
+            }
+
+            @Override
+            public void onfinish() {
+                super.onfinish();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+//                super.onRefreshLoadMore(materialRefreshLayout);
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        SystemClock.sleep(1000);
+                        mRefresh.finishRefreshLoadMore();
+                        handler.sendEmptyMessage(0);
+                    }
+                }.start();
+            }
+        });
     }
 
 
+    public static void showData() {
+        switch (start){
+            case START_NORMAL://第一次
+                //设置布局管理器
+                Log.i("TAG", "刷新数据111**listVP="+listVP.toString()+"刷新数据111**moviesData="+moviesData);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
+                adapter = new FireFragmentAdapter(context,handler,listVP,moviesData);
+                mRecyclerView.setAdapter(adapter);
+                break;
+
+            case START_REFRESH://下拉
+                //清空数据
+                adapter.deleteData();
+                //填充新的数据
+                Log.i("TAG", "刷新数据222**listVP="+listVP.toString()+"刷新数据222**moviesData="+moviesData);
+                adapter.setData(listVP,moviesData);
+                //隐藏加载圈
+                mRefresh.finishRefresh();
+                Toast.makeText(context, "刷新完成", Toast.LENGTH_SHORT).show();
+                break;
+
+            case START_MORE://上拉
+
+                break;
+
+
+        }
+    }
 }

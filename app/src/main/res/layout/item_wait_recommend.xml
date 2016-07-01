@@ -25,9 +25,9 @@
         android:layout_margin="10dp"
         android:gravity="center_vertical">
 
-        <android.support.v7.widget.RecyclerView
+        <maoyan.pjs.com.maoyan.view.HorizontalScrollRecyclerView
             android:id="@+id/recom_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="110dp"></android.support.v7.widget.RecyclerView>
+            android:layout_height="110dp"/>
     </RelativeLayout>
 </RelativeLayout>

@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-<include layout="@layout/cinema_title"></include>
+
+<include layout="@layout/cinema_title"
+    android:id="@+id/title"
+    ></include>
+
     <com.cjj.MaterialRefreshLayout
+        android:layout_below="@+id/title"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/refresh"
@@ -65,7 +70,7 @@
         <ImageView
             android:id="@+id/iv_locationq"
             android:layout_width="20dp"
-            android:layout_height="30dp"
+            android:layout_height="20dp"
             android:src="@mipmap/locationq"
             android:scaleType="fitXY"
             android:layout_margin="6dp"
@@ -74,4 +79,4 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

@@ -64,6 +64,7 @@ public class HttpUtils {
                     public void onError(Call call, Exception e, int id) {
                         Log.i("TAG", "请求引导页面=" + e.getMessage());
                         Tools.ToaDis(context);
+                        GuideActivity.handler.sendEmptyMessage(1);
                     }
 
                     @Override
@@ -98,8 +99,9 @@ public class HttpUtils {
     /**
      * 热映界面-ViewPager
      * @param url
+     * @param context
      */
-    public static void getFireViewPager(String url) {
+    public static void getFireViewPager(String url, final Context context) {
 
         OkHttpUtils
                 .get()
@@ -109,24 +111,28 @@ public class HttpUtils {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "热映界面-ViewPager请求失败="+e.getMessage());
+                        Tools.ToaDis(context);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
 //                        Log.i("TAG", "热映界面-ViewPager请求成功="+response);
+                        Tools.dismissRoundProcessDialog();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
-
+                            List<Map<String, Object>> listVP = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject json  = (JSONObject) jsonArray.get(i);
                                 Map<String,Object> map=new HashMap<String, Object>();
                                 String imgUrl = json.optString("imgUrl");
                                 map.put("imgUrl",imgUrl);
-                                FireFragment.listVP.add(map);
+                               listVP.add(map);
                             }
-                            FireFragment.handler.sendEmptyMessage(0);
-
+                            if(listVP.size()>0) {
+                                FireFragment.listVP=listVP;
+                            }
+                            FireFragment.showData();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -156,13 +162,13 @@ public class HttpUtils {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        Tools.dismissRoundProcessDialog();
+                        //请求ViewPager数据
+                        HttpUtils.getFireViewPager(Constant.FireVPUrl,context);
 //                        Log.i("TAG", "热映界面list列表数据请求成功="+response);
                         FireListBean fireData = new Gson().fromJson(response, FireListBean.class);
                         List<FireListBean.DataBean.HotBean> moviesData = fireData.getData().getHot();
                         if(moviesData!=null&&moviesData.size()>0) {
                             FireFragment.moviesData=moviesData;
-                            FireFragment.handler.sendEmptyMessage(1);
                         }
                     }
                 });
@@ -369,19 +375,21 @@ public class HttpUtils {
     /**
      * 影院List
      * @param url
+     * @param context
      */
-    public static void getCinemaList(String url) {
+    public static void getCinemaList(String url, final Context context) {
 
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "影院List请求失败="+e.getMessage());
+                Tools.ToaDis(context);
             }
 
             @Override
             public void onResponse(String result, int id) {
                 Log.i("TAG", "影院List请求成功="+result);
-
+                Tools.dismissRoundProcessDialog();
                 result = result.replace("朝阳区", "chaoyangqu");
                 result = result.replace("海淀区", "haidianqu");
                 result = result.replace("东城区", "dongchengqu");
@@ -534,15 +542,17 @@ public class HttpUtils {
      * @param url
      * @param context
      */
-    public static void getListData(String url, Context context) {
+    public static void getListData(String url, final Context context) {
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "请求发现下部分数据请求失败="+e.getMessage());
+                Tools.ToaDis(context);
             }
 
             @Override
             public void onResponse(String response, int id) {
+                Tools.dismissRoundProcessDialog();
                 Log.i("TAG", "请求发现下部分数据请求成功="+response);
                 FindListBean findListBean = new Gson().fromJson(response, FindListBean.class);
                 FindListBean.DataBean dataBean = findListBean.getData();

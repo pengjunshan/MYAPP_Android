@@ -42,6 +42,9 @@ public class Constant {
     //影院List
     public static String CinemaList="http://m.maoyan.com/cinemas.json";
 
+    //影院详情web
+    public static String CinemaWeb="http://m.maoyan.com/showtime/wrap.json？cinemaid=11533&movieid=request";
+
     //影院自己定位
     public static String CinemaLocation="http://api.meituan.com/group/v1/city/latlng/40.100609,116.379419?tag=0&__vhost=api.mobile.meituan.com&utm_campaign=AmovieBmovieCD100&movieBundleVersion=6901&utm_source=baidumobile1&utm_medium=android&utm_term=6.9.0&utm_content=869402021153646&ci=1&net=255&dModel=m1%20metal&uuid=28C0DE2C5A3F109C808BE007F1011AE88795D9EFF3B99C9B3601DCF7840739F9&lat=40.100609&lng=116.379419&__skck=6a375bce8c66a0dc293860dfa83833ef&__skts=1466919887167&__skua=7e01cf8dd30a179800a7a93979b430b2&__skno=95ebe12d-34d4-44c7-ac81-84999238cb2d&__skcy=V20eSp4FVyIhwwKjcrFXS%2FPzTZ4%3D";
 
@@ -50,6 +53,13 @@ public class Constant {
 
     //发现RadioButton
     public static String FindRadioButton="http://api.meituan.com/sns/v2/buttons.json?__vhost=api.maoyan.com&utm_campaign=AmovieBmovieC110189035496448D100&movieBundleVersion=6901&utm_source=baidumobile1&utm_medium=android&utm_term=6.9.0&utm_content=869402021153646&ci=1&net=255&dModel=m1%20metal&uuid=28C0DE2C5A3F109C808BE007F1011AE88795D9EFF3B99C9B3601DCF7840739F9&lat=40.099691&lng=116.379849&__skck=6a375bce8c66a0dc293860dfa83833ef&__skts=1466944454392&__skua=7e01cf8dd30a179800a7a93979b430b2&__skno=4d91f230-f3a6-4b30-be47-535f32662bef&__skcy=P%2F3L0aHPYjEixgVGWW3%2BfvZokVg%3D";
+
+    //发现专题web
+    public static String FindTopic="http://m.maoyan.com/groups?_v_=yes&f=android&userid=-1&pushToken=7e6bd5fe73912116ed3ca24d473265cc37ad738879f590efaf0a436f905b945b103b4d6d4a8cb7a6cd70f822f26ffff9&cityId=1";
+
+    //发现资讯
+    public static String FindInformation="http://m.maoyan.com/groups?_v_=yes&f=android&userid=-1&pushToken=7e6bd5fe73912116ed3ca24d473265cc37ad738879f590efaf0a436f905b945b103b4d6d4a8cb7a6cd70f822f26ffff9&cityId=1";
+
 
     //发现list
     public static String FindList="http://api.meituan.com/sns/v4/feed.json?offset=0&limit=10&timestamp=0&__vhost=api.maoyan.com&utm_campaign=AmovieBmovieC110189035496448D100&movieBundleVersion=6901&utm_source=baidumobile1&utm_medium=android&utm_term=6.9.0&utm_content=869402021153646&ci=1&net=255&dModel=m1%20metal&uuid=28C0DE2C5A3F109C808BE007F1011AE88795D9EFF3B99C9B3601DCF7840739F9&lat=40.099691&lng=116.379849&__skck=6a375bce8c66a0dc293860dfa83833ef&__skts=1466944454477&__skua=7e01cf8dd30a179800a7a93979b430b2&__skno=ce21806c-859d-470d-9e17-f8b39c3cff45&__skcy=QoQpYrnAsakUImzbUn3%2B07PiKKc%3D";

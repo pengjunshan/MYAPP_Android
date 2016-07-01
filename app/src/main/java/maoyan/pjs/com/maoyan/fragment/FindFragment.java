@@ -19,6 +19,7 @@ import maoyan.pjs.com.maoyan.adapter.FindAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -75,6 +76,8 @@ public class FindFragment extends BaseFragment {
 
         //请求List数据
         HttpUtils.getListData(Constant.FindList,context);
+
+        Tools.showRoundProcessDialog(context);
     }
 
     private void init() {

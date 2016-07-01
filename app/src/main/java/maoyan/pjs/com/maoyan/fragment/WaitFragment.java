@@ -27,7 +27,7 @@ public class WaitFragment extends BaseFragment {
 
     private MaterialRefreshLayout wait_refresh;
 
-    private RecyclerView wait_recyclerView;
+    public static RecyclerView wait_recyclerView;
 
     public static WaitFragmentAdapter adapter;
 
@@ -77,14 +77,11 @@ public class WaitFragment extends BaseFragment {
     }
 
     private void init() {
-
-        //设置布局管理器
-        wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-
         //关联适配器
         adapter=new WaitFragmentAdapter(context);
         wait_recyclerView.setAdapter(adapter);
-
+        //设置布局管理器
+        wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
 
     }
 }
