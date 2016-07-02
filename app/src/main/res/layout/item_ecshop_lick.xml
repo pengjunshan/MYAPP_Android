@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="210dp">
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:src="@mipmap/backgroud_logo02"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:layout_below="@+id/iv_icon"
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="GetD格多维 3D偏光眼镜 近视夹片式"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            />
+        <LinearLayout
+            android:layout_below="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:text="15.9"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
+                android:textSize="12sp"
+                android:textColor="@color/red"
+                />
+
+
+            <TextView
+                android:id="@+id/tv_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="68元"
+                android:textSize="12sp"
+                android:layout_marginLeft="8dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

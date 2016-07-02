@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.cjj.MaterialRefreshLayout;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.List;
 
@@ -79,6 +80,20 @@ public class WaitFragment extends BaseFragment {
     private void init() {
         //关联适配器
         adapter=new WaitFragmentAdapter(context);
+
+        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
+        wait_recyclerView.addItemDecoration(headersDecor);
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                headersDecor.invalidateHeaders();
+            }
+        });  //刷新数据的时候回刷新头部
+
+        wait_recyclerView.addItemDecoration(headersDecor);
+        headersDecor.invalidateHeaders();
+
+//设置adapter
         wait_recyclerView.setAdapter(adapter);
         //设置布局管理器
         wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));

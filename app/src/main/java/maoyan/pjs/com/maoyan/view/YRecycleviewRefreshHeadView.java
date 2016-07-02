@@ -73,7 +73,6 @@ public class YRecycleviewRefreshHeadView extends LinearLayout {
         iv_normal = (ImageView)findViewById(R.id.iv_normal);
         pb_loading = (ProgressBar)findViewById(R.id.pb_loading);
 
-
         //查找头布局控件
         //刷新状态字体
 //        tv_y_recycleview_head_refresh_status = (TextView) findViewById(R.id.tv_y_recycleview_head_refresh_status);

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:gravity="center_vertical"
+    >
+<LinearLayout
+    android:id="@+id/ll_shop_type"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    >
+    <RelativeLayout
+        android:id="@+id/rl_theme"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tv_theme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系列/主题"
+            android:textSize="14sp"
+            />
+        <ImageView
+            android:id="@+id/iv_themeimg"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginTop="3dp"
+            android:src="@mipmap/down"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_theme"
+            />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/rl_unde"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tv_unde"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="数码"
+            android:textSize="14sp"
+            />
+        <ImageView
+            android:id="@+id/iv_undeimg"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginTop="3dp"
+            android:src="@mipmap/down"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_unde"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_sort"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="1"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/tv_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="排序"
+            android:textSize="14sp"
+            />
+        <ImageView
+            android:id="@+id/iv_sortimg"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_marginTop="3dp"
+            android:src="@mipmap/down"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_sort"
+            />
+
+    </RelativeLayout>
+</LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_alignParentBottom="true"
+        ></View>
+</RelativeLayout>

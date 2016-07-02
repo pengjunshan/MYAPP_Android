@@ -1,8 +1,14 @@
 package maoyan.pjs.com.maoyan.util;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import maoyan.pjs.com.maoyan.R;
 
@@ -103,5 +109,46 @@ public class Tools {
           final float scale = context.getResources().getDisplayMetrics().density;
           return (int) (pxValue / scale + 0.5f);
      }
+
+    /**
+     * 请求图片
+     * @param context
+     * @param imgUrl
+     * @param imageView
+     */
+     public static void loadImage(Context context,String imgUrl,ImageView imageView){
+          Glide.with(context).load(imgUrl)
+                  .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
+                  .placeholder(R.mipmap.lh)//加载过程中的图片
+                  .error(R.mipmap.lh)//加载失败的时候显示的图片
+                  .into(imageView);//请求成功后把图片设置到的控件
+     }
+
+    /**
+     * 获取窗口宽度
+     *
+     * @param ac
+     * @return
+     */
+    public static int getScreenWidth(Activity ac) {
+        DisplayMetrics dm = new DisplayMetrics();
+        ac.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.widthPixels;
+        return screenWidth;
+    }
+
+    /**
+     * 获取窗口
+     *
+     * @param ac
+     * @return
+     */
+    public static int getScreenHeight(Activity ac) {
+        DisplayMetrics dm = new DisplayMetrics();
+        ac.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int screenWidth = dm.heightPixels;
+        return screenWidth;
+    }
+
 
 }

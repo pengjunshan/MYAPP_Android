@@ -15,6 +15,7 @@
 
     <color name="light_grey">#ededed</color>
     <color name="divider">#e8e8e8</color>
+    <color name="divider2">#EBEBEB</color>
     <color name="background">#eeeeee</color>
     <color name="left_menu_bg">#221E1E</color>
     <color name="gray3">#333</color>

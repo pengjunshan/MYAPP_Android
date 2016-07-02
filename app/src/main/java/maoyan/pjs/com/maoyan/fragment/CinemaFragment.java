@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,13 +28,14 @@ import maoyan.pjs.com.maoyan.base.BaseFragment;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.util.Tools;
+import maoyan.pjs.com.maoyan.view.CinemaSeverPopWindow;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
  */
-public class CinemaFragment extends BaseFragment {
+public class CinemaFragment extends BaseFragment implements View.OnClickListener {
 
-    private RelativeLayout rl_location;
+    public static RelativeLayout rl_location,cinema_title;
     public static TextView tv_position;
     private MaterialRefreshLayout refresh;
     private RecyclerView recyclerView;
@@ -73,6 +76,14 @@ public class CinemaFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         tv_position = (TextView) view.findViewById(R.id.tv_position);
         rl_location = (RelativeLayout) view.findViewById(R.id.rl_location);
+        cinema_title = (RelativeLayout) view.findViewById(R.id.cinema_title);
+        ll_adr = (LinearLayout) view.findViewById(R.id.ll_adr);
+        iv_sever = (ImageView) view.findViewById(R.id.iv_sever);
+        iv_search = (ImageView) view.findViewById(R.id.iv_search);
+        ll_adr.setOnClickListener(this);
+        iv_sever.setOnClickListener(this);
+        iv_search.setOnClickListener(this);
+
         return view;
     }
 
@@ -96,9 +107,11 @@ public class CinemaFragment extends BaseFragment {
     }
 
     private void init() {
-        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         adapter = new CinemaAdapter(context);
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+
+
 
         adapter.setOnItemClickLitener(new CinemaAdapter.OnItemClickLitener() {
             @Override
@@ -109,6 +122,7 @@ public class CinemaFragment extends BaseFragment {
             }
         });
     }
+
 
     class MyOnTouchListener implements View.OnTouchListener {
 
@@ -133,5 +147,28 @@ public class CinemaFragment extends BaseFragment {
         }
     }
 
+    private LinearLayout ll_adr;
+    private ImageView iv_sever,iv_search;
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()){
+            case R.id.ll_adr:
+
+                break;
+
+            case R.id.iv_sever://打开快捷服务
+                CinemaSeverPopWindow cinemaSeverPopWindow = new CinemaSeverPopWindow(context);
+                cinemaSeverPopWindow.showAsDropDown(cinema_title, 0, 0);
+                Log.i("TAG", "打开服务界面");
+                break;
+
+            case R.id.iv_search:
+
+                break;
+
+
+        }
+    }
 }

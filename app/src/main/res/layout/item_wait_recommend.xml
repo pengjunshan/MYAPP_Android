@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="135dp">
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -21,7 +21,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_below="@+id/tv_title"
         android:layout_margin="10dp"
         android:gravity="center_vertical">
 
@@ -30,4 +29,4 @@
             android:layout_width="match_parent"
             android:layout_height="110dp"/>
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

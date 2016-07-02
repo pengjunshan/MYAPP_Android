@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +29,8 @@ import maoyan.pjs.com.maoyan.bean.WaitListBean;
  */
 
 
-public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+                                 implements StickyRecyclerHeadersAdapter<RecyclerView.ViewHolder>{
 
     private final Context mContext;
     private LayoutInflater inflater;
@@ -58,10 +60,13 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else if (viewType == 2) {
             View view = inflater.inflate(R.layout.item_wait_expct, parent, false);
             return new ExpctHolder(view);
+        }else if(viewType==3) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.item_wait, parent, false);
+            return new ContentHolder(view);
         }
-
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_wait, parent, false);
-        return new ContentHolder(view);
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -89,7 +94,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
 
 
-                //是否显示标题
+               /* //是否显示标题
                 String rt = itemData.getRt();
                 for (int i = 0; i < comingData.indexOf(itemData); i++) {
                     if (rt.equals(comingData.get(i).getRt())) {
@@ -112,7 +117,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
                 rt = sdf2.format(date);
 
-                ((ContentHolder) holder).tv_data.setText(rt);
+                ((ContentHolder) holder).tv_data.setText(rt);*/
 
 
                 String imaUrl = itemData.getImg();
@@ -125,6 +130,75 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
         }
+    }
+
+    private int parseDate(String strDate) {
+
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("MM月dd日 E");
+        SimpleDateFormat sdf3 = new SimpleDateFormat("yyyyMMdd");
+        Date date = null;//提取格式中的日期
+        try {
+            date = sdf1.parse(strDate);
+            String strDate1 = sdf3.format(date);
+            int intDate = Integer.parseInt(strDate1);
+            testDate = sdf2.format(date);
+            return intDate;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    private TextView commonTitle;
+    private class HeaderViewHolder extends RecyclerView.ViewHolder {
+        public HeaderViewHolder(View view) {
+            super(view);
+
+            commonTitle = (TextView) view;
+        }
+    }
+
+    @Override
+    public long getHeaderId(int position) {
+//        if (currType == WAIT_MOVIE) {
+        if(comingData!=null&&comingData.size()>0) {
+            if (position == 0) {
+                return -1;
+            }else if(position==1) {
+                return -2;
+            }else if(position==2) {
+                return -3;
+            }
+            return parseDate(comingData.get(position-3).getRt());
+//        }
+        }
+        return -1;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateHeaderViewHolder(ViewGroup parent) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_header, parent, false);
+        return new HeaderViewHolder(view);
+    }
+
+    private String testDate;
+    @Override
+    public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(getHeaderId(position)==-2) {
+            commonTitle.setVisibility(View.VISIBLE);
+            commonTitle.setText("预告片推荐");
+        }
+        if(getHeaderId(position)==-3) {
+            commonTitle.setVisibility(View.VISIBLE);
+            commonTitle.setText("近期最受期待");
+        }
+        if (getHeaderId(position) == parseDate(comingData.get(position-3).getRt())) {
+            commonTitle.setText(testDate);
+        } else if (getHeaderId(position) == -1) {
+            commonTitle.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -232,7 +306,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             btn_bay = (Button) itemView.findViewById(R.id.btn_bay);
             btn_per = (Button) itemView.findViewById(R.id.btn_per);
             iv_img = (ImageView) itemView.findViewById(R.id.iv_img);
-            tv_data = (TextView) itemView.findViewById(R.id.tv_data);
+//            tv_data = (TextView) itemView.findViewById(R.id.tv_data);
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
 
         }

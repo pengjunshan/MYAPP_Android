@@ -3,24 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="#d43e37">
-    <TextView
-        android:id="@+id/tv_address"
+    <LinearLayout
+        android:id="@+id/ll_adr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawablePadding="3dp"
+        android:orientation="horizontal"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="8dp"
-        android:text="地址"
-        android:textColor="@color/white"
-        android:textSize="15sp" />
+        >
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawablePadding="3dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:text="地址"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
 
-    <ImageView
-        android:layout_width="16dp"
-        android:layout_height="15dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/tv_address"
-        android:src="@mipmap/show_city" />
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="15dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="3dp"
+            android:layout_toRightOf="@+id/tv_address"
+            android:src="@mipmap/show_city" />
+
+    </LinearLayout>
+
 
 <TextView
     android:layout_width="wrap_content"
@@ -32,6 +42,7 @@
     />
 
     <ImageView
+        android:id="@+id/iv_sever"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@mipmap/select"
@@ -41,6 +52,7 @@
         />
 
     <ImageView
+        android:id="@+id/iv_search"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:src="@mipmap/search"

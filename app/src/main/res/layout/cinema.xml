@@ -4,11 +4,11 @@
     android:layout_height="match_parent">
 
 <include layout="@layout/cinema_title"
-    android:id="@+id/title"
+    android:id="@+id/cinema_title"
     ></include>
 
     <com.cjj.MaterialRefreshLayout
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/cinema_title"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/refresh"

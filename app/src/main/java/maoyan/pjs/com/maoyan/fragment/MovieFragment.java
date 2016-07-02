@@ -189,32 +189,7 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
         }
     }
 
-
-
-    /*class MyOnTabSelectedListener implements TabLayout.OnTabSelectedListener {
-
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            movie_topicViewpager.setCurrentItem(tab.getPosition());
-        }
-
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-
-        }
-
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    }*/
-
     class MyPagerAdapter extends PagerAdapter {
-/*
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitle[position];
-        }*/
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {

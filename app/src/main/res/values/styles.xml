@@ -33,4 +33,9 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!-- toolbar样式-->
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionMenuTextColor">#ffffff</item>
+    </style>
+
 </resources>

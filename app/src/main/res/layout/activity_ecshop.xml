@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="maoyan.pjs.com.maoyan.activity.MovieLibActivity">
+
+
+    <maoyan.pjs.com.maoyan.view.YRecycleview
+        android:id="@+id/shop_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </maoyan.pjs.com.maoyan.view.YRecycleview>
+
+    <include layout="@layout/ecshop_title"
+        android:id="@+id/ecshop_title"
+        ></include>
+
+</RelativeLayout>

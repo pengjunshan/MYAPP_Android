@@ -3,7 +3,7 @@ package maoyan.pjs.com.maoyan.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class ceshiActivity extends AppCompatActivity {
             list.add("于" + i);
         }
         final DemoAdapter demoAdapter = new DemoAdapter(list);
-        ycl.setLayoutManager(new LinearLayoutManager(this));
+        ycl.setLayoutManager(new GridLayoutManager(this,2));
         ycl.setAdapter(demoAdapter);
         ycl.setRefreshAndLoadMoreListener(new YRecycleview.OnRefreshAndLoadMoreListener() {
             @Override

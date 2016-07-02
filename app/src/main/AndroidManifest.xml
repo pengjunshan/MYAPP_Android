@@ -12,16 +12,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.GuideActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.WebViewAcitivy" />
-        <activity android:name=".activity.ceshiActivity">
+        <activity android:name=".activity.ceshiActivity" />
+        <activity android:name=".activity.MovieLibActivity" />
+        <activity android:name=".activity.ECshopActivity" />
+        <activity android:name=".activity.ShopTypeActivity">
 
         </activity>
     </application>

@@ -23,6 +23,7 @@ import maoyan.pjs.com.maoyan.fragment.CinemaFragment;
 import maoyan.pjs.com.maoyan.fragment.FindFragment;
 import maoyan.pjs.com.maoyan.fragment.MovieFragment;
 import maoyan.pjs.com.maoyan.fragment.MyFragment;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 public class MainActivity extends FragmentActivity {
 
@@ -32,6 +33,9 @@ public class MainActivity extends FragmentActivity {
     private RadioGroup btm_radiogroup;
     private RadioButton rb_movie;
     private int currentPosition=0;
+
+    public static int screenWidth;
+    public static int screenHeight;
 
 
     @Override
@@ -48,10 +52,11 @@ public class MainActivity extends FragmentActivity {
         top_frameLayout = (FrameLayout)findViewById(R.id.top_frameLayout);
         btm_radiogroup = (RadioGroup)findViewById(R.id.btm_radiogroup);
         rb_movie = (RadioButton)findViewById(R.id.rb_movie);
-
         btm_radiogroup.check(currentPosition);
         rb_movie.setChecked(true);
 
+        screenWidth = Tools.getScreenWidth(ac);
+        screenHeight = Tools.getScreenHeight(ac);
     }
 
     private void initData() {

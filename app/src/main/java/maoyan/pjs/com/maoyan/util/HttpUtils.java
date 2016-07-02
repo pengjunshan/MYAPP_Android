@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.util;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -18,11 +19,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import maoyan.pjs.com.maoyan.activity.ECshopActivity;
 import maoyan.pjs.com.maoyan.activity.GuideActivity;
+import maoyan.pjs.com.maoyan.activity.ShopTypeActivity;
+import maoyan.pjs.com.maoyan.adapter.ECshopAdapter;
 import maoyan.pjs.com.maoyan.adapter.JPAdapter;
 import maoyan.pjs.com.maoyan.adapter.KRAdapter;
 import maoyan.pjs.com.maoyan.adapter.USAdapter;
 import maoyan.pjs.com.maoyan.bean.CinemaListBean;
+import maoyan.pjs.com.maoyan.bean.ECshopBean;
 import maoyan.pjs.com.maoyan.bean.FindListBean;
 import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.bean.JPListBean;
@@ -607,4 +612,78 @@ public class HttpUtils {
             }
         });
     }
+
+
+    /**
+     * 我的-viewpager
+     * @param url
+     * @param ac
+     */
+    public static void getMeVP(String url, final Context ac) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "我的-viewpager请求数据失败="+e.getMessage());
+                Tools.ToaDis(ac);
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Tools.dismissRoundProcessDialog();
+                Log.i("TAG", "我的-viewpager请求数据成功="+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    List<Map<String,Object>> mapList= new ArrayList<Map<String, Object>>();
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Map<String,Object> map=new HashMap<String, Object>();
+                        JSONObject object = (JSONObject) jsonArray.get(i);
+                        String imgUrl = object.optString("imgUrl");
+                        String url = object.optString("url");
+                        map.put("imgUrl",imgUrl);
+                        map.put("url",url);
+                        mapList.add(map);
+                    }
+                    if(mapList.size()>0) {
+                        ECshopActivity.adapter=new ECshopAdapter(ac,mapList);
+                        ECshopActivity.recyclerView.setAdapter(ECshopActivity.adapter);
+                        ECshopActivity.recyclerView.setLayoutManager(new LinearLayoutManager(ac,LinearLayoutManager.VERTICAL,false));
+//                        ECshopActivity.adapter.setVP(mapList);
+                        Log.i("TAG", "请求到了");
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    /**
+     * 获取商城中十个数据
+     */
+    public static void getShopNum(final Context context, String url, final int type) {
+         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+             @Override
+             public void onError(Call call, Exception e, int id) {
+                 Log.i("TAG", "获取商城中十个数据请求失败="+e.getMessage());
+                 Tools.ToaDis(context);
+             }
+
+             @Override
+             public void onResponse(String response, int id) {
+                 Log.i("TAG", "获取商城中十个数据请求成功"+response);
+                 Tools.dismissRoundProcessDialog();
+                 ECshopBean eCshopBean = new Gson().fromJson(response, ECshopBean.class);
+                 List<ECshopBean.DataBean.ListBean> listData = eCshopBean.getData().getList();
+                 if(listData.size()>0) {
+                     ShopTypeActivity.listData=listData;
+                     ShopTypeActivity.handler.sendEmptyMessage(0);
+                     ShopTypeActivity.setType(type);
+                 }
+             }
+
+         });
+    }
+
+
 }

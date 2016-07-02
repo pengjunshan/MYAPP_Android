@@ -37,6 +37,7 @@ public class USFragment extends BaseFragment {
 
                 case 1:
                     recyclerView.setloadMoreComplete();
+                    recyclerView.setNoMoreData(true);
                     Toast.makeText(context, "没有更多数据了...", Toast.LENGTH_SHORT).show();
                     break;
             }

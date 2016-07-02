@@ -41,7 +41,5 @@ public class JPFragment extends BaseFragment {
 
     private void init() {
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-        /*adapter = new JPAdapter(context);
-        recyclerView.setAdapter(adapter);*/
     }
 }

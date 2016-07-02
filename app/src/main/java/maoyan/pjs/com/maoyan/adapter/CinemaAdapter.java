@@ -25,7 +25,7 @@ import maoyan.pjs.com.maoyan.util.Tools;
 /**
  * Created by pjs984312808 on 2016/6/28.
  */
-public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private static Context context;
     private static List<Map<String, Object>> mapList;

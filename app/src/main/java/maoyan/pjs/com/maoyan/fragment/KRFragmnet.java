@@ -38,16 +38,10 @@ public class KRFragmnet extends BaseFragment {
     public void initData() {
         super.initData();
         init();
-
-//        HttpUtils.getKRData(Constant.KRUrl);
     }
 
     private void init() {
         //设置布局管理器
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-
-        /*adapter =new KRAdapter(context);
-        //关联适配器
-        recyclerView.setAdapter(adapter);*/
     }
 }

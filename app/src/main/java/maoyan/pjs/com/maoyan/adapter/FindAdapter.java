@@ -429,22 +429,21 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             Intent intent=new Intent(context, WebViewAcitivy.class);
             Tools.showRoundProcessDialog(context);
             switch (v.getId()){
-                case R.id.ll_topic:
+                case R.id.ll_topic://话题
                     intent.putExtra("url", Constant.FindTopic);
                     break;
 
-                case R.id.ll_information:
+                case R.id.ll_information://资讯
                     intent.putExtra("url", Constant.FindInformation);
                     break;
 
-                case R.id.ll_movielib:
+                case R.id.ll_movielib://影库
 
                     break;
 
-                case R.id.ll_boxoffice:
-
+                case R.id.ll_boxoffice://票房
+                    intent.putExtra("url",Constant.FindBoxoffice);
                     break;
-
             }
             context.startActivity(intent);
         }

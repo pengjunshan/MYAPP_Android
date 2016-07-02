@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/goods_underwaty_re"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <View
+            android:id="@+id/id_underwaty_view01"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider"></View>
+
+        <TextView
+            android:id="@+id/id_underwaty_ing"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/id_underwaty_view01"
+            android:gravity="center_vertical"
+            android:text="   超蝙"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+
+        <View
+            android:id="@+id/id_underwaty_view02"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/id_underwaty_ing"
+            android:layout_marginLeft="10dp"
+            android:background="@color/divider"></View>
+
+        <TextView
+            android:id="@+id/id_underwaty_noing"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_below="@+id/id_underwaty_view02"
+            android:gravity="center_vertical"
+            android:text="   机器猫"
+            android:textColor="#333333"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
