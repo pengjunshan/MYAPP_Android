@@ -44,8 +44,8 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         ac=this;
         initFind();
-
         initData();
+
     }
 
     private void initFind() {

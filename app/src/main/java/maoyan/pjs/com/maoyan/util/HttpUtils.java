@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.util;
 
 import android.content.Context;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.widget.ImageView;
@@ -457,10 +458,46 @@ public class HttpUtils {
                     CinemaFragment.mapLocation.put("lng",lng);
 
                     CinemaFragment.handler.sendEmptyMessage(0);
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+            }
+        });
+    }
+    /**
+     * 获取附近位置
+     */
+    public static void getNearbyLocation2(String url) {
+        OkHttpUtils.get().url(url).build().execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                Log.i("TAG", "获取附近位置失败="+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response, int id) {
+                Log.i("TAG", "获取附近位置成功="+response);
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String jsonObjectString = jsonObject.getString("data");
+                    JSONObject jsonObject1 = new JSONObject(jsonObjectString);
+
+                    String city = jsonObject1.optString("city");//城市名 北京
+                    String province = jsonObject1.optString("province");//北京市
+                    String district = jsonObject1.optString("district");//区名
+                    String detail = jsonObject1.optString("detail");//附近地点名
+                    String lat = jsonObject1.optString("lat");//经纬度
+                    String lng = jsonObject1.optString("lng");//经纬度
+
+                        Message message =Message.obtain();
+                        message.what=1;
+                        message.obj=city;
+                        FireFragment.handler.sendMessage(message);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
     }
@@ -661,7 +698,7 @@ public class HttpUtils {
     /**
      * 获取商城中十个数据
      */
-    public static void getShopNum(final Context context, String url, final int type) {
+    public static void getShopNum(final Context context, final String url, final int type) {
          OkHttpUtils.get().url(url).build().execute(new StringCallback() {
              @Override
              public void onError(Call call, Exception e, int id) {
@@ -677,8 +714,14 @@ public class HttpUtils {
                  List<ECshopBean.DataBean.ListBean> listData = eCshopBean.getData().getList();
                  if(listData.size()>0) {
                      ShopTypeActivity.listData=listData;
-                     ShopTypeActivity.handler.sendEmptyMessage(0);
+                     Message message=Message.obtain();
+                     message.obj=url;
+                     message.what=0;
+                     ShopTypeActivity.handler.sendMessage(message);
                      ShopTypeActivity.setType(type);
+                 }
+                 if(type==0) {
+                     ShopTypeActivity.handler.sendEmptyMessage(1);
                  }
              }
 

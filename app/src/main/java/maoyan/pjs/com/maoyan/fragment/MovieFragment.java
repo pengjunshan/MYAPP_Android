@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -17,24 +18,20 @@ import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.droid.Activity01;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
  */
 public class MovieFragment extends BaseFragment implements View.OnClickListener {
 
+    private static String city;
     private LinearLayout ll_point;
     private ImageView iv_point;
-    private TextView tv_fire,tv_wait,tv_overseas;
-
-//    private TabLayout movie_topictile;
-//    private String[] mTitle = new String[]{"热映", "待映", "海外"};
-
+    public static TextView tv_fire,tv_wait,tv_overseas,tv_address;
     private ViewPager movie_topicViewpager;
-    
     private List<BaseFragment> listFragment;
-
-
+    private LinearLayout ll_adr;
 
     /**
      * 两个标题的间距
@@ -49,11 +46,13 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
     public View initView() {
 
         View view=View.inflate(context, R.layout.moviefragment,null);
-//        movie_topictile = (TabLayout) view.findViewById(R.id.movie_topictile);
         movie_topicViewpager = (ViewPager) view.findViewById(R.id.movie_topicViewpager);
         ll_point = (LinearLayout) view.findViewById(R.id.ll_point);
         iv_point = (ImageView) view.findViewById(R.id.iv_point);
 
+        tv_address = (TextView) view.findViewById(R.id.tv_address);
+
+        ll_adr = (LinearLayout) view.findViewById(R.id.ll_adr);
         tv_fire = (TextView) view.findViewById(R.id.tv_fire);
         tv_wait = (TextView) view.findViewById(R.id.tv_wait);
         tv_overseas = (TextView) view.findViewById(R.id.tv_overseas);
@@ -61,16 +60,15 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
         tv_fire.setOnClickListener(this);
         tv_wait.setOnClickListener(this);
         tv_overseas.setOnClickListener(this);
+        ll_adr.setOnClickListener(this);
         return view;
     }
-
 
     @Override
     public void initData() {
         super.initData();
         Log.i("TAG", "MovieFragment");
         init();
-
     }
 
     private void init() {
@@ -88,13 +86,6 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
 
         setOnClick();
 
-
-
-       /* //TabLayout关联viewpager
-        movie_topictile.setupWithViewPager(movie_topicViewpager);
-
-        //设置滚动模式
-        movie_topictile.setTabMode(TabLayout.MODE_SCROLLABLE);*/
     }
 
     private void setOnClick(){
@@ -105,10 +96,6 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
 
         //监听viewpager
         movie_topicViewpager.addOnPageChangeListener(new MyOnPageChangeListener());
-
-
-         /*  //监听tabLayout
-        movie_topictile.setOnTabSelectedListener(new MyOnTabSelectedListener());*/
 
     }
 
@@ -126,7 +113,17 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
             case R.id.tv_overseas:
                 movie_topicViewpager.setCurrentItem(2);
                 break;
+
+            case R.id.ll_adr:
+                Intent intent=new Intent(context, Activity01.class);
+                intent.putExtra("city",city);
+                context.startActivity(intent);
+                break;
         }
+    }
+
+    public static void setCity(Object obj) {
+        city= (String) obj;
     }
 
     class MyOnGlobalLayoutListener implements ViewTreeObserver.OnGlobalLayoutListener {
@@ -174,7 +171,11 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public void onPageSelected(int position) {
-        listFragment.get(position).initData();
+            BaseFragment fragment = listFragment.get(position);
+            if(!fragment.isFragment) {
+                fragment.isFragment=true;
+                listFragment.get(position).initData();
+            }
             for (int i = 0; i <3 ; i++) {
                 //先设置所有为白色
                 ((TextView) (ll_point.getChildAt(i))).setTextColor(Color.WHITE);
@@ -193,8 +194,6 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-
-
             BaseFragment fragment = listFragment.get(position);
             View rootView = fragment.rootView;
             container.addView(rootView);

@@ -2,8 +2,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="46dp"
-    android:background="#d43e37">
-
+    android:background="@color/maoyan_title__red">
+    <LinearLayout
+        android:id="@+id/ll_adr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        >
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="wrap_content"
@@ -14,13 +20,15 @@
         android:text="地址"
         android:textColor="@color/white"
         android:textSize="15sp" />
+</LinearLayout>
 
     <ImageView
         android:layout_width="16dp"
         android:layout_height="15dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="3dp"
-        android:layout_toRightOf="@+id/tv_address"
+        android:layout_toRightOf="@+id/ll_adr"
+        android:layout_marginTop="2dp"
         android:src="@mipmap/show_city" />
 
     <RelativeLayout

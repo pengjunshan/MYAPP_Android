@@ -1,9 +1,11 @@
 package maoyan.pjs.com.maoyan.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -48,6 +50,8 @@ public class FireFragment extends BaseFragment {
     //当前状态
     public static String start=START_NORMAL;
 
+    private boolean isShowDialog;
+
     public static Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -55,6 +59,10 @@ public class FireFragment extends BaseFragment {
             switch (msg.what) {
                 case 0:
                     Toast.makeText(context,"没有数据了....",Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 1:
+                    showDialog(msg.obj);
                     break;
 
                 case 2:
@@ -66,6 +74,24 @@ public class FireFragment extends BaseFragment {
             }
         }
     };
+
+    private static void showDialog(final Object obj) {
+        AlertDialog dialog=new AlertDialog.Builder(context)
+                .setMessage("你目前位置"+obj.toString()+" 是否更改？")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                            MovieFragment.tv_address.setText(obj.toString());
+                        MovieFragment.setCity(obj);
+                    }
+                }).show();
+        dialog.getWindow().setLayout(Tools.dip2px(context,280), Tools.dip2px(context,160));
+    }
 
     /**
      * 获取热映viewpager的图片
@@ -92,6 +118,7 @@ public class FireFragment extends BaseFragment {
         mRefresh = (MaterialRefreshLayout) view.findViewById(R.id.sp_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.sp_recyclerView);
         return view;
+
     }
 
     @Override
@@ -110,6 +137,10 @@ public class FireFragment extends BaseFragment {
          */
         HttpUtils.getFireList(Constant.FireListUrl,context);
         Tools.showRoundProcessDialog(context);
+        if(!isShowDialog) {
+            HttpUtils.getNearbyLocation2(Constant.CinemaLocation);
+            isShowDialog=true;
+        }
 //        mRefresh.setSunStyle(true);
     }
 

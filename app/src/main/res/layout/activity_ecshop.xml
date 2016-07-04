@@ -5,12 +5,13 @@
     android:layout_height="match_parent"
     tools:context="maoyan.pjs.com.maoyan.activity.MovieLibActivity">
 
-
     <maoyan.pjs.com.maoyan.view.YRecycleview
         android:id="@+id/shop_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </maoyan.pjs.com.maoyan.view.YRecycleview>
+
+
 
     <include layout="@layout/ecshop_title"
         android:id="@+id/ecshop_title"

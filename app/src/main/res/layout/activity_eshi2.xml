@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="maoyan.pjs.com.maoyan.activity.eshiActivity2">
+
+    <maoyan.pjs.com.maoyan.view.ObservableScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<maoyan.pjs.com.maoyan.view.YRecycleview
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    ></maoyan.pjs.com.maoyan.view.YRecycleview>
+
+    </maoyan.pjs.com.maoyan.view.ObservableScrollView>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@null"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:title=" " />
+</RelativeLayout>

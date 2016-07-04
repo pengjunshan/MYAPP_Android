@@ -11,5 +11,5 @@
     android:textColor="@color/black"
     tools:text="Animals"
     android:gravity="center_vertical"
-    android:layout_marginLeft="10dp"
+    android:paddingLeft="10dp"
     />

@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.activity;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,8 +9,9 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import maoyan.pjs.com.maoyan.R;
@@ -20,13 +22,13 @@ import maoyan.pjs.com.maoyan.util.HttpUtils;
 /**
  * 我的-商城
  */
-public class ECshopActivity extends AppCompatActivity {
+public class ECshopActivity extends AppCompatActivity{
 
     private ECshopActivity ac;
     public static RecyclerView recyclerView;
     public static ECshopAdapter adapter;
     private LinearLayout ecshop_title,ll_ecshop01;
-    private GestureDetector detector;
+    private ImageView iv_search;
 
     public static Handler handler=new Handler(){
         @Override
@@ -42,7 +44,7 @@ public class ECshopActivity extends AppCompatActivity {
             }
         }
     };
-
+    private int height;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,28 +59,18 @@ public class ECshopActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.shop_recyclerview);
         ecshop_title = (LinearLayout)findViewById(R.id.ecshop_title);
         ll_ecshop01 = (LinearLayout)findViewById(R.id.ll_ecshop01);
-
-        detector=new GestureDetector(ac,new GestureDetector.SimpleOnGestureListener(){
+        iv_search = (ImageView)findViewById(R.id.iv_search);
+        iv_search.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return super.onSingleTapUp(e);
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                super.onLongPress(e);
-            }
-
-            @Override
-            public boolean onDoubleTap(MotionEvent e) {
-                return super.onDoubleTap(e);
+            public void onClick(View v) {
+                startActivity(new Intent(ac, ShopCartActivity.class));
             }
         });
 
     }
 
     private void initData() {
-        ecshop_title.getBackground().setAlpha(50);
+//        ecshop_title.getBackground().setAlpha(50);
         HttpUtils.getMeVP(Constant.MeVP,ac);
     }
 
@@ -89,7 +81,7 @@ public class ECshopActivity extends AppCompatActivity {
 
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.i("TAG*******快好吧", "event.getY():" + event.getY() + "event.getRawY():" + event.getRawY());
+//                Log.i("TAG*******快好吧", "event.getY():" + event.getY() + "event.getRawY():" + event.getRawY());
 
                 //数组长度必须为2
                 int[] locations = new int[2];
@@ -98,7 +90,7 @@ public class ECshopActivity extends AppCompatActivity {
                 int y = locations[1];//获取组件当前位置的纵坐标
                 Log.i("TAG*******相約酒吧", "x:" + x + "y:" + y);
 
-                Log.i("TAG*******来吧来吧", "距离上部距离：" +ECshopAdapter.HeardHolder.ll_ecshop01.getTop() + "距离下部距离:" + ECshopAdapter.HeardHolder.ll_ecshop01.getBottom());
+//                Log.i("TAG*******来吧来吧", "距离上部距离：" +ECshopAdapter.HeardHolder.ll_ecshop01.getTop() + "距离下部距离:" + ECshopAdapter.HeardHolder.ll_ecshop01.getBottom());
                 break;
             case MotionEvent.ACTION_UP:
 

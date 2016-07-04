@@ -14,7 +14,10 @@ public abstract class BaseFragment extends Fragment {
     public View rootView;
     public boolean isFragment;
 
-   public BaseFragment(Context context){
+    public BaseFragment() {
+    }
+
+    public BaseFragment(Context context){
 
        this.context=context;
        rootView=initView();

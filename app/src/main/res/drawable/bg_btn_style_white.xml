@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--默认的时候-->
+    <item android:state_pressed="false">
+
+        <shape android:shape="rectangle">
+
+            <corners android:radius="2dp"></corners>
+            <solid android:color="#ffffff"></solid>
+            <stroke android:width="2dp" android:color="#dddddd"></stroke>
+        </shape>
+
+    </item>
+
+    <!--点击的时候-->
+    <item android:state_pressed="true">
+
+        <shape android:shape="rectangle">
+
+            <corners android:radius="2dp"></corners>
+            <solid android:color="#ffd8d8d8"></solid>
+            <stroke android:width="2dp" android:color="#dddddd"></stroke>
+        </shape>
+
+    </item>
+
+    <!--不高亮-->
+    <item android:state_enabled="false">
+
+        <shape android:shape="rectangle">
+            <corners android:radius="2dp"></corners>
+            <solid android:color="#7fd8d8d8"></solid>
+            <stroke android:width="2dp" android:color="#dddddd"></stroke>
+        </shape>
+
+    </item>
+
+</selector>

@@ -25,6 +25,7 @@ import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.activity.WebViewAcitivy;
 import maoyan.pjs.com.maoyan.adapter.CinemaAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.droid.Activity01;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.util.Tools;
@@ -155,13 +156,12 @@ public class CinemaFragment extends BaseFragment implements View.OnClickListener
 
         switch (v.getId()){
             case R.id.ll_adr:
-
+                context.startActivity(new Intent(context, Activity01.class));
                 break;
 
             case R.id.iv_sever://打开快捷服务
                 CinemaSeverPopWindow cinemaSeverPopWindow = new CinemaSeverPopWindow(context);
                 cinemaSeverPopWindow.showAsDropDown(cinema_title, 0, 0);
-                Log.i("TAG", "打开服务界面");
                 break;
 
             case R.id.iv_search:

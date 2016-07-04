@@ -3,6 +3,7 @@ package maoyan.pjs.com.maoyan.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,14 +155,12 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private class HeaderViewHolder extends RecyclerView.ViewHolder {
         public HeaderViewHolder(View view) {
             super(view);
-
             commonTitle = (TextView) view;
         }
     }
 
     @Override
     public long getHeaderId(int position) {
-//        if (currType == WAIT_MOVIE) {
         if(comingData!=null&&comingData.size()>0) {
             if (position == 0) {
                 return -1;
@@ -171,7 +170,6 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 return -3;
             }
             return parseDate(comingData.get(position-3).getRt());
-//        }
         }
         return -1;
     }
@@ -185,18 +183,17 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private String testDate;
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if(getHeaderId(position)==-2) {
-            commonTitle.setVisibility(View.VISIBLE);
-            commonTitle.setText("预告片推荐");
-        }
-        if(getHeaderId(position)==-3) {
-            commonTitle.setVisibility(View.VISIBLE);
-            commonTitle.setText("近期最受期待");
-        }
+        Log.i("TAG", "getHeaderId(position)="+getHeaderId(position));
         if (getHeaderId(position) == parseDate(comingData.get(position-3).getRt())) {
             commonTitle.setText(testDate);
-        } else if (getHeaderId(position) == -1) {
+        }else if (getHeaderId(position) == -1) {
             commonTitle.setVisibility(View.GONE);
+        }else if(getHeaderId(position)==-2) {
+            commonTitle.setVisibility(View.VISIBLE);
+            commonTitle.setText("预告片推荐11");
+        }else if(getHeaderId(position)==-3) {
+            commonTitle.setVisibility(View.VISIBLE);
+            commonTitle.setText("近期最受期待22");
         }
 
     }

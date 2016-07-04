@@ -14,5 +14,7 @@
         android:layout_below="@+id/shop_title"
         android:id="@+id/ycl"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        />
 </RelativeLayout>

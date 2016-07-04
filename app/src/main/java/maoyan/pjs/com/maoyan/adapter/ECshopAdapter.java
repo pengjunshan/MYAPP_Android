@@ -7,8 +7,8 @@ import android.graphics.Paint;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +31,7 @@ import maoyan.pjs.com.maoyan.bean.ShopgrideBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.util.Tools;
+import maoyan.pjs.com.maoyan.view.SpacesItemDecoration;
 
 /**
  * Created by pjs984312808 on 2016/7/1.
@@ -190,7 +192,10 @@ public class ECshopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             recyclerview = (RecyclerView) itemView.findViewById(R.id.recyclerview);
             recyclerview.setAdapter(new ShopGrideAdapter(context,listBeen));
-            recyclerview.setLayoutManager(new GridLayoutManager(context,2));
+            recyclerview.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+            //设置item之间的间隔
+            SpacesItemDecoration decoration=new SpacesItemDecoration(Tools.dip2px(context,6));
+            recyclerview.addItemDecoration(decoration);
         }
     }
 
@@ -258,7 +263,6 @@ public class ECshopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             switch (v.getId()){
                 case R.id.ll_01:
                     HttpUtils.getShopNum(context,Constant.shop01,1);
-
                     break;
                 case R.id.ll_02:
                     HttpUtils.getShopNum(context,Constant.shop02,2);
@@ -341,6 +345,14 @@ public class ECshopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         public ShopGrideAdapter(Context context, List<ShopgrideBean.DataBean.ListBean> listBeen) {
             this.context=context;
             this.listData=listBeen;
+            initData();
+        }
+        private List<Integer> random;
+        private void initData() {
+            random=new ArrayList<>();
+            for (int i=0; i<listData.size();i++){
+                random.add((int) (200+Math.random()*200));
+            }
         }
 
         @Override
@@ -350,6 +362,11 @@ public class ECshopAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         @Override
         public void onBindViewHolder(ShopGriHolder holder, int position) {
+
+            ViewGroup.LayoutParams layoutParams = holder.iv_icon.getLayoutParams();
+            layoutParams.height=random.get(position);
+            holder.iv_icon.setLayoutParams(layoutParams);
+
             ShopgrideBean.DataBean.ListBean listBean = listData.get(position);
             holder.tv_title.setText(listBean.getTitle());
             holder.tv_price.setText(listBean.getPrice()+"");

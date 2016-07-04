@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,9 +21,12 @@ import java.util.List;
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.adapter.ShopTypeAdapter;
 import maoyan.pjs.com.maoyan.bean.ECshopBean;
+import maoyan.pjs.com.maoyan.util.HttpUtils;
+import maoyan.pjs.com.maoyan.util.Tools;
 import maoyan.pjs.com.maoyan.view.GoodsClassifyPopWindow;
 import maoyan.pjs.com.maoyan.view.GoodsNewupdatePopWindow;
 import maoyan.pjs.com.maoyan.view.GoodsUnderwatyPopWindow;
+import maoyan.pjs.com.maoyan.view.SpacesItemDecoration;
 import maoyan.pjs.com.maoyan.view.YRecycleview;
 
 public class ShopTypeActivity extends AppCompatActivity implements View.OnClickListener {
@@ -36,6 +39,7 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
     private static ImageView iv_themeimg,iv_undeimg,iv_sortimg;
     private RelativeLayout rl_theme,rl_unde,rl_sort;
     private LinearLayout ll_shop_type;
+    private static String url;
     public static Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -43,8 +47,15 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
             switch (msg.what){
                 case 0:
                     adapter = new ShopTypeAdapter(ac,listData);
-                    ycl.setLayoutManager(new GridLayoutManager(ac,2));
+                    url = (String) msg.obj;
+                    ycl.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                     ycl.setAdapter(adapter);
+
+                    break;
+                case 1:
+                    Toast.makeText(ac, "刷新成功", Toast.LENGTH_SHORT).show();
+                    ycl.setReFreshComplete();
+                    adapter.notifyItemRangeChanged(0,listData.size());
                     break;
             }
         }
@@ -71,16 +82,21 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
         rl_unde.setOnClickListener(this);
         rl_sort.setOnClickListener(this);
 
+        //设置item之间的间隔
+        SpacesItemDecoration decoration=new SpacesItemDecoration(Tools.dip2px(ac,6));
+        ycl.addItemDecoration(decoration);
 
         ycl.setRefreshAndLoadMoreListener(new YRecycleview.OnRefreshAndLoadMoreListener() {
             @Override
             public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
+               /* new Handler().postDelayed(new Runnable() {
                     public void run() {
+                        HttpUtils.getShopNum(ac,url,0);
                         Toast.makeText(ac, "刷新成功", Toast.LENGTH_SHORT).show();
                         ycl.setReFreshComplete();
                     }
-                }, 2500);
+                }, 2500);*/
+                HttpUtils.getShopNum(ac,url,0);
             }
 
             @Override
@@ -165,12 +181,16 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                         iv_themeimg.setImageResource(R.mipmap.down_shop_type);
                         iv_undeimg.setImageResource(R.mipmap.down);
                         iv_sortimg.setImageResource(R.mipmap.down);
+
                         tv_unde.setTextColor(Color.BLACK);
                         tv_sort.setTextColor(Color.BLACK);
                     }
                 });
                 tv_theme.setTextColor(Color.parseColor("#ff6666"));//颜色变红
                 iv_themeimg.setImageResource(R.mipmap.up_shop_type);//图标向上
+
+//                tv_unde.setTextColor(Color.parseColor("#000000"));//颜色变黑
+//                tv_sort.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
             case R.id.rl_unde:
@@ -180,11 +200,18 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onDismiss() {
                         iv_undeimg.setImageResource(R.mipmap.down_shop_type);//图标向下
+                        iv_themeimg.setImageResource(R.mipmap.down);
+                        iv_sortimg.setImageResource(R.mipmap.down);
 
+                        tv_theme.setTextColor(Color.BLACK);
+                        tv_sort.setTextColor(Color.BLACK);
                     }
                 });
                 tv_unde.setTextColor(Color.parseColor("#FF6666"));//颜色变红
                 iv_undeimg.setImageResource(R.mipmap.up_shop_type);//图标向上
+
+//                tv_theme.setTextColor(Color.parseColor("#000000"));//颜色变黑
+//                tv_sort.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
             case R.id.rl_sort:
@@ -201,12 +228,21 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                             id_goods_classify_image.setImageResource(R.mipmap.down_classify_red);
                         }*/
                         iv_sortimg.setImageResource(R.mipmap.down_shop_type);
+
+                        iv_undeimg.setImageResource(R.mipmap.down);
+                        iv_undeimg.setImageResource(R.mipmap.down);
+
+                        tv_unde.setTextColor(Color.BLACK);
+                        tv_unde.setTextColor(Color.BLACK);
                     }
                 });
                 //监听点击事件，点击其他位置，popupwindow小窗口消失
                 //变为红色向上箭头
                 tv_sort.setTextColor(Color.parseColor("#FF6666"));
                 iv_sortimg.setImageResource(R.mipmap.up_shop_type);
+//
+//                tv_theme.setTextColor(Color.parseColor("#000000"));//颜色变黑
+//                tv_unde.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
 

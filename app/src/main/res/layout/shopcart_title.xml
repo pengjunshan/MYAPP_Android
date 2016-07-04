@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/maoyan_title__red"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    >
+
+    <ImageView
+        android:id="@+id/iv_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/je"
+        />
+
+    <TextView
+        android:id="@+id/tv_cart_count"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="购物车(6)"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_centerInParent="true"
+        />
+    <TextView
+        android:id="@+id/tv_edite"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="编辑"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        />
+
+
+</RelativeLayout>

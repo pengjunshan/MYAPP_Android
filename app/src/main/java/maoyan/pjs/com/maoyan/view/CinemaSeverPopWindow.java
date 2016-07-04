@@ -1,6 +1,7 @@
 package maoyan.pjs.com.maoyan.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,6 +30,7 @@ public class CinemaSeverPopWindow extends PopupWindow implements View.OnClickLis
     private ServerleftAdapter serverAdapter;
 
     private ContentAdapter contentAdapter;
+    private int currentPosition=0;
 
     //地铁适配器
     private MetroleftAdapter metroleftAdapter;
@@ -88,6 +90,8 @@ public class CinemaSeverPopWindow extends PopupWindow implements View.OnClickLis
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String[] contents=null;
+                currentPosition=position;
+                serverAdapter.notifyDataSetChanged();
                 switch (position){
                     case 0:
                         contents=ConstantOb.adminis;
@@ -278,16 +282,18 @@ public class CinemaSeverPopWindow extends PopupWindow implements View.OnClickLis
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder=null;
+            ViewHolder holder=null;
             if(convertView==null) {
-                viewHolder=new ViewHolder();
+                holder=new ViewHolder();
                 convertView=LayoutInflater.from(context).inflate(R.layout.item_cinemapopcontent,parent,false);
-                viewHolder.iv_title= (TextView) convertView.findViewById(R.id.iv_title);
-                convertView.setTag(viewHolder);
+                holder.iv_title= (TextView) convertView.findViewById(R.id.iv_title);
+                convertView.setTag(holder);
             }else {
-                viewHolder= (ViewHolder) convertView.getTag();
+                holder= (ViewHolder) convertView.getTag();
             }
-            viewHolder.iv_title.setText(contents[position]);
+
+
+            holder.iv_title.setText(contents[position]);
             return convertView;
         }
 
@@ -338,6 +344,17 @@ public class CinemaSeverPopWindow extends PopupWindow implements View.OnClickLis
                 convertView.setTag(holder);
             }else {
                 holder= (ViewHolder) convertView.getTag();
+            }
+            if(currentPosition==position) {
+                holder.iv_title.setEnabled(true);
+                holder.iv_title.setTextColor(Color.RED);
+                convertView.setBackgroundColor(Color.WHITE);
+                holder.iv_title.setBackgroundColor(Color.WHITE);
+            }else {
+                holder.iv_title.setEnabled(false);
+                holder.iv_title.setTextColor(Color.BLACK);
+                convertView.setBackgroundColor(Color.parseColor("#FAFAFA"));
+                holder.iv_title.setBackgroundColor(Color.parseColor("#FAFAFA"));
             }
             holder.iv_title.setText(leftData[position]);
             return convertView;

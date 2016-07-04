@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="56dp"
-    android:background="#d43e37">
+    android:layout_height="46dp"
+    android:background="@color/maoyan_title__red">
     <LinearLayout
         android:id="@+id/ll_adr"
         android:layout_width="wrap_content"
@@ -17,7 +17,7 @@
             android:drawablePadding="3dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:text="地址"
+            android:text="北京"
             android:textColor="@color/white"
             android:textSize="15sp" />
 
@@ -27,6 +27,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="3dp"
             android:layout_toRightOf="@+id/tv_address"
+            android:layout_marginTop="2dp"
             android:src="@mipmap/show_city" />
 
     </LinearLayout>

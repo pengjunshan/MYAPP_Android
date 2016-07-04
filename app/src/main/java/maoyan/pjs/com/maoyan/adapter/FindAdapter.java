@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -438,7 +439,7 @@ public class FindAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     break;
 
                 case R.id.ll_movielib://影库
-
+                    Toast.makeText(context, "影库", Toast.LENGTH_SHORT).show();
                     break;
 
                 case R.id.ll_boxoffice://票房

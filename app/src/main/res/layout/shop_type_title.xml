@@ -3,6 +3,7 @@
    android:layout_width="match_parent"
     android:layout_height="40dp"
     android:gravity="center_vertical"
+    android:background="@color/white"
     >
 <LinearLayout
     android:id="@+id/ll_shop_type"
@@ -23,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="系列/主题"
+            android:textColor="@color/black"
             android:textSize="14sp"
             />
         <ImageView
@@ -50,6 +52,7 @@
             android:layout_height="wrap_content"
             android:text="数码"
             android:textSize="14sp"
+            android:textColor="@color/black"
             />
         <ImageView
             android:id="@+id/iv_undeimg"
@@ -77,6 +80,7 @@
             android:layout_height="wrap_content"
             android:text="排序"
             android:textSize="14sp"
+            android:textColor="@color/black"
             />
         <ImageView
             android:id="@+id/iv_sortimg"
