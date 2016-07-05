@@ -58,21 +58,28 @@
                 android:textSize="12sp"
                 android:layout_marginLeft="8dp"
                 />
+<!--
+
+            <Button
+                android:id="@+id/btn_bay"
+                android:layout_width="42dp"
+                android:layout_height="20dp"
+                android:text="添加"
+                android:gravity="center"
+                android:textSize="10sp"
+                android:background="@drawable/tv_bay_selector"
+                android:textColor="@drawable/tv_bay_textselecort"
+                android:layout_marginLeft="6dp"
+                />
+-->
 
             <ImageView
-                android:id="@+id/iv_addcart"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@mipmap/shopping_cart"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/iv_bay"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/iv_bay_selector"
+                android:layout_marginLeft="6dp"
                 />
-           <!-- <Button
-                android:id="@+id/btn_pay"
-                android:layout_width="wrap_content"
-                android:layout_height="35dp"
-                android:text="立即购买"
-                android:layout_marginLeft="20dp"
-                />-->
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

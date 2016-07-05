@@ -1,7 +1,6 @@
 package maoyan.pjs.com.maoyan.activity;
 
 import android.annotation.TargetApi;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -60,13 +58,6 @@ public class ECshopActivity extends AppCompatActivity{
         ecshop_title = (LinearLayout)findViewById(R.id.ecshop_title);
         ll_ecshop01 = (LinearLayout)findViewById(R.id.ll_ecshop01);
         iv_search = (ImageView)findViewById(R.id.iv_search);
-        iv_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ac, ShopCartActivity.class));
-            }
-        });
-
     }
 
     private void initData() {

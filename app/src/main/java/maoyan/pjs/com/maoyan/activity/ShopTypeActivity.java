@@ -1,5 +1,6 @@
 package maoyan.pjs.com.maoyan.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,7 +37,7 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
     public static ShopTypeAdapter adapter;
     public static  List<ECshopBean.DataBean.ListBean> listData=new ArrayList<>();
     private static TextView tv_theme,tv_unde,tv_sort;
-    private static ImageView iv_themeimg,iv_undeimg,iv_sortimg;
+    private static ImageView iv_themeimg,iv_undeimg,iv_sortimg,iv_finish,iv_totalcart;
     private RelativeLayout rl_theme,rl_unde,rl_sort;
     private LinearLayout ll_shop_type;
     private static String url;
@@ -77,6 +78,11 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
         rl_theme = (RelativeLayout)findViewById(R.id.rl_theme);
         rl_unde = (RelativeLayout)findViewById(R.id.rl_unde);
         rl_sort = (RelativeLayout)findViewById(R.id.rl_sort);
+        iv_finish = (ImageView)findViewById(R.id.iv_finish);
+        iv_totalcart = (ImageView)findViewById(R.id.iv_totalcart);
+
+        iv_finish.setOnClickListener(this);
+        iv_totalcart.setOnClickListener(this);
 
         rl_theme.setOnClickListener(this);
         rl_unde.setOnClickListener(this);
@@ -89,13 +95,6 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
         ycl.setRefreshAndLoadMoreListener(new YRecycleview.OnRefreshAndLoadMoreListener() {
             @Override
             public void onRefresh() {
-               /* new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        HttpUtils.getShopNum(ac,url,0);
-                        Toast.makeText(ac, "刷新成功", Toast.LENGTH_SHORT).show();
-                        ycl.setReFreshComplete();
-                    }
-                }, 2500);*/
                 HttpUtils.getShopNum(ac,url,0);
             }
 
@@ -172,6 +171,15 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+
+            case R.id.iv_finish:
+                finish();
+                break;
+
+            case R.id.iv_totalcart:
+                startActivity(new Intent(ac, ShopCartActivity.class));
+                break;
+
             case R.id.rl_theme:
                 GoodsUnderwatyPopWindow underwatyPopWindow=new GoodsUnderwatyPopWindow(ac,tv_theme,iv_themeimg);
                 underwatyPopWindow.showAsDropDown(findViewById(R.id.ll_shop_type), 0, 0);
@@ -189,8 +197,6 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                 tv_theme.setTextColor(Color.parseColor("#ff6666"));//颜色变红
                 iv_themeimg.setImageResource(R.mipmap.up_shop_type);//图标向上
 
-//                tv_unde.setTextColor(Color.parseColor("#000000"));//颜色变黑
-//                tv_sort.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
             case R.id.rl_unde:
@@ -210,8 +216,6 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                 tv_unde.setTextColor(Color.parseColor("#FF6666"));//颜色变红
                 iv_undeimg.setImageResource(R.mipmap.up_shop_type);//图标向上
 
-//                tv_theme.setTextColor(Color.parseColor("#000000"));//颜色变黑
-//                tv_sort.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
             case R.id.rl_sort:
@@ -241,8 +245,6 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                 tv_sort.setTextColor(Color.parseColor("#FF6666"));
                 iv_sortimg.setImageResource(R.mipmap.up_shop_type);
 //
-//                tv_theme.setTextColor(Color.parseColor("#000000"));//颜色变黑
-//                tv_unde.setTextColor(Color.parseColor("#000000"));//颜色变黑
                 break;
 
 

@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -71,20 +70,18 @@ public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.Conten
     }
 
     class ContentHolder extends RecyclerView.ViewHolder{
-        private ImageView iv_icon,iv_addcart;
+        private ImageView iv_icon,iv_bay;
         private TextView tv_title,tv_price,tv_value;
-        private Button btn_pay;
         public ContentHolder(View itemView) {
             super(itemView);
             iv_icon = (ImageView) itemView.findViewById(R.id.iv_icon);
-            iv_addcart = (ImageView) itemView.findViewById(R.id.iv_addcart);
             tv_title = (TextView) itemView.findViewById(R.id.tv_title);
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
             tv_value = (TextView) itemView.findViewById(R.id.tv_value);
             tv_value.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-//            btn_pay = (Button) itemView.findViewById(R.id.btn_pay);
+            iv_bay = (ImageView) itemView.findViewById(R.id.iv_bay);
 
-            iv_addcart.setOnClickListener(new View.OnClickListener() {
+            iv_bay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //1.得到当前物品的对象
@@ -96,18 +93,6 @@ public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.Conten
                 }
             });
 
-           /* btn_pay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //1.得到当前物品的对象
-                    ECshopBean.DataBean.ListBean listBean = listData.get(getLayoutPosition());
-                    //2.转换成CartProvider对象
-                    ShoppingCart cart = cartProvider.conversion(listBean);
-                    //3.把CartProvider保存到
-                    cartProvider.putCart(cart);
-                    context.startActivity(new Intent(context, ShopCartActivity.class));
-                }
-            });*/
         }
     }
 }

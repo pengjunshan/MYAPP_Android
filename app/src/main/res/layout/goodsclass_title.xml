@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="@color/maoyan_title__red"
+    android:gravity="center_vertical"
+    >
+    <ImageView
+        android:id="@+id/iv_finish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/je"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="分类列表"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/iv_finish"
+        />
+
+    <ImageView
+        android:id="@+id/iv_totalcart"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/iv_totalcart"
+        android:layout_marginRight="20dp"
+        />
+
+</RelativeLayout>
