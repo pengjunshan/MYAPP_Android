@@ -7,15 +7,36 @@ android {
     defaultConfig {
         applicationId "maoyan.pjs.com.maoyan"
         minSdkVersion 17
-        targetSdkVersion 23
+        targetSdkVersion 21
         versionCode 1
         versionName "1.0"
+
+        //参数说明
+        manifestPlaceholders = [
+                GETUI_APP_ID : "00L6qJhTwtAS8cgKK3RzQ6",
+                GETUI_APP_KEY : "mrwRXZ0IFf9xSg3SiHG7G5",
+                GETUI_APP_SECRET : "Qhs5H5bCjr9Niu4lyPzy44",
+                PACKAGE_NAME : applicationId
+        ]
+//APP_ID、APP_KEY、APP_SECRET请根据个推开发者后台申请到的应用参数进行相应替换
+
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "mips", "mips64", "x86", "x86_64"
+        }
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+}
+
+repositories{
+    flatDir{
+        dirs 'libs' //就是你放aar的目录地址
     }
 }
 
@@ -37,4 +58,21 @@ dependencies {
     compile files('libs/pinyin4android1.0.jar')
     compile files('libs/pinyin4j-2.5.0.jar')
     compile files('libs/alipaySdk-20160516.jar')
+    compile files('libs/MobCommons-2016.0623.1641.jar')
+    compile files('libs/MobTools-2016.0623.1641.jar')
+    compile files('libs/ShareSDK-Core-2.7.3.jar')
+    compile files('libs/ShareSDK-QQ-2.7.3.jar')
+    compile files('libs/ShareSDK-QZone-2.7.3.jar')
+    compile files('libs/ShareSDK-ShortMessage-2.7.3.jar')
+    compile files('libs/ShareSDK-SinaWeibo-2.7.3.jar')
+    compile files('libs/ShareSDK-TencentWeibo-2.7.3.jar')
+    compile files('libs/ShareSDK-Wechat-2.7.3.jar')
+    compile files('libs/ShareSDK-Wechat-Core-2.7.3.jar')
+    compile files('libs/ShareSDK-Wechat-Moments-2.7.3.jar')
+    compile project(':library')
+
+    compile name: 'SMSSDK-2.1.0', ext: 'aar'
+    compile name: 'SMSSDKGUI-2.1.0', ext: 'aar'
+
+    compile 'com.getui:sdk:2.9.0.0'
 }

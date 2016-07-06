@@ -8,8 +8,9 @@ import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
@@ -51,6 +52,10 @@ public class FireFragment extends BaseFragment {
     public static String start=START_NORMAL;
 
     private boolean isShowDialog;
+
+    public Button againloading;
+    public static LinearLayout ll_again;
+
 
     public static Handler handler = new Handler() {
         @Override
@@ -117,6 +122,16 @@ public class FireFragment extends BaseFragment {
         View view = View.inflate(context, R.layout.movie_fire, null);
         mRefresh = (MaterialRefreshLayout) view.findViewById(R.id.sp_refresh);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.sp_recyclerView);
+
+        ll_again = (LinearLayout) view.findViewById(R.id.ll_again);
+        againloading = (Button) view.findViewById(R.id.againloading);
+
+        againloading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                init();
+            }
+        });
         return view;
 
     }
@@ -189,7 +204,6 @@ public class FireFragment extends BaseFragment {
         switch (start){
             case START_NORMAL://第一次
                 //设置布局管理器
-                Log.i("TAG", "刷新数据111**listVP="+listVP.toString()+"刷新数据111**moviesData="+moviesData);
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 adapter = new FireFragmentAdapter(context,handler,listVP,moviesData);
                 mRecyclerView.setAdapter(adapter);
@@ -199,7 +213,6 @@ public class FireFragment extends BaseFragment {
                 //清空数据
                 adapter.deleteData();
                 //填充新的数据
-                Log.i("TAG", "刷新数据222**listVP="+listVP.toString()+"刷新数据222**moviesData="+moviesData);
                 adapter.setData(listVP,moviesData);
                 //隐藏加载圈
                 mRefresh.finishRefresh();

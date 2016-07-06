@@ -1,11 +1,12 @@
 package maoyan.pjs.com.maoyan.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by pjs984312808 on 2016/7/1.
  */
-public class ECshopBean {
+public class ECshopBean implements Serializable{
 
     /**
      * list : [{"dealid":33527771,"pic":"http://p1.meituan.net/348.348/movie/017b5251479cb4157236af746c077533132848.jpg","price":15.9,"shortTitle":"","title":"GetD格多维 3D偏光眼镜 近视夹片式","value":68},{"dealid":29251108,"pic":"http://p0.meituan.net/348.348/movie/fa9c6639db2761ea8f2eeeaece3cf2f9284099.jpg","price":379,"shortTitle":"","title":"美国队长盾牌移动电源","value":399},{"dealid":33412921,"pic":"http://p1.meituan.net/348.348/movie/876f599135fad5412778b4d31263653a629209.png","price":29.9,"shortTitle":"","title":"QQ游戏创意拉链耳机","value":108},{"dealid":36513561,"pic":"http://p0.meituan.net/348.348/movie/88738639d74c4bc31030f535f8803243465188.jpg@60q","price":58,"shortTitle":"","title":"超蝙正版6sPlus手机壳","value":78},{"dealid":37948178,"pic":"http://p1.meituan.net/348.348/movie/30fdf3c5295755c9d46fba0a1e91d3b1165779.jpg@60q","price":198,"shortTitle":"","title":"正版美队线控入耳式运动耳机","value":259},{"dealid":37948183,"pic":"http://p0.meituan.net/348.348/movie/49298f3476b33f398590571d2adc1095226498.jpg@60q","price":168,"shortTitle":"","title":"美队3内战IOS苹果数据线","value":268},{"dealid":37323443,"pic":"http://p1.meituan.net/348.348/movie/196c2d88eb9021ba30a04cdc65b3229d96139.jpg@60q","price":199,"shortTitle":"","title":"钢铁侠蓝牙耳机EBT945","value":299},{"dealid":38839680,"pic":"http://p0.meituan.net/348.348/movie/edb721e313bbeaf6192bf540f638798b229915.jpg@60q","price":16.8,"shortTitle":"","title":"《我叫MT》正版授权游戏鼠标垫","value":35},{"dealid":33433435,"pic":"http://p1.meituan.net/348.348.60/movie/5895cf62a945089088ce8153c70df42a97204.jpg","price":69,"shortTitle":"","title":"《哆啦A梦》萌睡机器猫手机架","value":89},{"dealid":36089501,"pic":"http://p1.meituan.net/348.348/movie/a3e746c155b81f95870086d4a56e2e0643744.jpg@60q","price":88,"shortTitle":"","title":"漫威正版美国队长USB游戏鼠标","value":118}]

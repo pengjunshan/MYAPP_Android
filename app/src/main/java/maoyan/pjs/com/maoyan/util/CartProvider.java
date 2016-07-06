@@ -31,7 +31,6 @@ public class CartProvider {
     public CartProvider(Context context) {
         this.context = context;
         datas = new SparseArray<>(10);
-
         listToSparse();
     }
 

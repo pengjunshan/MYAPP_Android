@@ -33,6 +33,7 @@ public class MovieFragment extends BaseFragment implements View.OnClickListener 
     private List<BaseFragment> listFragment;
     private LinearLayout ll_adr;
 
+
     /**
      * 两个标题的间距
      */

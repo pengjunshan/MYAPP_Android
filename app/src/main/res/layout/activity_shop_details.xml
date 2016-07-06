@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cn.bleu.widget.slidedetails.SlideDetailsLayout
+    android:id="@+id/slidedetails"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:duration="500"
+    app:percent="0.4"
+    app:default_panel="front"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<include layout="@layout/shopdetailsscrollview"></include>-->
+
+    <FrameLayout
+        android:id="@+id/slidedetails_front"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <WebView
+        android:id="@+id/slidedetails_behind"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FF0"/>
+
+</cn.bleu.widget.slidedetails.SlideDetailsLayout>
