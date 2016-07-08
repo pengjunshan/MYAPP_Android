@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <!--<com.cjj.MaterialRefreshLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/sp_refresh"
-        app:wave_color="#20ff2020"
-        app:progress_show_circle_backgroud="true"
-        app:overlay="false"
-        app:wave_show="true"
-        app:progress_backgroud_color="#FFFAFAFA"
-        app:progress_colors="@array/material_colors"
-        app:wave_height_type="normal"
-        app:progress_show_arrow="true"
-        >-->
+
     <com.cjj.MaterialRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -28,66 +14,17 @@
         app:wave_show="true"
         app:wave_color="#20ff2020"
         app:wave_height_type="normal"
-
         app:progress_show_arrow="true"
         app:progress_show_circle_backgroud="true"
         app:progress_colors="@array/material_colors"
         >
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/sp_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-       <!-- <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@color/grae"
-            android:layout_gravity="center_horizontal|top">
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@color/red"
-                >
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/tv_seek_selector"
-                    android:gravity="center"
-                    android:id="@+id/fire_seek"
-                    >
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        >
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@mipmap/seek"
-                            android:layout_gravity="center_vertical"
-                            />
-                        <TextView
-                            android:layout_marginLeft="5dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="找电影、影人、影院"
-                            android:gravity="center"
-                            android:textColor="@color/gray"
-                            />
-                    </LinearLayout>
-                </RelativeLayout>
-            </RelativeLayout>
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/fire_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"/>
-
-        </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>-->
     </com.cjj.MaterialRefreshLayout>
 
-</LinearLayout>
+
+    <include layout="@layout/loadingerro"></include>
+</RelativeLayout>

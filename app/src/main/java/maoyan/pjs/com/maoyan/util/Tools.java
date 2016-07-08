@@ -54,15 +54,6 @@ public class Tools {
       */
      public static void showRoundProcessDialog(Context mContext) {
           if (mRoundProcessDialog == null) {
-           /* DialogInterface.OnKeyListener keyListener = new DialogInterface.OnKeyListener() {
-                @Override
-                public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {   //该加载圈无法被home键，搜索键，返回键取消。
-                    if (keyCode == KeyEvent.KEYCODE_SEARCH ) {
-                        return true;
-                    }
-                    return false;
-                }
-            };*/
 
                mRoundProcessDialog = new AlertDialog.Builder(mContext, R.style.TranslucentProcessDialog).create();
                //mRoundProcessDialog.setOnKeyListener(keyListener);
@@ -138,7 +129,7 @@ public class Tools {
     }
 
     /**
-     * 获取窗口
+     * 获取窗口高度
      *
      * @param ac
      * @return

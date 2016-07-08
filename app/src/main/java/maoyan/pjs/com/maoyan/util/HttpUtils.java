@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.google.gson.Gson;
@@ -118,6 +119,7 @@ public class HttpUtils {
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "热映界面-ViewPager请求失败="+e.getMessage());
                         Tools.ToaDis(context);
+                        FireFragment.ll_again.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -164,6 +166,7 @@ public class HttpUtils {
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "热映界面list列表数据请求错误="+e.getMessage());
                         Tools.ToaDis(context);
+                        FireFragment.ll_again.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -195,13 +198,14 @@ public class HttpUtils {
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        Log.i("TAG", "待映下部分数据请求错误="+e.getMessage());
-                      Tools.ToaDis(context);
+//                      Tools.ToaDis(context);
+                        WaitFragment.ll_again.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
                         Tools.dismissRoundProcessDialog();
-//                        Log.i("TAG", "待映下部分数据请求成功="+response);
+                        Log.i("TAG", "待映下部分数据请求成功="+response);
                         WaitListBean waitListBean = new Gson().fromJson(response, WaitListBean.class);
                         WaitListBean.DataBean data = waitListBean.getData();
                         List<WaitListBean.DataBean.ComingBean> comingData = data.getComing();
@@ -609,20 +613,24 @@ public class HttpUtils {
     /**
      * 请求待映预告推荐
      */
-    public static void getWaitRecommend(String url) {
+    public static void getWaitRecommend(String url, final Context context) {
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "请求待映预告推荐失败="+e.getMessage());
+                WaitFragment.ll_again.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "请求待映预告推荐成功="+response);
+                //请求待映最受期待
+                HttpUtils.WaitExpct(Constant.WaitExpct,context);
+
                 USListBean waitRecomBean = new Gson().fromJson(response, USListBean.class);
                 List<USListBean.DataBean.ComingBean> recomData = waitRecomBean.getData().getComing();
                 if(recomData!=null&&recomData.size()>0) {
-                    WaitFragment.adapter.setRecomData(recomData);
+                    WaitFragment.recomData=recomData;
                 }
             }
         });
@@ -631,20 +639,23 @@ public class HttpUtils {
     /**
      * 请求待映最受期待
      */
-    public static void WaitExpct(String url) {
+    public static void WaitExpct(String url, final Context context) {
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "请求待映最受期待失败="+e.getMessage());
+                WaitFragment.ll_again.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "请求待映最受期待成功="+response);
+                HttpUtils.getWaitListData(Constant.WaitListUrl,context);
+
                 WaitExpctBean waitExpctBean = new Gson().fromJson(response, WaitExpctBean.class);
                 List<WaitExpctBean.DataBean.MoviesBean> moviesData = waitExpctBean.getData().getMovies();
                 if(moviesData!=null&&moviesData.size()>0){
-                    WaitFragment.adapter.setExpctData(moviesData);
+                    WaitFragment.moviesData=moviesData;
                 }
             }
         });

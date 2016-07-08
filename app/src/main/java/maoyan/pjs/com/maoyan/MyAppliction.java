@@ -2,6 +2,7 @@ package maoyan.pjs.com.maoyan;
 
 import android.app.Application;
 
+import com.igexin.sdk.PushManager;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.https.HttpsUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
@@ -24,6 +25,10 @@ public class MyAppliction extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        //个推
+        PushManager.getInstance().initialize(this.getApplicationContext());
+
 
    /*     OkHttpClient okHttpClient = new OkHttpClient.Builder()
 //                .addInterceptor(new LoggerInterceptor("TAG"))

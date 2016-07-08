@@ -6,15 +6,20 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.cjj.MaterialRefreshLayout;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.adapter.WaitFragmentAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.bean.USListBean;
+import maoyan.pjs.com.maoyan.bean.WaitExpctBean;
 import maoyan.pjs.com.maoyan.bean.WaitListBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
@@ -32,7 +37,18 @@ public class WaitFragment extends BaseFragment {
 
     public static WaitFragmentAdapter adapter;
 
-    public static List<WaitListBean.DataBean.ComingBean> comingData;
+
+    //预告片
+    public static  List<USListBean.DataBean.ComingBean> recomData= new ArrayList<>();
+
+    //近期最受期待
+    public static List<WaitExpctBean.DataBean.MoviesBean> moviesData=new ArrayList<>();
+
+    //下部分
+    public static List<WaitListBean.DataBean.ComingBean> comingData=new ArrayList<>();
+
+    public Button againloading;
+    public static LinearLayout ll_again;
 
     public static Handler handler = new Handler(){
         @Override
@@ -40,8 +56,10 @@ public class WaitFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what){
                 case 0:
+                    init();
+                  /*
                     adapter.setListData(comingData);
-                    adapter.notifyItemRangeChanged(4,comingData.size());
+                    adapter.notifyItemRangeChanged(4,comingData.size());*/
                     break;
             }
         }
@@ -54,8 +72,21 @@ public class WaitFragment extends BaseFragment {
     @Override
     public View initView() {
         View view=View.inflate(context, R.layout.movie_wait,null);
+//        View view= LayoutInflater.from(context).inflate(R.layout.movie_wait,null);
         wait_refresh = (MaterialRefreshLayout) view.findViewById(R.id.wait_refresh);
         wait_recyclerView = (RecyclerView) view.findViewById(R.id.wait_recyclerView);
+
+        ll_again = (LinearLayout) view.findViewById(R.id.ll_again);
+        againloading = (Button) view.findViewById(R.id.againloading);
+
+        againloading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //请求待映预告片
+                HttpUtils.getWaitRecommend(Constant.WaitRecommend,context);
+                Tools.showRoundProcessDialog(context);
+            }
+        });
 
         return view;
     }
@@ -65,21 +96,13 @@ public class WaitFragment extends BaseFragment {
         super.initData();
 
         //请求待映预告片
-        HttpUtils.getWaitRecommend(Constant.WaitRecommend);
-
-        //请求待映最受期待
-        HttpUtils.WaitExpct(Constant.WaitExpct);
-        /**
-         * 请求待映下部分List数据
-         */
-        HttpUtils.getWaitListData(Constant.WaitListUrl,context);
+        HttpUtils.getWaitRecommend(Constant.WaitRecommend,context);
         Tools.showRoundProcessDialog(context);
-        init();
     }
 
-    private void init() {
+    private static void init() {
         //关联适配器
-        adapter=new WaitFragmentAdapter(context);
+        adapter=new WaitFragmentAdapter(context,recomData,moviesData,comingData);
 
         final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
         wait_recyclerView.addItemDecoration(headersDecor);
@@ -93,7 +116,8 @@ public class WaitFragment extends BaseFragment {
         wait_recyclerView.addItemDecoration(headersDecor);
         headersDecor.invalidateHeaders();
 
-//设置adapter
+
+        //设置adapter
         wait_recyclerView.setAdapter(adapter);
         //设置布局管理器
         wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));

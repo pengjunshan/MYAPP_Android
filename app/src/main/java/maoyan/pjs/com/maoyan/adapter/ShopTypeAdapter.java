@@ -1,8 +1,10 @@
 package maoyan.pjs.com.maoyan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.activity.ShopDetailsActivity;
 import maoyan.pjs.com.maoyan.bean.ECshopBean;
 import maoyan.pjs.com.maoyan.bean.ShoppingCart;
 import maoyan.pjs.com.maoyan.util.CartProvider;
@@ -92,6 +95,24 @@ public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.Conten
                     cartProvider.putCart(cart);
                 }
             });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent intent = new Intent(context, ShopDetailsActivity.class);
+                    ECshopBean.DataBean.ListBean listBean = listData.get(getLayoutPosition()-1);
+                    Log.i("TAG*********", listBean.getTitle());
+//                    Bundle bundle=new Bundle();
+//                    bundle.putSerializable("bean", (Serializable) listBean);
+//                    intent.putExtras(bundle);
+                    intent.putExtra("imgurl",listBean.getPic());
+                    intent.putExtra("title",listBean.getTitle());
+                    context.startActivity(intent);
+                }
+            });
+
+
 
         }
     }

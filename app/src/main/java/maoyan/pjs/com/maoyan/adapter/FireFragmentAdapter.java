@@ -178,10 +178,6 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof HeaderViewHolder) {
-           /* if (listVP != null && listVP.size() > 0) {
-                ((HeaderViewHolder)holder).fire_viewpager.setAdapter(vpAdapter);
-                ((HeaderViewHolder)holder).setVPcurrent();
-            }*/
         } else if (holder instanceof ContentViewHolder) {
             if (moviesData != null && moviesData.size() > 0) {
                 FireListBean.DataBean.HotBean moviesBean = moviesData.get(position - 1);

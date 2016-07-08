@@ -45,8 +45,13 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private List<WaitExpctBean.DataBean.MoviesBean> moviesData;
     private List<USListBean.DataBean.ComingBean> recomData;
 
-    public WaitFragmentAdapter(Context context) {
+    public WaitFragmentAdapter(Context context, List<USListBean.DataBean.ComingBean> recomData,
+                               List<WaitExpctBean.DataBean.MoviesBean> moviesData,
+                               List<WaitListBean.DataBean.ComingBean> comingData) {
         this.mContext = context;
+        this.recomData=recomData;
+        this.moviesData=moviesData;
+        this.comingData=comingData;
         inflater = LayoutInflater.from(mContext);
     }
 
@@ -219,7 +224,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         return 3;
     }
 
-    public void setListData(List<WaitListBean.DataBean.ComingBean> comingData) {
+   /* public void setListData(List<WaitListBean.DataBean.ComingBean> comingData) {
         this.comingData = comingData;
         notifyItemRangeChanged(3, comingData.size());
     }
@@ -233,7 +238,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void setExpctData(List<WaitExpctBean.DataBean.MoviesBean> moviesData) {
         this.moviesData = moviesData;
         notifyItemRangeChanged(2, 3);
-    }
+    }*/
 
 
     /**

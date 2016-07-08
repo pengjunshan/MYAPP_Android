@@ -11,6 +11,8 @@
             <option value="$PROJECT_DIR$/MaterialRefreshLayout_library" />
             <option value="$PROJECT_DIR$/Stickylibrary" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/smsshow" />
           </set>
         </option>
         <option name="myModules">
@@ -19,6 +21,8 @@
             <option value="$PROJECT_DIR$/MaterialRefreshLayout_library" />
             <option value="$PROJECT_DIR$/Stickylibrary" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/smsshow" />
           </set>
         </option>
       </GradleProjectSettings>
