@@ -83,13 +83,14 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             >
+        </activity>
+        <activity android:name=".activity.GuideActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.GuideActivity" />
+            </activity>
         <activity android:name=".activity.WebViewAcitivy" />
         <activity android:name=".activity.ceshiActivity" />
         <activity android:name=".activity.MovieLibActivity" />
