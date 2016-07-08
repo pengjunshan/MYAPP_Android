@@ -110,6 +110,7 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                 }, 2500);
             }
         });
+
     }
 
     public static void setType(int type) {
@@ -164,7 +165,6 @@ public class ShopTypeActivity extends AppCompatActivity implements View.OnClickL
                 tv_theme.setText("星球大战");
                 tv_unde.setText("分类");
                 break;
-
         }
     }
 

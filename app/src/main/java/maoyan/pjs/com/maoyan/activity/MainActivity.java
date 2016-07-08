@@ -1,11 +1,13 @@
 package maoyan.pjs.com.maoyan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,9 @@ import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,7 @@ public class MainActivity extends FragmentActivity {
 
     public static int screenWidth;
     public static int screenHeight;
+
 
 
     @Override
@@ -140,6 +146,27 @@ public class MainActivity extends FragmentActivity {
         }else {
             ac.finish();
         }
+    }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 1:
+                if(resultCode==LoginActivity.RESULT_OK){
+                    String nickName = data.getStringExtra("nickName");
+                    String userIcon = data.getStringExtra("userIcon");
+                    Log.i("TAG", "me名字="+nickName);
+                    Log.i("TAG", "me头像="+userIcon);
+                    MyFragment.tv_nickName.setText(nickName);
+
+                    Glide.with(ac).load(userIcon)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
+                            .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
+                            .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
+                            .into(MyFragment.iv_icon);//请求成功后把图片设置到的控件
+                break;
+        }}
     }
 }

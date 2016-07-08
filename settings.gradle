@@ -1,1 +1,1 @@
-include ':app', ':MaterialRefreshLayout_library', ':Stickylibrary', ':library', ':smsshow'
+include ':app', ':MaterialRefreshLayout_library', ':Stickylibrary', ':Slide_library', ':smsshow', ':vitamio'

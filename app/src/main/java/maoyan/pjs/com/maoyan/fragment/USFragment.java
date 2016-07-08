@@ -6,25 +6,29 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.cjj.MaterialRefreshLayout;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.adapter.USAdapter;
 import maoyan.pjs.com.maoyan.base.BaseFragment;
+import maoyan.pjs.com.maoyan.util.Constant;
+import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.view.YRecycleview;
 
 /**
  * Created by pjs984312808 on 2016/6/22.
+ * 美国热映
  */
 public class USFragment extends BaseFragment {
 
-    private MaterialRefreshLayout refresh;
     public static YRecycleview recyclerView;
 
     public static USAdapter adapter;
 
+    public static LinearLayout ll_again;
+    public static Button againloading;
     public static Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -51,8 +55,17 @@ public class USFragment extends BaseFragment {
     public View initView() {
 
         View view =View.inflate(context, R.layout.us,null);
-//        refresh = (MaterialRefreshLayout) view.findViewById(R.id.refresh);
         recyclerView = (YRecycleview) view.findViewById(R.id.recyclerView);
+        ll_again = (LinearLayout) view.findViewById(R.id.ll_again);
+        againloading = (Button) view.findViewById(R.id.againloading);
+
+        againloading.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                HttpUtils.getUSData(Constant.USUrl,context);
+            }
+        });
+
         return view;
     }
 

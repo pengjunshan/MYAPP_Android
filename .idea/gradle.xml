@@ -9,20 +9,22 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/MaterialRefreshLayout_library" />
+            <option value="$PROJECT_DIR$/Slide_library" />
             <option value="$PROJECT_DIR$/Stickylibrary" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/smsshow" />
+            <option value="$PROJECT_DIR$/vitamio" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/MaterialRefreshLayout_library" />
+            <option value="$PROJECT_DIR$/Slide_library" />
             <option value="$PROJECT_DIR$/Stickylibrary" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/smsshow" />
+            <option value="$PROJECT_DIR$/vitamio" />
           </set>
         </option>
       </GradleProjectSettings>

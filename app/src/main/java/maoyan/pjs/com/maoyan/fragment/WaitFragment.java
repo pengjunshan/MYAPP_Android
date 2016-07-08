@@ -3,13 +3,14 @@ package maoyan.pjs.com.maoyan.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.cjj.MaterialRefreshLayout;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersDecoration;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import maoyan.pjs.com.maoyan.bean.WaitListBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.util.Tools;
+import maoyan.pjs.com.maoyan.view.YRecycleview;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -31,12 +33,12 @@ import maoyan.pjs.com.maoyan.util.Tools;
  */
 public class WaitFragment extends BaseFragment {
 
-    private MaterialRefreshLayout wait_refresh;
 
-    public static RecyclerView wait_recyclerView;
+    public static YRecycleview wait_recyclerView;
 
     public static WaitFragmentAdapter adapter;
 
+    private static StickyRecyclerHeadersDecoration headersDecor;
 
     //预告片
     public static  List<USListBean.DataBean.ComingBean> recomData= new ArrayList<>();
@@ -61,6 +63,17 @@ public class WaitFragment extends BaseFragment {
                     adapter.setListData(comingData);
                     adapter.notifyItemRangeChanged(4,comingData.size());*/
                     break;
+
+                case 1:
+                    wait_recyclerView.setReFreshComplete();
+                    Toast.makeText(context, "刷新成功", Toast.LENGTH_SHORT).show();
+                    break;
+
+                case 2:
+                    wait_recyclerView.setloadMoreComplete();
+                    wait_recyclerView.setNoMoreData(true);
+                    Toast.makeText(context, "没有更多数据了...", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
     };
@@ -73,8 +86,7 @@ public class WaitFragment extends BaseFragment {
     public View initView() {
         View view=View.inflate(context, R.layout.movie_wait,null);
 //        View view= LayoutInflater.from(context).inflate(R.layout.movie_wait,null);
-        wait_refresh = (MaterialRefreshLayout) view.findViewById(R.id.wait_refresh);
-        wait_recyclerView = (RecyclerView) view.findViewById(R.id.wait_recyclerView);
+        wait_recyclerView = (YRecycleview) view.findViewById(R.id.wait_recyclerView);
 
         ll_again = (LinearLayout) view.findViewById(R.id.ll_again);
         againloading = (Button) view.findViewById(R.id.againloading);
@@ -94,17 +106,38 @@ public class WaitFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-
         //请求待映预告片
         HttpUtils.getWaitRecommend(Constant.WaitRecommend,context);
         Tools.showRoundProcessDialog(context);
+
+
+        wait_recyclerView.setRefreshAndLoadMoreListener(new YRecycleview.OnRefreshAndLoadMoreListener() {
+            @Override
+            public void onRefresh() {
+                //请求待映预告片
+//                HttpUtils.getWaitRecommend(Constant.WaitRecommend,context);
+                handler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onLoadMore() {
+                SystemClock.sleep(2000);
+                handler.sendEmptyMessage(2);
+            }
+        });
     }
+    private static boolean isOneLoading=false;
 
     private static void init() {
+
         //关联适配器
         adapter=new WaitFragmentAdapter(context,recomData,moviesData,comingData);
+        //设置adapter
+        wait_recyclerView.setAdapter(adapter);
+        //设置布局管理器
+        wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
 
-        final StickyRecyclerHeadersDecoration headersDecor = new StickyRecyclerHeadersDecoration(adapter);
+        headersDecor = new StickyRecyclerHeadersDecoration(adapter);
         wait_recyclerView.addItemDecoration(headersDecor);
         adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
             @Override
@@ -113,14 +146,12 @@ public class WaitFragment extends BaseFragment {
             }
         });  //刷新数据的时候回刷新头部
 
-        wait_recyclerView.addItemDecoration(headersDecor);
-        headersDecor.invalidateHeaders();
 
-
-        //设置adapter
-        wait_recyclerView.setAdapter(adapter);
-        //设置布局管理器
-        wait_recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
+        if(!isOneLoading) {
+            wait_recyclerView.addItemDecoration(headersDecor);
+            headersDecor.invalidateHeaders();
+            isOneLoading=true;
+        }
 
     }
 }

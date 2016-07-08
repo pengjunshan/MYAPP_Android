@@ -15,27 +15,60 @@
             android:layout_width="match_parent"
             android:layout_height="95dp"
             android:background="@color/maoyan_title__red">
-
-            <ImageView
+            <maoyan.pjs.com.maoyan.view.RoundImageView
                 android:id="@+id/iv_icon"
-                android:layout_width="80dp"
-                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:layout_centerVertical="true"
-                android:src="@mipmap/backgroud_logo02" />
+                android:src="@mipmap/default_head_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                />
+
+           <!-- <maoyan.pjs.com.maoyan.view.CircleImageView
+                android:id="@+id/iv_icon"
+                android:layout_marginLeft="10dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/default_head_icon"
+                android:layout_alignParentLeft="true"
+                android:layout_centerHorizontal="true"
+                />-->
 
             <TextView
                 android:id="@+id/tv_nickName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:paddingLeft="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="立即登录"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/iv_icon"
+                android:layout_above="@+id/tv_member"
                 android:textColor="@color/white"
-                android:textSize="15dp" />
+                android:layout_marginBottom="10dp"
+                android:textSize="14dp" />
+
+
+            <TextView
+                android:id="@+id/tv_member"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金牌会员v3"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp"
+                android:layout_alignBottom="@+id/iv_icon"
+                android:textColor="@color/white"
+                android:layout_alignLeft="@+id/tv_nickName"
+                android:background="@drawable/tv_member_selector"
+                android:textSize="8dp" />
+
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="15dp"
@@ -109,6 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="我的订单"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -118,6 +152,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="38dp"
                     android:text="全部"
+                    android:textColor="@color/black"
                     android:textSize="17dp" />
 
                 <ImageView
@@ -185,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="我的消息"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -211,6 +247,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="会员中心"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -237,6 +274,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="我的成就"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -271,6 +309,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="优惠券"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -297,6 +336,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="我的钱包"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <TextView
@@ -306,6 +346,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="38dp"
                     android:text="余额：0"
+                    android:textColor="@color/black"
                     android:textSize="17dp" />
 
                 <ImageView
@@ -334,6 +375,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:text="商城"
+                    android:textColor="@color/black"
                     android:textSize="15dp" />
 
                 <ImageView
@@ -363,6 +405,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="设置"
+                android:textColor="@color/black"
                 android:textSize="15dp" />
 
             <ImageView

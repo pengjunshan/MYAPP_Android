@@ -34,8 +34,10 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private String lng;
     private String lat;
 
-    public CinemaAdapter(Context context) {
+    public CinemaAdapter(Context context, List<Map<String, Object>> mapList, List<CinemaListBean.DataBean.changpingquBean> changPData) {
         this.context=context;
+        this.mapList=mapList;
+        this.changPData=changPData;
         inflater=LayoutInflater.from(context);
     }
 
@@ -61,14 +63,17 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 ((ContentHolder)holder).tv_sellPrice.setText(changPingBean.getSellPrice()+"");
                 ((ContentHolder)holder).tv_addr.setText(changPingBean.getAddr());
 
-                double lngDou = Double.parseDouble(lng);
-                double latDou = Double.parseDouble(lat);
-                double dist = Tools.GetDistance(lngDou, latDou, changPingBean.getLng(), changPingBean.getLat());
+                if(lng!=null&&lat!=null) {
+                    double lngDou = Double.parseDouble(lng);
+                    double latDou = Double.parseDouble(lat);
+                    double dist = Tools.GetDistance(lngDou, latDou, changPingBean.getLng(), changPingBean.getLat());
 
-                if(!TextUtils.isEmpty("dist")) {
-                    dist=dist/1000;
+                    if(!TextUtils.isEmpty("dist")) {
+                        dist=dist/1000;
+                    }
+                    ((ContentHolder)holder).tv_km.setText(dist+"km");
                 }
-                ((ContentHolder)holder).tv_km.setText(dist+"km");
+
                 if(changPingBean.getSellPrice()<30) {
                     ((ContentHolder)holder).tv_goup.setVisibility(View.VISIBLE);
                 }
@@ -84,10 +89,10 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         return 1;
     }
 
-    public void setVP(List<Map<String, Object>> mapList) {
-        this.mapList=mapList;
-        notifyItemRangeChanged(0,1);
-    }
+//    public void setVP(List<Map<String, Object>> mapList) {
+//        this.mapList=mapList;
+//        notifyItemRangeChanged(0,1);
+//    }
 
     @Override
     public int getItemViewType(int position) {
@@ -98,10 +103,10 @@ public class CinemaAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     }
 
-    public void setListData(List<CinemaListBean.DataBean.changpingquBean> listData) {
-        this.changPData = listData;
-        notifyItemRangeChanged(1,listData.size());
-    }
+//    public void setListData(List<CinemaListBean.DataBean.changpingquBean> listData) {
+//        this.changPData = listData;
+//        notifyItemRangeChanged(1,listData.size());
+//    }
 
     public void setLocation(String lng, String lat) {
         this.lng=lng;

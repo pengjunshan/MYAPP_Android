@@ -10,13 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.bean.JPListBean;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/28.
@@ -68,12 +66,7 @@ public class JPAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             String imaUrl = hotData.getImg();
             imaUrl = imaUrl.replace("w.h", "165.220");
-            Glide.with(context).load(imaUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
-                    .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
-                    .into(((JPSpecialAdapter) holder).iv_img);//请求成功后把图片设置到的控件
-
+            Tools.loadImage(context,imaUrl,((JPSpecialAdapter) holder).iv_img);
         }
     }
 
@@ -85,11 +78,6 @@ public class JPAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return 0;
     }
 
-   /* public void setListData(List<JPListBean.DataBean.HotBean> hotBeen) {
-        this.hotBeen=hotBeen;
-        notifyItemRangeChanged(0,hotBeen.size());
-    }
-*/
     class JPSpecialAdapter extends RecyclerView.ViewHolder{
 
         private ImageView iv_img;

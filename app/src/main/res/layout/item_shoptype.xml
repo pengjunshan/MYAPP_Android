@@ -73,13 +73,13 @@
                 />
 -->
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/iv_bay"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:background="@drawable/iv_bay_selector"
                 android:layout_marginLeft="6dp"
-                />
+                />-->
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

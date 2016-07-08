@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import java.util.List;
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.activity.ShopDetailsActivity;
 import maoyan.pjs.com.maoyan.bean.ECshopBean;
-import maoyan.pjs.com.maoyan.bean.ShoppingCart;
 import maoyan.pjs.com.maoyan.util.CartProvider;
 import maoyan.pjs.com.maoyan.util.Tools;
 
@@ -28,9 +26,9 @@ import maoyan.pjs.com.maoyan.util.Tools;
 
 public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.ContentHolder> {
     private final Context context;
-    private final List<ECshopBean.DataBean.ListBean> listData;
+    public static  List<ECshopBean.DataBean.ListBean> listData;
     private List<Integer> random = new ArrayList<>();
-    private CartProvider cartProvider;
+    public static CartProvider cartProvider;
 
     public ShopTypeAdapter(Context ac, List<ECshopBean.DataBean.ListBean> listData) {
         this.context=ac;
@@ -82,19 +80,19 @@ public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.Conten
             tv_price = (TextView) itemView.findViewById(R.id.tv_price);
             tv_value = (TextView) itemView.findViewById(R.id.tv_value);
             tv_value.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            iv_bay = (ImageView) itemView.findViewById(R.id.iv_bay);
+//            iv_bay = (ImageView) itemView.findViewById(R.id.iv_bay);
 
-            iv_bay.setOnClickListener(new View.OnClickListener() {
+           /* iv_bay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //1.得到当前物品的对象
-                    ECshopBean.DataBean.ListBean listBean = listData.get(getLayoutPosition());
+                    ECshopBean.DataBean.ListBean listBean = listData.get(getLayoutPosition()-1);
                     //2.转换成CartProvider对象
                     ShoppingCart cart = cartProvider.conversion(listBean);
                     //3.把CartProvider保存到
                     cartProvider.putCart(cart);
                 }
-            });
+            });*/
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,18 +100,15 @@ public class ShopTypeAdapter extends RecyclerView.Adapter<ShopTypeAdapter.Conten
 
                     Intent intent = new Intent(context, ShopDetailsActivity.class);
                     ECshopBean.DataBean.ListBean listBean = listData.get(getLayoutPosition()-1);
-                    Log.i("TAG*********", listBean.getTitle());
-//                    Bundle bundle=new Bundle();
-//                    bundle.putSerializable("bean", (Serializable) listBean);
-//                    intent.putExtras(bundle);
                     intent.putExtra("imgurl",listBean.getPic());
                     intent.putExtra("title",listBean.getTitle());
+                    intent.putExtra("dealid",listBean.getDealid());
+                    intent.putExtra("position",getLayoutPosition()-1);
                     context.startActivity(intent);
                 }
             });
 
-
-
         }
     }
+
 }
