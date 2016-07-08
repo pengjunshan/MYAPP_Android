@@ -23,7 +23,7 @@
             android:id="@+id/iv_icon"
             android:layout_width="60dp"
             android:layout_height="90dp"
-            android:src="@mipmap/vp3"
+            android:src="@mipmap/backgroud_logo02"
             android:scaleType="centerCrop"
             />
         <ImageView

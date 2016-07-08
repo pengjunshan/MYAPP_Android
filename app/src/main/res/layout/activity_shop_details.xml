@@ -8,9 +8,6 @@
     app:default_panel="front"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <!--<include layout="@layout/shopdetailsscrollview"></include>-->
-
     <FrameLayout
         android:id="@+id/slidedetails_front"
         android:layout_width="match_parent"

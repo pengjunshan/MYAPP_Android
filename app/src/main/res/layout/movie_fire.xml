@@ -3,7 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.cjj.MaterialRefreshLayout
+   <!-- <com.cjj.MaterialRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/sp_refresh"
@@ -17,14 +17,12 @@
         app:progress_show_arrow="true"
         app:progress_show_circle_backgroud="true"
         app:progress_colors="@array/material_colors"
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/sp_recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-    </com.cjj.MaterialRefreshLayout>
-
-
+        >-->
+    <maoyan.pjs.com.maoyan.view.YRecycleview
+        android:id="@+id/sp_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+    <!--</com.cjj.MaterialRefreshLayout>-->
     <include layout="@layout/loadingerro"></include>
 </RelativeLayout>

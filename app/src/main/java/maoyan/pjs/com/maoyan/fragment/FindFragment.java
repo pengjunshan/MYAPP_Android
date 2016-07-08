@@ -84,6 +84,5 @@ public class FindFragment extends BaseFragment {
         adapter=new FindAdapter(context);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(adapter);
-
     }
 }

@@ -110,8 +110,8 @@ public class Tools {
      public static void loadImage(Context context,String imgUrl,ImageView imageView){
           Glide.with(context).load(imgUrl)
                   .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                  .placeholder(R.mipmap.lh)//加载过程中的图片
-                  .error(R.mipmap.lh)//加载失败的时候显示的图片
+                  .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
+                  .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
                   .into(imageView);//请求成功后把图片设置到的控件
      }
 

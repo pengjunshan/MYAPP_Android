@@ -3,13 +3,14 @@ package maoyan.pjs.com.maoyan.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import cn.bleu.widget.slidedetails.SlideDetailsLayout;
 import maoyan.pjs.com.maoyan.R;
@@ -22,28 +23,40 @@ public class ShopDetailsActivity extends AppCompatActivity implements ISlideCall
     private ShopDetailsActivity ac;
     private SlideDetailsLayout mSlideDetailsLayout;
 
-    private ImageView iv_icon;
-    private TextView tv_title;
-
     private String imgurl;
     private  String title;
+    public static int dealid;
+    public static int position;
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 0:
+                    ScrollViewFragment.tv_title.setText(title);
+                    Tools.loadImage(ac,imgurl,ScrollViewFragment.iv_icon);
+                break;
+            }
+        }
+    };
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop_details);
         ac=this;
 
-//        Bundle bean = getIntent().getBundleExtra("bean");
-//        Log.i("TAG", "bean****="+bean.toString());
         Intent intent = getIntent();
         imgurl = intent.getStringExtra("imgurl");
         title = intent.getStringExtra("title");
-
-        iv_icon = (ImageView)findViewById(R.id.iv_icon);
-        tv_title = (TextView)findViewById(R.id.tv_title);
-        tv_title.setText(title);
-
-        Tools.loadImage(ac,imgurl,iv_icon);
+        dealid = intent.getIntExtra("dealid", 0);
+        position = intent.getIntExtra("position", 0);
+        Log.i("TAG", "对象内容="+title+"***"+imgurl);
+        if(title!=null&&imgurl!=null) {
+            handler.sendEmptyMessage(0);
+        }
 
         mSlideDetailsLayout = (SlideDetailsLayout)findViewById(R.id.slidedetails);
 

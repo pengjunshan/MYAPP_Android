@@ -3,7 +3,6 @@ package maoyan.pjs.com.maoyan.adapter;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.timehop.stickyheadersrecyclerview.StickyRecyclerHeadersAdapter;
 
 import java.text.ParseException;
@@ -24,6 +21,7 @@ import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.bean.USListBean;
 import maoyan.pjs.com.maoyan.bean.WaitExpctBean;
 import maoyan.pjs.com.maoyan.bean.WaitListBean;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/22.
@@ -128,11 +126,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
                 String imaUrl = itemData.getImg();
                 imaUrl = imaUrl.replace("w.h", "165.220");
-                Glide.with(mContext).load(imaUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                        .placeholder(R.mipmap.lh)//加载过程中的图片
-                        .error(R.mipmap.lh)//加载失败的时候显示的图片
-                        .into(((ContentHolder) holder).iv_img);//请求成功后把图片设置到的控件
+                Tools.loadImage(mContext,imaUrl,((ContentHolder) holder).iv_img);
             }
 
         }
@@ -167,16 +161,19 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public long getHeaderId(int position) {
         if(comingData!=null&&comingData.size()>0) {
-            if (position == 0) {
-                return -1;
-            }else if(position==1) {
-                return -2;
-            }else if(position==2) {
-                return -3;
+//            if (position == 0) {
+//                return -1;
+//            }else if(position==1) {
+//                return -1;
+//            }else if(position==2) {
+//                return -1;
+//            }
+            if(position>3) {
+                return parseDate(comingData.get(position-3).getRt());
             }
-            return parseDate(comingData.get(position-3).getRt());
+            return -1;
         }
-        return -1;
+            return -1;
     }
 
     @Override
@@ -188,19 +185,18 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     private String testDate;
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Log.i("TAG", "getHeaderId(position)="+getHeaderId(position));
         if (getHeaderId(position) == parseDate(comingData.get(position-3).getRt())) {
             commonTitle.setText(testDate);
         }else if (getHeaderId(position) == -1) {
             commonTitle.setVisibility(View.GONE);
-        }else if(getHeaderId(position)==-2) {
-            commonTitle.setVisibility(View.VISIBLE);
-            commonTitle.setText("预告片推荐11");
-        }else if(getHeaderId(position)==-3) {
-            commonTitle.setVisibility(View.VISIBLE);
-            commonTitle.setText("近期最受期待22");
         }
-
+//        else if(getHeaderId(position)==-2) {
+//            commonTitle.setVisibility(View.VISIBLE);
+//            commonTitle.setText("预告片推荐11");
+//        }else if(getHeaderId(position)==-3) {
+//            commonTitle.setVisibility(View.VISIBLE);
+//            commonTitle.setText("近期最受期待22");
+//        }
     }
 
     @Override
@@ -223,23 +219,6 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         return 3;
     }
-
-   /* public void setListData(List<WaitListBean.DataBean.ComingBean> comingData) {
-        this.comingData = comingData;
-        notifyItemRangeChanged(3, comingData.size());
-    }
-
-    public void setRecomData(List<USListBean.DataBean.ComingBean> recomData) {
-        this.recomData = recomData;
-        notifyItemRangeChanged(0, recomData.size());
-    }
-
-
-    public void setExpctData(List<WaitExpctBean.DataBean.MoviesBean> moviesData) {
-        this.moviesData = moviesData;
-        notifyItemRangeChanged(2, 3);
-    }*/
-
 
     /**
      * 搜索框Item
@@ -389,11 +368,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 holder.tv_wish.setText(moviesList.getWish() + "想看");
                 String img = moviesList.getImg();
                 img=img.replace("w.h","165.220");
-                Glide.with(context).load(img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                        .placeholder(R.mipmap.lh)//加载过程中的图片
-                        .error(R.mipmap.lh)//加载失败的时候显示的图片
-                        .into(holder.iv_img);//请求成功后把图片设置到的控件
+                Tools.loadImage(context,img,holder.iv_img);
             }
         }
 
@@ -447,11 +422,7 @@ public class WaitFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 holder.tv_videoName.setText(recomList.getVideoName());
                 String img = recomList.getImg();
                 img=img.replace("w.h","165.220");
-                Glide.with(context).load(img)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                        .placeholder(R.mipmap.lh)//加载过程中的图片
-                        .error(R.mipmap.lh)//加载失败的时候显示的图片
-                        .into(holder.iv_icon);//请求成功后把图片设置到的控件
+                Tools.loadImage(context,img,holder.iv_icon);
             }
         }
 

@@ -33,8 +33,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         tv_nickName = (TextView) view.findViewById(R.id.tv_nickName);
         rl_comlogin = (RelativeLayout) view.findViewById(R.id.rl_comlogin);
         iv_icon = (ImageView) view.findViewById(R.id.iv_icon);
-        rl_comlogin.setOnClickListener(this);
         ecshop = (RelativeLayout) view.findViewById(R.id.ecshop);
+        rl_comlogin.setOnClickListener(this);
         ecshop.setOnClickListener(this);
         return view;
     }
@@ -58,22 +58,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 Log.i("TAG", "点击了");
                 intent=new Intent(context, LoginActivity.class);
                 ((MainActivity)context).startActivityForResult(intent,1);
-                break;
-        }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case 1:
-                if(resultCode==LoginActivity.RESULT_OK){
-                    String nickName = data.getStringExtra("nickName");
-                    String userIcon = data.getStringExtra("userIcon");
-                    Log.i("TAG", "me名字="+nickName);
-                    Log.i("TAG", "me头像="+userIcon);
-                }
                 break;
         }
     }

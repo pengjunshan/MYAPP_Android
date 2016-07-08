@@ -1,11 +1,13 @@
 package maoyan.pjs.com.maoyan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +15,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
 import java.util.Map;
 
 import maoyan.pjs.com.maoyan.R;
+import maoyan.pjs.com.maoyan.activity.VideoActivity;
 import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.fragment.FireFragment;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -125,8 +126,18 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             tv_showInfo = (TextView) itemView.findViewById(R.id.tv_showInfo);
             tv_sc = (TextView) itemView.findViewById(R.id.tv_sc);
             tv_state = (TextView) itemView.findViewById(R.id.tv_state);
-
             recyclerView = (RecyclerView) itemView.findViewById(R.id.recyclerView);
+
+            iv_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext, VideoActivity.class);
+//                    intent.setDataAndType(Uri.parse(mediaitem.getData()),"video/*");
+                    intent.putExtra("videoUrl",moviesData.get(getLayoutPosition()-2).getVideourl());
+                    Log.i("TAG", "视频播放地址="+moviesData.get(getLayoutPosition()-2).getVideourl());
+                    mContext.startActivity(intent);
+                }
+            });
 
         }
     }
@@ -217,11 +228,7 @@ public class FireFragmentAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
                 String imaUrl = moviesBean.getImg();
                 imaUrl = imaUrl.replace("w.h", "165.220");
-                Glide.with(mContext).load(imaUrl)
-                        .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                        .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
-                        .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
-                        .into(((ContentViewHolder) holder).iv_icon);//请求成功后把图片设置到的控件
+                Tools.loadImage(mContext,imaUrl,((ContentViewHolder) holder).iv_icon);
             }
         }
 

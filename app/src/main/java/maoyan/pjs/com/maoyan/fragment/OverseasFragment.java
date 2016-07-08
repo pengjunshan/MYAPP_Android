@@ -6,7 +6,6 @@ import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -59,7 +58,6 @@ public class OverseasFragment extends BaseFragment {
     @Override
     public void initData() {
         super.initData();
-        Log.i("TAG", "海外电影*****");
         /**
          * 请求国家名称
          */
@@ -103,7 +101,7 @@ public class OverseasFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(int position) {
-//            fragmentList.get(position).initData();
+            fragmentList.get(position).initData();
         }
 
         @Override
@@ -167,7 +165,7 @@ public class OverseasFragment extends BaseFragment {
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
             BaseFragment fragment = fragmentList.get(position);
-            fragment.initData();
+//            fragment.initData();
             View view = fragment.rootView;
             //把布局添加进viewpager
             container.addView(view);

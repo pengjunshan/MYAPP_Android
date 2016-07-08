@@ -7,14 +7,10 @@ import android.os.Message;
 import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +23,7 @@ import maoyan.pjs.com.maoyan.bean.FireListBean;
 import maoyan.pjs.com.maoyan.util.Constant;
 import maoyan.pjs.com.maoyan.util.HttpUtils;
 import maoyan.pjs.com.maoyan.util.Tools;
+import maoyan.pjs.com.maoyan.view.YRecycleview;
 
 /**
  * Created by pjs984312808 on 2016/6/21.
@@ -34,9 +31,7 @@ import maoyan.pjs.com.maoyan.util.Tools;
  */
 public class FireFragment extends BaseFragment {
 
-    public static MaterialRefreshLayout mRefresh;
-
-    private static RecyclerView mRecyclerView;
+    private static YRecycleview mRecyclerView;
 
     public static FireFragmentAdapter adapter;
     //正常状态
@@ -51,7 +46,7 @@ public class FireFragment extends BaseFragment {
     //当前状态
     public static String start=START_NORMAL;
 
-    private boolean isShowDialog;
+    private static boolean isShowDialog;
 
     public Button againloading;
     public static LinearLayout ll_again;
@@ -63,6 +58,8 @@ public class FireFragment extends BaseFragment {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+                    mRecyclerView.setloadMoreComplete();
+                    mRecyclerView.setNoMoreData(true);
                     Toast.makeText(context,"没有数据了....",Toast.LENGTH_SHORT).show();
                     break;
 
@@ -120,8 +117,7 @@ public class FireFragment extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(context, R.layout.movie_fire, null);
-        mRefresh = (MaterialRefreshLayout) view.findViewById(R.id.sp_refresh);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.sp_recyclerView);
+        mRecyclerView = (YRecycleview) view.findViewById(R.id.sp_recyclerView);
 
         ll_again = (LinearLayout) view.findViewById(R.id.ll_again);
         againloading = (Button) view.findViewById(R.id.againloading);
@@ -152,50 +148,27 @@ public class FireFragment extends BaseFragment {
          */
         HttpUtils.getFireList(Constant.FireListUrl,context);
         Tools.showRoundProcessDialog(context);
-        if(!isShowDialog) {
-            HttpUtils.getNearbyLocation2(Constant.CinemaLocation);
-            isShowDialog=true;
-        }
 //        mRefresh.setSunStyle(true);
     }
 
     private void refreshData() {
         start=START_REFRESH;
-        HttpUtils.getFireList(Constant.FireListUrl,context);
+        init();
     }
 
     private void setRefresh() {
-        mRefresh.setMaterialRefreshListener(new MaterialRefreshListener() {
+        mRecyclerView.setRefreshAndLoadMoreListener(new YRecycleview.OnRefreshAndLoadMoreListener() {
             @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        refreshData();
-                    }
-                }.start();
-
+            public void onRefresh() {
+                refreshData();
             }
 
             @Override
-            public void onfinish() {
-                super.onfinish();
+            public void onLoadMore() {
+                SystemClock.sleep(1000);
+                    handler.sendEmptyMessage(0);
             }
 
-            @Override
-            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
-//                super.onRefreshLoadMore(materialRefreshLayout);
-                new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        SystemClock.sleep(1000);
-                        mRefresh.finishRefreshLoadMore();
-                        handler.sendEmptyMessage(0);
-                    }
-                }.start();
-            }
         });
     }
 
@@ -207,6 +180,10 @@ public class FireFragment extends BaseFragment {
                 mRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
                 adapter = new FireFragmentAdapter(context,handler,listVP,moviesData);
                 mRecyclerView.setAdapter(adapter);
+                if(!isShowDialog) {
+                    HttpUtils.getNearbyLocation2(Constant.CinemaLocation);
+                    isShowDialog=true;
+                }
                 break;
 
             case START_REFRESH://下拉
@@ -215,7 +192,7 @@ public class FireFragment extends BaseFragment {
                 //填充新的数据
                 adapter.setData(listVP,moviesData);
                 //隐藏加载圈
-                mRefresh.finishRefresh();
+                mRecyclerView.setReFreshComplete();
                 Toast.makeText(context, "刷新完成", Toast.LENGTH_SHORT).show();
                 break;
 

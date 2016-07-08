@@ -9,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.bean.USListBean;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/28.
@@ -56,8 +54,6 @@ public class USAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 }
             }
 
-
-
             ((USWaitHolder)holder).tv_overseaTime.setText(comData2.getOverseaTime());
 
             ((USWaitHolder)holder).tv_desc.setText(comData2.getDesc());
@@ -66,12 +62,7 @@ public class USAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
             String imaUrl = comData2.getImg();
             imaUrl = imaUrl.replace("w.h", "165.220");
-            Glide.with(context).load(imaUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
-                    .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
-                    .into(((USWaitHolder) holder).iv_icon);//请求成功后把图片设置到的控件
-
+            Tools.loadImage(context,imaUrl,((USWaitHolder) holder).iv_icon);
         }
 
     }
@@ -83,11 +74,6 @@ public class USAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         }
         return 0;
     }
-
-   /* public void setList2(List<USListBean.DataBean.ComingBean> comingData2) {
-        this.comingData2=comingData2;
-        notifyItemRangeChanged(0,comingData2.size());
-    }*/
 
     class USWaitHolder extends RecyclerView.ViewHolder{
 

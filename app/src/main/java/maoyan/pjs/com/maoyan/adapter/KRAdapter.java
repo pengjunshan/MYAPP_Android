@@ -11,13 +11,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-
 import java.util.List;
 
 import maoyan.pjs.com.maoyan.R;
 import maoyan.pjs.com.maoyan.bean.KRListBean;
+import maoyan.pjs.com.maoyan.util.Tools;
 
 /**
  * Created by pjs984312808 on 2016/6/28.
@@ -77,12 +75,7 @@ public class KRAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             String imaUrl = hotData.getImg();
             imaUrl = imaUrl.replace("w.h", "165.220");
-            Glide.with(mContext).load(imaUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)//图片的缓存
-                    .placeholder(R.mipmap.backgroud_logo02)//加载过程中的图片
-                    .error(R.mipmap.backgroud_logo02)//加载失败的时候显示的图片
-                    .into(((FireHolder) holder).iv_icon);//请求成功后把图片设置到的控件
-
+            Tools.loadImage(mContext,imaUrl,((FireHolder) holder).iv_icon);
         }
     }
 

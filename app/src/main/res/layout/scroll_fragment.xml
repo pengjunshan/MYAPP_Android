@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/stan"
     >
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,16 +19,44 @@
             />
 
 
-        <TextView
-            android:id="@+id/tv_title"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:text="美国队长盾牌移动电源"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             android:background="@color/white"
-            />
+            >
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="美国队长盾牌移动电源"
+                android:background="@color/white"
+                android:lines="1"
+                android:ellipsize="end"
+                />
+            <ImageView
+                android:id="@+id/iv_bay"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/iv_bay_selector"
+                />
+
+            <ImageView
+                android:id="@+id/iv_shape"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@mipmap/shareweb"
+                />
+
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -198,5 +225,4 @@
             />
 
     </LinearLayout>
-
 </ScrollView>

@@ -87,6 +87,7 @@ public class HttpUtils {
                             String url = jsonObject.optString("pic");
 
                             x.image().bind(iv_welcome, url);
+
                             if (iv_welcome.getDrawable() != null) {
                                 GuideActivity.handler.sendEmptyMessage(0);
                             } else {
@@ -125,6 +126,7 @@ public class HttpUtils {
                     @Override
                     public void onResponse(String response, int id) {
 //                        Log.i("TAG", "热映界面-ViewPager请求成功="+response);
+                        FireFragment.ll_again.setVisibility(View.GONE);
                         Tools.dismissRoundProcessDialog();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
@@ -172,6 +174,7 @@ public class HttpUtils {
                     @Override
                     public void onResponse(String response, int id) {
                         //请求ViewPager数据
+
                         HttpUtils.getFireViewPager(Constant.FireVPUrl,context);
 //                        Log.i("TAG", "热映界面list列表数据请求成功="+response);
                         FireListBean fireData = new Gson().fromJson(response, FireListBean.class);
@@ -204,6 +207,7 @@ public class HttpUtils {
 
                     @Override
                     public void onResponse(String response, int id) {
+                        WaitFragment.ll_again.setVisibility(View.GONE);
                         Tools.dismissRoundProcessDialog();
                         Log.i("TAG", "待映下部分数据请求成功="+response);
                         WaitListBean waitListBean = new Gson().fromJson(response, WaitListBean.class);
@@ -269,18 +273,19 @@ public class HttpUtils {
                 public void onError(Call call, Exception e, int id) {
                     Log.i("TAG", "美国数据请求失败"+e.getMessage());
                     Tools.ToaDis(context);
+                    USFragment.ll_again.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onResponse(String response, int id) {
                     Log.i("TAG", "美国数据请求成功"+response);
+                    USFragment.ll_again.setVisibility(View.GONE);
                     Tools.dismissRoundProcessDialog();
                     USListBean usListBean2 = new Gson().fromJson(response, USListBean.class);
                     List<USListBean.DataBean.ComingBean> comingData2 = usListBean2.getData().getComing();
                     if(comingData2!=null&&comingData2.size()>0) {
                         USFragment.adapter=new USAdapter(context,comingData2);
                         USFragment.recyclerView.setAdapter(USFragment.adapter);
-//                        USFragment.adapter.setList2(comingData2);
                     }
                 }
             });
@@ -297,11 +302,13 @@ public class HttpUtils {
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "韩国数据请求失败"+e.getMessage());
                 Tools.ToaDis(context);
+                KRFragmnet.ll_again.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "韩国数据请求成功"+response);
+                KRFragmnet.ll_again.setVisibility(View.GONE);
                 Tools.dismissRoundProcessDialog();
                 KRListBean krListBean = new Gson().fromJson(response, KRListBean.class);
                 List<KRListBean.DataBean.HotBean> hotData = krListBean.getData().getHot();
@@ -326,18 +333,19 @@ public class HttpUtils {
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "日本数据请求成功"+e.getMessage());
                 Tools.ToaDis(context);
+                JPFragment.ll_again.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String response, int id) {
                 Log.i("TAG", "日本数据请求成功"+response);
+                JPFragment.ll_again.setVisibility(View.GONE);
                 Tools.dismissRoundProcessDialog();
                 JPListBean jpListBean = new Gson().fromJson(response, JPListBean.class);
                 List<JPListBean.DataBean.HotBean> hotBeen = jpListBean.getData().getHot();
                 if(hotBeen!=null&&hotBeen.size()>0) {
                     JPFragment.adapter = new JPAdapter(context,hotBeen);
                     JPFragment.recyclerView.setAdapter(JPFragment.adapter);
-//                    JPFragment.adapter.setListData(hotBeen);
                 }
             }
         });
@@ -347,18 +355,22 @@ public class HttpUtils {
     /**
      * 请求影院上部分viewpager
      */
-    public static void getCinemaVP(String url) {
+    public static void getCinemaVP(String url, final Context context) {
         OkHttpUtils
                 .get().url(url).build()
                 .execute(new StringCallback() {
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         Log.i("TAG", "请求影院上部分viewpager请求失败="+e.getMessage());
+                        CinemaFragment.ll_again.setVisibility(View.VISIBLE);
                     }
 
                     @Override
                     public void onResponse(String response, int id) {
                         Log.i("TAG", "请求影院上部分viewpager请求成功="+response);
+                        //请求影院List
+                        HttpUtils.getCinemaList(Constant.CinemaList,context);
+
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONArray jsonArray = jsonObject.getJSONArray("data");
@@ -372,9 +384,9 @@ public class HttpUtils {
                                 map.put("url",url);
                                 CinemaFragment.mapList.add(map);
                             }
-                            if(CinemaFragment.mapList!=null&&CinemaFragment.mapList.size()>0) {
-                                CinemaFragment.adapter.setVP(CinemaFragment.mapList);
-                            }
+//                            if(CinemaFragment.mapList!=null&&CinemaFragment.mapList.size()>0) {
+//                                CinemaFragment.adapter.setVP(CinemaFragment.mapList);
+//                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -394,11 +406,15 @@ public class HttpUtils {
             public void onError(Call call, Exception e, int id) {
                 Log.i("TAG", "影院List请求失败="+e.getMessage());
                 Tools.ToaDis(context);
+                CinemaFragment.ll_again.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onResponse(String result, int id) {
                 Log.i("TAG", "影院List请求成功="+result);
+                //获取附近位置
+                HttpUtils.getNearbyLocation(Constant.CinemaLocation);
+                CinemaFragment.ll_again.setVisibility(View.GONE);
                 Tools.dismissRoundProcessDialog();
                 result = result.replace("朝阳区", "chaoyangqu");
                 result = result.replace("海淀区", "haidianqu");
@@ -420,10 +436,10 @@ public class HttpUtils {
 
                 CinemaListBean cinemaListBean = new Gson().fromJson(result, CinemaListBean.class);
                 List<CinemaListBean.DataBean.changpingquBean> changPData = cinemaListBean.getData().getchangpingqu();
-                Log.i("TAG", "影院List请求成功*****"+changPData.toString());
+
                 if(changPData!=null&&changPData.size()>0) {
-                    CinemaFragment.adapter.setListData(changPData);
-                    Log.i("TAG", "影院List请求成功="+changPData.toString());
+                    CinemaFragment.changPData=changPData;
+                    CinemaFragment.handler.sendEmptyMessage(4);
                 }
             }
         });
